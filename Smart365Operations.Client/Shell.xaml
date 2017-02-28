@@ -53,6 +53,7 @@
                             regions:RegionManager.RegionName="MainRegion"
                             VerticalContentAlignment="Stretch"
                             HorizontalContentAlignment="Stretch"/>
+            <!--<dashboard:OverviewMapView />-->
         </DockPanel>
        
         

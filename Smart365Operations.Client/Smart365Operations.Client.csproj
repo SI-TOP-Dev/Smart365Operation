@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <AssemblyVersion>1.0.17055.0834</AssemblyVersion>
+    <AssemblyVersion>1.0.17059.0521</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -113,6 +113,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\MockAuthenticationService.cs" />
     <Compile Include="Smart365OperationsBootstrapper.cs" />
     <Compile Include="ViewModels\AuthenticationViewModel.cs" />
@@ -177,6 +178,10 @@
       <Project>{53efca7a-300c-4ca1-87d4-27ead00e0674}</Project>
       <Name>Smart365Operation.Modules.Log4NetLogger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Smart365Operation.Modules.Monitoring\Smart365Operation.Modules.Monitoring.csproj">
+      <Project>{8526b949-1a13-4ebd-8fb2-96935766ed5e}</Project>
+      <Name>Smart365Operation.Modules.Monitoring</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Smart365Operation.Modules.VideoMonitoring\Smart365Operation.Modules.VideoMonitoring.csproj">
       <Project>{cb0e2352-8154-4ec3-8be4-ab7f358bcc27}</Project>
       <Name>Smart365Operation.Modules.VideoMonitoring</Name>
@@ -185,6 +190,9 @@
       <Project>{1e3dff34-87e3-4c24-b123-55f90f85d7f4}</Project>
       <Name>Smart365Operations.Common.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

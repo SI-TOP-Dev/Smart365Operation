@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Feeling.GIS.Map.Core;
+using Smart365Operation.Modules.Dashboard.Interfaces;
+using Smart365Operation.Modules.Dashboard.ViewModels;
 
 namespace Smart365Operation.Modules.Dashboard.Views
 {
@@ -21,10 +23,11 @@ namespace Smart365Operation.Modules.Dashboard.Views
     /// </summary>
     public partial class OverviewMapView : UserControl
     {
-        public OverviewMapView()
+        public OverviewMapView(OverviewMapViewModel viewModel)
         {
             InitializeComponent();
             ConfigMap();
+            this.DataContext = viewModel;
         }
 
         private void ConfigMap()

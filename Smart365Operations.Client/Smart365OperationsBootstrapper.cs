@@ -10,7 +10,9 @@ using Microsoft.Practices.Unity;
 using MvvmDialogs;
 using Prism.Logging;
 using Prism.Modularity;
+using Smart365Operation.Modules.Dashboard;
 using Smart365Operation.Modules.Log4NetLogger;
+using Smart365Operation.Modules.Monitoring;
 using Smart365Operation.Modules.VideoMonitoring;
 using Smart365Operation.Modules.VideoMonitoring.Services;
 using Smart365Operation.Modules.VideoMonitoring.ViewModels;
@@ -46,6 +48,8 @@ namespace Smart365Operations.Client
         {
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
             moduleCatalog.AddModule(typeof(VideoMonitoringModule));
+            //moduleCatalog.AddModule(typeof(DashboardModule));
+            //moduleCatalog.AddModule(typeof(MonitoringModule));
         }
 
         public void Show()

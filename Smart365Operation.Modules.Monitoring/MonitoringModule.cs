@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
+using Smart365Operation.Modules.Monitoring.Views;
 
 namespace Smart365Operation.Modules.Monitoring
 {
@@ -19,10 +20,10 @@ namespace Smart365Operation.Modules.Monitoring
             _container = container;
             _regionManager = regionManager;
         }
-
         public void Initialize()
         {
-            throw new NotImplementedException();
+            this._regionManager.RegisterViewWithRegion("MainRegion", () => this._container.Resolve<MonitoringView>());
+
         }
     }
 }

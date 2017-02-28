@@ -11,7 +11,7 @@ using Smart365Operations.Common.Infrastructure.Models;
 using Smart365Operations.Common.Infrastructure.Models.TO;
 using Smart365Operations.Common.Infrastructure.Utility;
 
-namespace Smart365Operation.Modules.VideoMonitoring.Services
+namespace Smart365Operations.Client.Services
 {
     public class CustomerService : ICustomerService
     {
