@@ -63,6 +63,7 @@ namespace Smart365Operations.Client
             base.ConfigureContainer();
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
             //Container.RegisterType<ICameraService, CameraService>();
             //Container.RegisterType<ICustomerService, CustomerService>();
         }
