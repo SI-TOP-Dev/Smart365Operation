@@ -9,6 +9,6 @@ namespace Smart365Operations.Common.Infrastructure.Interfaces
 {
     public interface ICustomerService
     {
-        IList<Customer> GetCustomersBy(int agentId);
+        IList<Customer> GetCustomersBy(string agentId);
     }
 }

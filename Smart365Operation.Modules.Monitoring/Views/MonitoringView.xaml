@@ -5,7 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Smart365Operation.Modules.Monitoring.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -37,8 +43,12 @@
                             <materialDesign:PackIcon Kind="Bike" />
                         </Button>-->
                         <StackPanel Grid.Row="1" Margin="8 24 8 0">
-                            <TextBlock FontWeight="Bold" Text="公司名称"/>
-                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">A great way to keep fit and forget about the constant grind of IT.</TextBlock>
+                            <TextBlock Text="{Binding CompanyName}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding CompanyProfile}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Contacts}"/>
+                            <TextBlock Text="{Binding Address}"/>
+                            <TextBlock Text="{Binding Phone}"/>
+                            <TextBlock Text="{Binding IndustryType}"/>
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
                             <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"

@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <AssemblyVersion>1.0.17060.0509</AssemblyVersion>
+    <AssemblyVersion>1.0.17060.1055</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -111,8 +111,12 @@
     <Compile Include="DashboardModule.cs" />
     <Compile Include="Interfaces\IDataStatisticsService.cs" />
     <Compile Include="Services\DataStatisticsService.cs" />
+    <Compile Include="ViewModels\CustomerMonitoringViewModel.cs" />
     <Compile Include="ViewModels\DataStatisticsViewModel.cs" />
     <Compile Include="ViewModels\OverviewMapViewModel.cs" />
+    <Compile Include="Views\CustomerMarker.xaml.cs">
+      <DependentUpon>CustomerMarker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OverviewMapView.xaml.cs">
       <DependentUpon>OverviewMapView.xaml</DependentUpon>
     </Compile>
@@ -144,6 +148,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="Views\CustomerMarker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OverviewMapView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

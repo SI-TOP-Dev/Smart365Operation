@@ -47,8 +47,8 @@ namespace Smart365Operations.Client
         protected override void ConfigureModuleCatalog()
         {
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-            moduleCatalog.AddModule(typeof(VideoMonitoringModule));
-            //moduleCatalog.AddModule(typeof(DashboardModule));
+           // moduleCatalog.AddModule(typeof(VideoMonitoringModule));
+            moduleCatalog.AddModule(typeof(DashboardModule));
             //moduleCatalog.AddModule(typeof(MonitoringModule));
         }
 
@@ -64,6 +64,7 @@ namespace Smart365Operations.Client
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ICustomerEquipmentService, CustomerEquipmentService>(new ContainerControlledLifetimeManager());
             //Container.RegisterType<ICameraService, CameraService>();
             //Container.RegisterType<ICustomerService, CustomerService>();
         }

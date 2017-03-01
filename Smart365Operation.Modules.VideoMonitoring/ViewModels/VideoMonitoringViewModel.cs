@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -50,7 +51,9 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
 
         private void Initialize()
         {
-            var customerList = _customerService.GetCustomersBy(1);
+            var principal = Thread.CurrentPrincipal as SystemPrincipal;
+            var agentId = principal.Identity.Id;
+            var customerList = _customerService.GetCustomersBy(agentId);
             foreach (var customer in customerList)
             {
                 var cameraList = _cameraService.GetCamerasBy(customer.Id);

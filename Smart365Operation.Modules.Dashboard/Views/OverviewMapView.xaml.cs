@@ -39,9 +39,9 @@ namespace Smart365Operation.Modules.Dashboard.Views
             Map.Zoom = 12;
             Map.MapTileType = MapType.GoogleMapChina;
             //comboBoxMapType.ItemsSource = Enum.GetValues(typeof(MapType));
-            //currentMarker = new MapMarker(Map.Position);
+            //var currentMarker = new MapMarker(Map.Position);
             //{
-            //    currentMarker.Shape = new PositionMarker(this, currentMarker, "position marker");
+            //    //currentMarker.Shape = new PositionMarker(this, currentMarker, "position marker");
             //    currentMarker.Offset = new System.Windows.Point(-15, -15);
             //    currentMarker.ZIndex = int.MaxValue;
             //    Map.Markers.Add(currentMarker);

@@ -18,15 +18,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         public DataStatisticsViewModel(IDataStatisticsService dataStatisticsService)
         {
             _dataStatisticsService = dataStatisticsService;
-
-        }
-
-
-        public DelegateCommand InitializeCommand => new DelegateCommand(Initialize, CanInitialize);
-
-        private bool CanInitialize()
-        {
-            return true;
+            Initialize();
         }
 
         private void Initialize()

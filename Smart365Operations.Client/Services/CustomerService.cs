@@ -15,7 +15,7 @@ namespace Smart365Operations.Client.Services
 {
     public class CustomerService : ICustomerService
     {
-        public IList<Customer> GetCustomersBy(int agentId)
+        public IList<Customer> GetCustomersBy(string agentId)
         {
             var httpServiceApi = new DataServiceApi();
             var request = new RestRequest($"customer/list.json", Method.GET);
@@ -28,7 +28,9 @@ namespace Smart365Operations.Client.Services
                 Customer customer = new Customer()
                 {
                     Id = customerDto.customerId,
-                    Name = customerDto.customerName
+                    Name = customerDto.customerName,
+                    Latitude = customerDto.latitude,
+                    Longitude = customerDto.longitude
                 };
                 customerList.Add(customer);
             }
