@@ -102,7 +102,7 @@
     <Compile Include="Models\TO\CameraPartOne.cs" />
     <Compile Include="Models\TO\CameraPartTwo.cs" />
     <Compile Include="Models\TO\CustomerDTO.cs" />
-    <Compile Include="Models\TO\CustomerEquipmentInfoDTO.cs" />
+    <Compile Include="Models\TO\CustomerEquipmentTableDTO.cs" />
     <Compile Include="Models\TO\CustomerIncrementsDTO.cs" />
     <Compile Include="Models\TO\CustomerIndustryCategoryDTO.cs" />
     <Compile Include="Models\TO\LoginInfoDTO.cs" />
