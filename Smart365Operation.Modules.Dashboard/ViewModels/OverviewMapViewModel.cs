@@ -20,11 +20,13 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
     {
         private readonly IDataStatisticsService _dataStatisticsService;
         private readonly ICustomerService _customerService;
+        private readonly IMonitoringDataService _monitoringDataService;
 
-        public OverviewMapViewModel(IDataStatisticsService dataStatisticsService, ICustomerService customerService)
+        public OverviewMapViewModel(IDataStatisticsService dataStatisticsService, ICustomerService customerService, IMonitoringDataService monitoringDataService)
         {
             _dataStatisticsService = dataStatisticsService;
             _customerService = customerService;
+            _monitoringDataService = monitoringDataService;
         }
 
         private DataStatisticsViewModel _statisticsViewModel;
