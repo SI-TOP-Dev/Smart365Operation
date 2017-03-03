@@ -4,15 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smart365Operations.Client"
-        xmlns:regions="http://prismlibrary.com/"
+        xmlns:mvvm="http://prismlibrary.com/"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:dashboard="clr-namespace:Smart365Operation.Modules.Dashboard.Views;assembly=Smart365Operation.Modules.Dashboard"
         xmlns:videoMonitoring="clr-namespace:Smart365Operation.Modules.VideoMonitoring;assembly=Smart365Operation.Modules.VideoMonitoring"
+        xmlns:infrastructure="clr-namespace:Smart365Operations.Common.Infrastructure;assembly=Smart365Operations.Common.Infrastructure"
         mc:Ignorable="d"
         Title=""
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MaterialDesignPaper}"
-        Height="350" Width="525">
+        Height="600" Width="800"
+        mvvm:ViewModelLocator.AutoWireViewModel="True">
     <Window.Resources>
         <!--<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,7 +29,7 @@
         </ResourceDictionary>-->
     </Window.Resources>
     <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MainMenuToggleButton, Path=IsChecked}">
-        
+
         <materialDesign:DrawerHost.LeftDrawerContent>
             <DockPanel MinWidth="212">
                 <ToggleButton Name="MenuCloseToggleButton"
@@ -35,12 +37,22 @@
                               DockPanel.Dock="Top"
                               HorizontalAlignment="Right" Margin="16"
                               IsChecked="{Binding Source={x:Reference MainMenuToggleButton}, Path=IsChecked, Mode=TwoWay}" />
-                <ListBox Margin="0 16 0 16" SelectedIndex="0">
-
-                </ListBox>
+                <DockPanel>
+                    <MenuItem Header="实时监测" DockPanel.Dock="Top" Command="{Binding OpenShellCommand}" CommandParameter="VideoMonitoringView">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Monitor" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="视频监测" InputGestureText="Ctrl+E" DockPanel.Dock="Top" Command="{Binding NavigateCommand}" CommandParameter="VideoMonitoringView">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Monitor" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </DockPanel>
+              
             </DockPanel>
         </materialDesign:DrawerHost.LeftDrawerContent>
-        
+
         <DockPanel>
             <materialDesign:ColorZone Padding="10" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                           Mode="PrimaryMid" DockPanel.Dock="Top">
@@ -49,13 +61,12 @@
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">365电力智能运维</TextBlock>
                 </DockPanel>
             </materialDesign:ColorZone>
-            <ContentControl x:Name="MainRegion"
-                            regions:RegionManager.RegionName="MainRegion"
+            <ContentControl mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.MainRegion}"
                             VerticalContentAlignment="Stretch"
                             HorizontalContentAlignment="Stretch"/>
             <!--<dashboard:OverviewMapView />-->
         </DockPanel>
-       
-        
+
+
     </materialDesign:DrawerHost>
 </Window>

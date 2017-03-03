@@ -23,11 +23,11 @@ namespace Smart365Operation.Modules.Dashboard.Views
     /// </summary>
     public partial class OverviewMapView : UserControl
     {
-        public OverviewMapView(OverviewMapViewModel viewModel)
+        public OverviewMapView()
         {
             InitializeComponent();
             ConfigMap();
-            this.DataContext = viewModel;
+            //this.DataContext = viewModel;
         }
 
         private void ConfigMap()

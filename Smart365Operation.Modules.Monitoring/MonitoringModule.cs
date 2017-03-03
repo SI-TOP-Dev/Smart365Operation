@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
+using Smart365Operation.Modules.Monitoring.Services;
 using Smart365Operation.Modules.Monitoring.Views;
+using Smart365Operations.Common.Infrastructure.Interfaces;
 
 namespace Smart365Operation.Modules.Monitoring
 {
@@ -22,7 +24,8 @@ namespace Smart365Operation.Modules.Monitoring
         }
         public void Initialize()
         {
-            this._regionManager.RegisterViewWithRegion("MainRegion", () => this._container.Resolve<MonitoringView>());
+            this._container.RegisterType<IWiringDiagramService, WiringDiagramService>();
+           // this._regionManager.RegisterViewWithRegion("MainRegion", () => this._container.Resolve<MonitoringView>());
 
         }
     }

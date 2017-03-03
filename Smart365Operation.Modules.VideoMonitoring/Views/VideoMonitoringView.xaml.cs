@@ -23,10 +23,10 @@ namespace Smart365Operation.Modules.VideoMonitoring
     /// </summary>
     public partial class VideoMonitoringView : UserControl
     {
-        public VideoMonitoringView(VideoMonitoringViewModel viewModel)
+        public VideoMonitoringView()
         {
             InitializeComponent();
-            this.DataContext = viewModel;
+            //this.DataContext = viewModel;
         }
     }
 }

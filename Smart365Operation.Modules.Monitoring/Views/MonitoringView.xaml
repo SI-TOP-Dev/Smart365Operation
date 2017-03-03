@@ -12,6 +12,11 @@
             <i:InvokeCommandAction Command="{Binding InitializeCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <!--<DataTemplate x:Key="WiringDiagramTemplate">
+            <ContentControl Content="{Binding WiringDiagramUI}"/>
+        </DataTemplate>-->
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -26,16 +31,16 @@
             <materialDesign:Card Grid.Column="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="200" />
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="300" />
+                            <RowDefinition Height="200" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Image Source="pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/Placeholder.png" Height="300" Width="300"
+                        <Image Source="pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/Placeholder.png" Height="200" Width="200"
                                Stretch="UniformToFill" />
                         <!--<Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
@@ -64,11 +69,13 @@
                 </Grid>
             </materialDesign:Card>
             <StackPanel Grid.Column="1" Orientation="Vertical">
-                
+
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            
+            <Viewbox Name="box" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Uniform">
+                <ContentControl Content="{Binding WiringDiagramUI}"/>
+            </Viewbox>
         </Grid>
     </Grid>
 </UserControl>

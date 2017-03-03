@@ -9,10 +9,11 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 using Smart365Operation.Modules.VideoMonitoring.Services;
+using Smart365Operation.Modules.VideoMonitoring.ViewModels;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
 
-namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
+namespace Smart365Operation.Modules.VideoMonitoring
 {
     public class VideoMonitoringViewModel:BindableBase
     {

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Prism.Logging;
+using Smart365Operations.Client.ViewModels;
 
 namespace Smart365Operations.Client
 {
@@ -25,6 +26,7 @@ namespace Smart365Operations.Client
         public Shell()
         {
             InitializeComponent();
+           // DataContext = viewModel;
         }
     }
 }

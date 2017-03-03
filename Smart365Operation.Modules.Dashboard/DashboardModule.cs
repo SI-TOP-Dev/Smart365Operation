@@ -25,7 +25,7 @@ namespace Smart365Operation.Modules.Dashboard
         public void Initialize()
         {
             this._container.RegisterType<IDataStatisticsService, DataStatisticsService>();
-            this._regionManager.RegisterViewWithRegion("MainRegion", () => this._container.Resolve<OverviewMapView>());
+            //this._regionManager.RegisterViewWithRegion("MainRegion", () => this._container.Resolve<OverviewMapView>());
 
         }
     }
