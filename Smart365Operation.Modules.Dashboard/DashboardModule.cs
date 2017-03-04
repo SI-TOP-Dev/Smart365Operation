@@ -8,7 +8,6 @@ using Prism.Modularity;
 using Prism.Regions;
 using Smart365Operation.Modules.Dashboard.Interfaces;
 using Smart365Operation.Modules.Dashboard.Services;
-using Smart365Operation.Modules.Dashboard.Views;
 
 namespace Smart365Operation.Modules.Dashboard
 {
@@ -25,6 +24,7 @@ namespace Smart365Operation.Modules.Dashboard
         public void Initialize()
         {
             this._container.RegisterType<IDataStatisticsService, DataStatisticsService>();
+            this._container.RegisterType(typeof(object), typeof(OverviewMapView), "OverviewMapView");
             //this._regionManager.RegisterViewWithRegion("MainRegion", () => this._container.Resolve<OverviewMapView>());
 
         }

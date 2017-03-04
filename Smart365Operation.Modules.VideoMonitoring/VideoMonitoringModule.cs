@@ -25,13 +25,11 @@ namespace Smart365Operation.Modules.VideoMonitoring
         }
         public void Initialize()
         {
-            this._container.RegisterType<ICameraService, CameraService>();
-            this._container.RegisterInstance<IVideoService>(GetVideoSurveillanceViewModel());
+            this._container.RegisterType<ICameraService, MockCameraService>();
+            _container.RegisterType(typeof(object), typeof(VideoSurveillanceView), "VideoSurveillanceView");
             _container.RegisterType(typeof(object), typeof(VideoMonitoringView), "VideoMonitoringView");
-            //_container.RegisterType<VideoSurveillanceViewModel>(new ContainerControlledLifetimeManager());
-          
-            //this._regionManager.RegisterViewWithRegion("MainRegion", () => this._container.Resolve<VideoMonitoringView>());
-
+            _container.RegisterType<VideoSurveillanceViewModel>(new ContainerControlledLifetimeManager());
+            this._container.RegisterInstance<IVideoService>(GetVideoSurveillanceViewModel());
         }
 
         private VideoSurveillanceViewModel GetVideoSurveillanceViewModel()

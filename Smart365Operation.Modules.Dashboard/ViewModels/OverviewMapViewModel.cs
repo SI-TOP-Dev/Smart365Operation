@@ -10,11 +10,10 @@ using Feeling.GIS.Map.Core;
 using Prism.Mvvm;
 using Smart365Operation.Modules.Dashboard.Interfaces;
 using Prism.Commands;
-using Smart365Operation.Modules.Dashboard.Views;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
 
-namespace Smart365Operation.Modules.Dashboard.ViewModels
+namespace Smart365Operation.Modules.Dashboard
 {
     public class OverviewMapViewModel : BindableBase
     {
@@ -43,12 +42,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
             set { SetProperty(ref _customerMonitoringList, value); }
         }
 
-        public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize, CanInitialize);
-
-        private bool CanInitialize(object obj)
-        {
-            return true;
-        }
+        public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
 
         private void Initialize(object obj)
         {
@@ -69,11 +63,11 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
                     customerMapMarkerList.Add(mapMarker);
                     //map.Markers.Add(mapMarker);
                 }
-               
+
                 //System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 //{
-                    CustomerMonitoringList.AddRange(customerMonitoringList);
-                    map.Markers.AddRange(customerMapMarkerList);
+                CustomerMonitoringList.AddRange(customerMonitoringList);
+                map.Markers.AddRange(customerMapMarkerList);
                 //}));
             }
             StatisticsViewModel = new DataStatisticsViewModel(_dataStatisticsService);

@@ -12,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Smart365Operation.Modules.Dashboard.ViewModels;
 
-namespace Smart365Operation.Modules.Dashboard.Views
+namespace Smart365Operation.Modules.Dashboard
 {
     /// <summary>
     /// CustomerMarker.xaml 的交互逻辑
@@ -44,14 +43,5 @@ namespace Smart365Operation.Modules.Dashboard.Views
             //}
         }
 
-        private void elevator_MouseEnter(object sender, MouseEventArgs e)
-        {
-            popupView.IsOpen = true;
-        }
-
-        private void elevator_MouseLeave(object sender, MouseEventArgs e)
-        {
-            popupView.IsOpen = false;
-        }
     }
 }

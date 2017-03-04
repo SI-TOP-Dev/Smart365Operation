@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="Services\CameraService.cs" />
     <Compile Include="Services\IVideoService.cs" />
+    <Compile Include="Services\MockCameraService.cs" />
     <Compile Include="Utility\EnumBindingSourceExtension.cs" />
     <Compile Include="Utility\HkAction.cs" />
     <Compile Include="Utility\HkSDK.cs" />

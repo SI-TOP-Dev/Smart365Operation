@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Prism.Mvvm;
 using Smart365Operations.Common.Infrastructure.Models;
 
-namespace Smart365Operation.Modules.Dashboard.ViewModels
+namespace Smart365Operation.Modules.Dashboard
 {
     public class CustomerMonitoringViewModel : BindableBase
     {

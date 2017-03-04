@@ -73,14 +73,14 @@ namespace Smart365Operations.Client
         {
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
             moduleCatalog.AddModule(typeof(VideoMonitoringModule));
-            // moduleCatalog.AddModule(typeof(DashboardModule));
+           moduleCatalog.AddModule(typeof(DashboardModule));
             moduleCatalog.AddModule(typeof(MonitoringModule));
         }
 
         public void Show()
         {
-            //var regionManager = RegionManager.GetRegionManager(Shell);
-            //RegionManagerAware.SetRegionManagerAware(Shell, regionManager);
+            var regionManager = RegionManager.GetRegionManager(Shell);
+            RegionManagerAware.SetRegionManagerAware(Shell, regionManager);
             App.Current.MainWindow.Show();
         }
 

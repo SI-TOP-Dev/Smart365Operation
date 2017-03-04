@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smart365Operations.Client"
         xmlns:mvvm="http://prismlibrary.com/"
+         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:dashboard="clr-namespace:Smart365Operation.Modules.Dashboard.Views;assembly=Smart365Operation.Modules.Dashboard"
         xmlns:videoMonitoring="clr-namespace:Smart365Operation.Modules.VideoMonitoring;assembly=Smart365Operation.Modules.VideoMonitoring"
         xmlns:infrastructure="clr-namespace:Smart365Operations.Common.Infrastructure;assembly=Smart365Operations.Common.Infrastructure"
         mc:Ignorable="d"
@@ -28,6 +28,11 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>-->
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MainMenuToggleButton, Path=IsChecked}">
 
         <materialDesign:DrawerHost.LeftDrawerContent>
@@ -38,7 +43,7 @@
                               HorizontalAlignment="Right" Margin="16"
                               IsChecked="{Binding Source={x:Reference MainMenuToggleButton}, Path=IsChecked, Mode=TwoWay}" />
                 <DockPanel>
-                    <MenuItem Header="实时监测" DockPanel.Dock="Top" Command="{Binding OpenShellCommand}" CommandParameter="VideoMonitoringView">
+                    <MenuItem Header="实时监测" DockPanel.Dock="Top" Command="{Binding OpenShellCommand}" CommandParameter="OverviewMapView">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="Monitor" />
                         </MenuItem.Icon>
@@ -49,7 +54,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </DockPanel>
-              
+
             </DockPanel>
         </materialDesign:DrawerHost.LeftDrawerContent>
 

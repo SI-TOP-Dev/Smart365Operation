@@ -9,6 +9,7 @@
              xmlns:models="clr-namespace:Smart365Operation.Modules.VideoMonitoring.Models"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:Smart365Operation.Modules.VideoMonitoring.Converters"
+              xmlns:mvvm="http://prismlibrary.com/"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>

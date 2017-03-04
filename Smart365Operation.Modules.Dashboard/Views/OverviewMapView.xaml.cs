@@ -14,9 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Feeling.GIS.Map.Core;
 using Smart365Operation.Modules.Dashboard.Interfaces;
-using Smart365Operation.Modules.Dashboard.ViewModels;
 
-namespace Smart365Operation.Modules.Dashboard.Views
+namespace Smart365Operation.Modules.Dashboard
 {
     /// <summary>
     /// OverviewMapView.xaml 的交互逻辑

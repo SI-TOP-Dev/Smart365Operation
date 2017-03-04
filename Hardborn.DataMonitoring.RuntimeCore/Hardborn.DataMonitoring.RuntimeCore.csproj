@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Com.Shengzuo.RuntimeCore">
-      <HintPath>..\..\..\Common\CEC1.1.0.2\NMS.Client\ReferenceLibrary\Com.Shengzuo.RuntimeCore.dll</HintPath>
+      <HintPath>..\Smart365Operation.Modules.Monitoring\ReferenceLibrary\Com.Shengzuo.RuntimeCore.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

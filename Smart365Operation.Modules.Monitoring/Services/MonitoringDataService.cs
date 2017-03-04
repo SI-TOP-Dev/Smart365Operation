@@ -22,8 +22,8 @@ namespace Smart365Operation.Modules.Monitoring.Services
 
         private void InitializeBus()
         {
-            _bus = RabbitHutch.CreateBus("host=192.168.8.143;username=Test;password=123456");
-            _bus.Subscribe<string>("test", HandleTextMessage);
+            //_bus = RabbitHutch.CreateBus("host=192.168.8.143;username=Test;password=123456");
+            //_bus.Subscribe<string>("test", HandleTextMessage);
         }
 
         private void HandleTextMessage(string obj)

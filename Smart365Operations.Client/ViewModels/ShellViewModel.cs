@@ -25,8 +25,12 @@ namespace Smart365Operations.Client
 
         public DelegateCommand<string> OpenShellCommand => new DelegateCommand<string>(OpenShell);
         public DelegateCommand<string> NavigateCommand => new DelegateCommand<string>(Navigate);
+        public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
 
-      
+        private void Initialize(object obj)
+        {
+            Navigate("OverviewMapView");
+        }
 
         private void OpenShell(string viewName)
         {
@@ -35,7 +39,7 @@ namespace Smart365Operations.Client
 
         private void Navigate(string viewName)
         {
-            _regionManager.RequestNavigate(KnownRegionNames.MainRegion, viewName);
+            RegionManager.RequestNavigate(KnownRegionNames.MainRegion, viewName);
         }
 
         public IRegionManager RegionManager { get; set; }

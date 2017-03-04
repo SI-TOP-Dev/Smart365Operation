@@ -9,7 +9,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Smart365Operation.Modules.Dashboard.Interfaces;
 
-namespace Smart365Operation.Modules.Dashboard.ViewModels
+namespace Smart365Operation.Modules.Dashboard
 {
     public class DataStatisticsViewModel : BindableBase
     {

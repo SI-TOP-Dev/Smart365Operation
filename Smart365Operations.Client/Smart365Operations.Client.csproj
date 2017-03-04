@@ -39,15 +39,12 @@
     <Reference Include="Com.Shengzuo.RuntimeCore">
       <HintPath>..\Smart365Operation.Modules.Monitoring\ReferenceLibrary\Com.Shengzuo.RuntimeCore.dll</HintPath>
     </Reference>
-    <Reference Include="Com.Shengzuo.UserControls">
-      <HintPath>C:\Users\Hardborn\Desktop\Com.Shengzuo.UserControls.dll</HintPath>
-    </Reference>
     <Reference Include="EasyNetQ, Version=1.0.1.475, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EasyNetQ.1.0.1.475\lib\net45\EasyNetQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="KeNetEditor.Designer">
-      <HintPath>..\..\..\Common\CEC1.1.0.2\NMS.Client\ReferenceLibrary\KeNetEditor.Designer.dll</HintPath>
+      <HintPath>..\Smart365Operation.Modules.Monitoring\ReferenceLibrary\KeNetEditor.Designer.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
