@@ -14,23 +14,21 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Com.Shengzuo.RuntimeCore;
 using Com.Shengzuo.RuntimeCore.Common;
-using Smart365Operation.Modules.Monitoring.ViewModels;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 
-namespace Smart365Operation.Modules.Monitoring.Views
+namespace Smart365Operation.Modules.Monitoring
 {
     /// <summary>
     /// MonitoringView.xaml 的交互逻辑
     /// </summary>
-    public partial class MonitoringView : UserControl
+    public partial class Monitoring : UserControl
     {
         //private readonly IMonitoringDataService _monitoringDataService;
         //private UIManager _uiManager;
         //private XamlUI _xamlUi;
-        public MonitoringView(MonitoringViewModel viewModel)
+        public Monitoring()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
 
         //private void MonitoringView_Loaded(object sender, RoutedEventArgs e)

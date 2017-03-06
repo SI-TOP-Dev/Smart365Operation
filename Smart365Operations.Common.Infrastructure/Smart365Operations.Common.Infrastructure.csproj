@@ -116,6 +116,7 @@
     <Compile Include="Models\TO\VideoInformation.cs" />
     <Compile Include="Prism\IRegionManagerAware.cs" />
     <Compile Include="Prism\RegionManagerAware.cs" />
+    <Compile Include="Prism\RegionManagerAwareBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\DataServiceApi.cs" />
     <Compile Include="Utility\PasswordHelper.cs" />

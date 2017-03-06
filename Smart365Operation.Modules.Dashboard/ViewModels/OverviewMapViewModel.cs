@@ -10,6 +10,7 @@ using Feeling.GIS.Map.Core;
 using Prism.Mvvm;
 using Smart365Operation.Modules.Dashboard.Interfaces;
 using Prism.Commands;
+using Prism.Regions;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
 
@@ -17,12 +18,16 @@ namespace Smart365Operation.Modules.Dashboard
 {
     public class OverviewMapViewModel : BindableBase
     {
+        private readonly IShellService _shellService;
+        private readonly IRegionManager _regionManager;
         private readonly IDataStatisticsService _dataStatisticsService;
         private readonly ICustomerService _customerService;
         private readonly IMonitoringDataService _monitoringDataService;
 
-        public OverviewMapViewModel(IDataStatisticsService dataStatisticsService, ICustomerService customerService, IMonitoringDataService monitoringDataService)
+        public OverviewMapViewModel(IShellService shellService, IRegionManager regionManager, IDataStatisticsService dataStatisticsService, ICustomerService customerService, IMonitoringDataService monitoringDataService)
         {
+            _shellService = shellService;
+            _regionManager = regionManager;
             _dataStatisticsService = dataStatisticsService;
             _customerService = customerService;
             _monitoringDataService = monitoringDataService;
@@ -56,7 +61,7 @@ namespace Smart365Operation.Modules.Dashboard
                 var customerMapMarkerList = new List<MapMarker>();
                 foreach (var customer in customerList)
                 {
-                    var customerViewModel = new CustomerMonitoringViewModel(customer);
+                    var customerViewModel = new CustomerMonitoringViewModel(_shellService,_regionManager, customer);
                     var mapMarker = new MapMarker(new PointLatLng(customerViewModel.Latitude, customerViewModel.Longitude));
                     mapMarker.Shape = new CustomerMarker(customerViewModel);
                     customerMonitoringList.Add(customerViewModel);

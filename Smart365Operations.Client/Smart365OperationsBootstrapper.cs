@@ -24,6 +24,7 @@ using Smart365Operations.Client.Views;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using System.Reflection;
 using Prism.Regions;
+using Smart365Operations.Common.Infrastructure;
 using Smart365Operations.Common.Infrastructure.Prism;
 
 namespace Smart365Operations.Client
@@ -33,21 +34,21 @@ namespace Smart365Operations.Client
 
         public Smart365OperationsBootstrapper()
         {
-            ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
-            {
-                Type type;
-                string viewModelName;
-                var viewName = viewType.FullName;
-                var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
-                viewModelName = $"{viewName}ViewModel,{viewAssemblyName}";
-                type = Type.GetType(viewModelName);
-                if (type == null)
-                {
-                    viewModelName = $"{viewName}Model,{viewAssemblyName}";
-                    type = Type.GetType(viewModelName);
-                }
-                return type;
-            });
+            //ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
+            //{
+            //    Type type;
+            //    string viewModelName;
+            //    var viewName = viewType.FullName;
+            //    var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
+            //    viewModelName = $"{viewName}ViewModel,{viewAssemblyName}";
+            //    type = Type.GetType(viewModelName);
+            //    if (type == null)
+            //    {
+            //        viewModelName = $"{viewName}Model,{viewAssemblyName}";
+            //        type = Type.GetType(viewModelName);
+            //    }
+            //    return type;
+            //});
         }
 
         private readonly Log4NetLogger _logger = new Log4NetLogger();
@@ -72,25 +73,27 @@ namespace Smart365Operations.Client
         protected override void ConfigureModuleCatalog()
         {
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-            moduleCatalog.AddModule(typeof(VideoMonitoringModule));
-           moduleCatalog.AddModule(typeof(DashboardModule));
             moduleCatalog.AddModule(typeof(MonitoringModule));
+            moduleCatalog.AddModule(typeof(VideoMonitoringModule));
+            moduleCatalog.AddModule(typeof(DashboardModule));
+          
         }
 
         public void Show()
         {
-            var regionManager = RegionManager.GetRegionManager(Shell);
+            var regionManager = RegionManager.GetRegionManager(Shell);                                      
             RegionManagerAware.SetRegionManagerAware(Shell, regionManager);
+            regionManager.RequestNavigate(KnownRegionNames.MainRegion, "OverviewMapView");
             App.Current.MainWindow.Show();
         }
 
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            ViewModelLocationProvider.SetDefaultViewModelFactory((type) =>
-            {
-                return Container.Resolve(type);
-            });
+            //ViewModelLocationProvider.SetDefaultViewModelFactory((type) =>
+            //{
+            //    return Container.Resolve(type);
+            //});
 
             Container.RegisterType<IShellService, ShellService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
@@ -100,6 +103,13 @@ namespace Smart365Operations.Client
             Container.RegisterType<IMonitoringDataService, MonitoringDataService>(new ContainerControlledLifetimeManager());
             //Container.RegisterType<ICameraService, CameraService>();
             //Container.RegisterType<ICustomerService, CustomerService>();
+        }
+
+        protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
+        {
+            IRegionBehaviorFactory behaviors = base.ConfigureDefaultRegionBehaviors();
+            behaviors.AddIfMissing(RegionManagerAwareBehavior.BehaviorKey, typeof(RegionManagerAwareBehavior));
+            return behaviors;
         }
     }
 }

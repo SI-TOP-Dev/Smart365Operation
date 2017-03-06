@@ -21,7 +21,7 @@ namespace Smart365Operations.Client
             _container = container;
             _regionManager = regionManager;
         }
-        public void ShowShell(string uri)
+        public void ShowShell(string uri, NavigationParameters parameters)
         {
             var shell = _container.Resolve<Shell>();
             
@@ -30,8 +30,9 @@ namespace Smart365Operations.Client
          
 
             RegionManagerAware.SetRegionManagerAware(shell, scopedRegion);
+            
+            scopedRegion.RequestNavigate(KnownRegionNames.MainRegion, uri, parameters);
 
-            scopedRegion.RequestNavigate(KnownRegionNames.MainRegion, uri);
 
             shell.Show();
         }

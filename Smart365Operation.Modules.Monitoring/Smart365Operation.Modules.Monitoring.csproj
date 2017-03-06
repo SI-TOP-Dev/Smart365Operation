@@ -110,10 +110,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MonitoringDataService.cs" />
     <Compile Include="Services\WiringDiagramService.cs" />
-    <Compile Include="ViewModels\CustomerDetailsViewModel.cs" />
+    <Compile Include="ViewModels\CustomerDetailViewModel.cs" />
     <Compile Include="ViewModels\MonitoringViewModel.cs" />
-    <Compile Include="Views\MonitoringView.xaml.cs">
-      <DependentUpon>MonitoringView.xaml</DependentUpon>
+    <Compile Include="Views\CustomerDetail.xaml.cs">
+      <DependentUpon>CustomerDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Monitoring.xaml.cs">
+      <DependentUpon>Monitoring.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +126,11 @@
     <Resource Include="Resources\Images\Placeholder.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\MonitoringView.xaml">
+    <Page Include="Views\CustomerDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Monitoring.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

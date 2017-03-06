@@ -14,13 +14,19 @@ namespace Smart365Operations.Client
 {
     public class ShellViewModel : BindableBase,IRegionManagerAware
     {
-        private readonly IRegionManager _regionManager;
         private readonly IShellService _shellService;
 
-        public ShellViewModel(IRegionManager regionManager, IShellService shellService)
+        public ShellViewModel(IShellService shellService)
         {
-            _regionManager = regionManager;
             _shellService = shellService;
+            //Navigate("OverviewMapView");
+        }
+
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
         }
 
         public DelegateCommand<string> OpenShellCommand => new DelegateCommand<string>(OpenShell);
@@ -29,12 +35,12 @@ namespace Smart365Operations.Client
 
         private void Initialize(object obj)
         {
-            Navigate("OverviewMapView");
+            //Navigate("OverviewMapView");
         }
 
         private void OpenShell(string viewName)
         {
-            _shellService.ShowShell(viewName);
+            _shellService.ShowShell(viewName,null);
         }
 
         private void Navigate(string viewName)

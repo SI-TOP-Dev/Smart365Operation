@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Prism.Mvvm;
+using Prism.Regions;
+using Smart365Operations.Common.Infrastructure.Models;
 
 namespace Smart365Operation.Modules.Monitoring.ViewModels
 {
-    public class CustomerDetailsViewModel:BindableBase
+    public class CustomerDetailViewModel:BindableBase, INavigationAware
     {
 
 
@@ -53,7 +55,32 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             set { SetProperty(ref _industryType, value); }
         }
 
+        private Customer _currentCustomer;
+        public Customer CurrentCustomer
+        {
+            get { return _currentCustomer; }
+            set { SetProperty(ref _currentCustomer, value); }
+        }
 
-            
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            var customer = navigationContext.Parameters["Customer"] as Customer;
+            if (customer != null)
+                CurrentCustomer = customer;
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            var customer = navigationContext.Parameters["Customer"] as Customer;
+            if (customer != null)
+                return CurrentCustomer != null && CurrentCustomer.Id == customer.Id;
+            else
+                return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

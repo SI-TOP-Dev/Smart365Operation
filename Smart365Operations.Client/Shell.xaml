@@ -16,17 +16,15 @@
         Height="600" Width="800"
         mvvm:ViewModelLocator.AutoWireViewModel="True">
     <Window.Resources>
-        <!--<ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.green.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.green.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>-->
+        <Style x:Key="MenuButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="{TemplateBinding Content}" Margin="32 0 32 0"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -42,19 +40,11 @@
                               DockPanel.Dock="Top"
                               HorizontalAlignment="Right" Margin="16"
                               IsChecked="{Binding Source={x:Reference MainMenuToggleButton}, Path=IsChecked, Mode=TwoWay}" />
-                <DockPanel>
-                    <MenuItem Header="实时监测" DockPanel.Dock="Top" Command="{Binding OpenShellCommand}" CommandParameter="OverviewMapView">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="Monitor" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="视频监测" InputGestureText="Ctrl+E" DockPanel.Dock="Top" Command="{Binding NavigateCommand}" CommandParameter="VideoMonitoringView">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="Monitor" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </DockPanel>
-
+                <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="-1" >
+                    <Button Style="{StaticResource MenuButton}" Content="实时监测" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="MonitoringView"/>
+                    <Button Style="{StaticResource MenuButton}" Content="视频监测" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="VideoMonitoringView"/>
+                    <Button Style="{StaticResource MenuButton}" Content="数据分析" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter=""/>
+                </ListBox>
             </DockPanel>
         </materialDesign:DrawerHost.LeftDrawerContent>
 
@@ -66,10 +56,16 @@
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">365电力智能运维</TextBlock>
                 </DockPanel>
             </materialDesign:ColorZone>
-            <ContentControl mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.MainRegion}"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ContentControl Grid.Column="0" mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.SubRegion}"/>
+                <ContentControl Grid.Column="1" mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.MainRegion}"
                             VerticalContentAlignment="Stretch"
                             HorizontalContentAlignment="Stretch"/>
-            <!--<dashboard:OverviewMapView />-->
+            </Grid>
         </DockPanel>
 
 

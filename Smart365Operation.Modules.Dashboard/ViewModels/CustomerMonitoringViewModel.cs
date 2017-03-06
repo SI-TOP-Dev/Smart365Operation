@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
+using Smart365Operations.Common.Infrastructure;
+using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
 
 namespace Smart365Operation.Modules.Dashboard
 {
     public class CustomerMonitoringViewModel : BindableBase
     {
-        public CustomerMonitoringViewModel(Customer customer)
+        private readonly IShellService _shellService;
+        private readonly IRegionManager _regionManager;
+        private readonly Customer _customer;
+
+        public CustomerMonitoringViewModel(IShellService shellService, IRegionManager regionManager, Customer customer)
         {
+            _shellService = shellService;
+            _regionManager = regionManager;
+            _customer = customer;
             _customerId = customer.Id.ToString();
             _customerName = customer.Name;
             _latitude = string.IsNullOrEmpty(customer.Latitude) ? 0d : double.Parse(customer.Latitude);
@@ -50,6 +61,21 @@ namespace Smart365Operation.Modules.Dashboard
         {
             get { return _longitude; }
             set { SetProperty(ref _longitude, value); }
+        }
+
+        public DelegateCommand CustomerSelectedCommand => new DelegateCommand(CustomerSelected, CanCustomerSelected);
+
+        private bool CanCustomerSelected()
+        {
+            return true;
+        }
+
+        private void CustomerSelected()
+        {
+            var parameters = new NavigationParameters();
+            parameters.Add("Customer", _customer);
+            _shellService.ShowShell("Monitoring", parameters);
+            //_regionManager.RequestNavigate(KnownRegionNames.MainRegion, "Monitoring", parameters);
         }
     }
 }

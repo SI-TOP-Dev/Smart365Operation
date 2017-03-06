@@ -586,7 +586,7 @@ namespace Feeling.GIS.Map.Core
       bool RaiseEmptyTileError = false;
       internal readonly Dictionary<LoadTask, Exception> FailedLoads = new Dictionary<LoadTask, Exception>();
 
-      internal static readonly int WaitForTileLoadThreadTimeout = 5 * 1000 * 60; // 5 min.
+      internal static readonly int WaitForTileLoadThreadTimeout = 60;//5 * 1000 * 60; // 5 min.
 
       long loadWaitCount = 0;
       readonly object LastInvalidationLock = new object();

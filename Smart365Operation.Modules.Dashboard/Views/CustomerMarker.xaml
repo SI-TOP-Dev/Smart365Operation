@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Smart365Operation.Modules.Dashboard"
+             xmlns:map="clr-namespace:Feeling.GIS.Map;assembly=Feeling.GIS.Map"
              mc:Ignorable="d">
     <UserControl.Resources>
         <SolidColorBrush x:Key="Normal_State_bgcolor" Color="#FF19CE00"/>
         <SolidColorBrush x:Key="Fault_State_bgcolor" Color="#FFF10000"/>
-        <SolidColorBrush x:Key="Default_State_bgcolor" Color="#FFAFAFAF"/>
+        <SolidColorBrush x:Key="Default_State_bgcolor" Color="#FF19CE00"/>
         <SolidColorBrush x:Key="tip_bordercolor" Color="#FF979797"/>
         <Style x:Key="TechnicStation" TargetType="{x:Type Button}">
             <Setter Property="Template">
@@ -121,7 +122,7 @@
                                         </LinearGradientBrush>
                                     </Border.OpacityMask>
                                 </Border>
-                                <Label x:Name="tip_txt" Content="{Binding StationName}"  Grid.Column="1" Grid.RowSpan="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Grid.ColumnSpan="2" FontSize="13.333" FontWeight="Bold" Margin="5,0,1,0" d:LayoutOverrides="GridBox"/>
+                                <Label x:Name="tip_txt" Content="{Binding CustomerName}"  Grid.Column="1" Grid.RowSpan="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Grid.ColumnSpan="2" FontSize="13.333" FontWeight="Bold" Margin="5,0,1,0" d:LayoutOverrides="GridBox"/>
                             </Grid>
                         </Canvas>
                         <ControlTemplate.Triggers>
@@ -170,8 +171,8 @@
     </UserControl.Resources> 
     <Grid>
         <Grid Height="40" >
-            <Button Content="Button" Style="{StaticResource TechnicStation}" ToolTip="{Binding CustomerName}" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Command="{Binding }"/>
+            <Button Content="Button" Style="{StaticResource TechnicStation}" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Command="{Binding CustomerSelectedCommand}"/>
         </Grid>
         <!--<Viewbox Stretch="Fill" Width="20" >
             <Path Stretch="Fill" StrokeMiterLimit="2.75"  Fill="Red"  Data="F1 M 272.417,186.642C 272.417,166.023 289.131,149.308 309.75,149.308C 330.369,149.308 347.083,166.023 347.083,186.642C 347.083,207.26 335.083,207.473 309.75,279.642C 283.083,207.473 272.417,207.26 272.417,186.642 Z "/>

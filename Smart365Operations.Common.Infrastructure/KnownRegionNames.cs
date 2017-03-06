@@ -9,5 +9,6 @@ namespace Smart365Operations.Common.Infrastructure
     public static class KnownRegionNames
     {
         public static string MainRegion = "MainRegion";
+        public static string SubRegion = "SubRegion";
     }
 }
