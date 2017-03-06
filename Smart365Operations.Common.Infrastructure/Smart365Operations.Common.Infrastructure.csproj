@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\ICustomerEquipmentService.cs" />
     <Compile Include="Interfaces\IMonitoringDataService.cs" />
+    <Compile Include="Interfaces\IMonitoringSummaryService.cs" />
     <Compile Include="Interfaces\IShellService.cs" />
     <Compile Include="Interfaces\IWiringDiagramService.cs" />
     <Compile Include="Interfaces\MonitoringDataEventArgs.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Models\CustomPrincipal.cs" />
     <Compile Include="Models\DisplayRegionMode.cs" />
     <Compile Include="Models\TO\AlarmStatisticsDTO.cs" />
+    <Compile Include="Models\TO\AlarmSummaryDTO.cs" />
     <Compile Include="Models\TO\CameraPartOne.cs" />
     <Compile Include="Models\TO\CameraPartTwo.cs" />
     <Compile Include="Models\TO\CustomerDTO.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Models\TO\CustomerIncrementsDTO.cs" />
     <Compile Include="Models\TO\CustomerIndustryCategoryDTO.cs" />
     <Compile Include="Models\TO\LoginInfoDTO.cs" />
+    <Compile Include="Models\TO\PowerSummaryDTO.cs" />
     <Compile Include="Models\TO\TransmissionObject.cs" />
     <Compile Include="Models\TO\WiringDiagramConfigDTO.cs" />
     <Compile Include="Models\User.cs" />

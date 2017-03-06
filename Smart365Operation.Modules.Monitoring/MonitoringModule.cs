@@ -25,7 +25,8 @@ namespace Smart365Operation.Modules.Monitoring
         }
         public void Initialize()
         {
-            this._container.RegisterType<IWiringDiagramService, WiringDiagramService>();
+            _container.RegisterType<IWiringDiagramService, WiringDiagramService>();
+            _container.RegisterType<IMonitoringSummaryService, MonitoringSummaryService>();
             _container.RegisterType(typeof(object), typeof(CustomerDetail), "CustomerDetail");
             _container.RegisterType(typeof(object), typeof(Monitoring), "Monitoring");
            // _container.RegisterTypeForNavigation<Monitoring>();

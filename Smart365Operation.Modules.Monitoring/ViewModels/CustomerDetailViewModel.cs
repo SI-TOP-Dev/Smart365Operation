@@ -10,6 +10,8 @@ using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
 using RestSharp;
 using Com.Shengzuo.RuntimeCore;
+using Com.Shengzuo.RuntimeCore.Common;
+using Smart365Operations.Common.Infrastructure.Models.TO;
 
 namespace Smart365Operation.Modules.Monitoring.ViewModels
 {
@@ -17,11 +19,14 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
     {
         private readonly IWiringDiagramService _wiringDiagramService;
         private readonly IMonitoringDataService _monitoringDataService;
+        private readonly IMonitoringSummaryService _monitoringSummaryService;
+        private UIManager _uiManager;
 
-        public CustomerDetailViewModel(IWiringDiagramService wiringDiagramService, IMonitoringDataService monitoringDataService)
+        public CustomerDetailViewModel(IWiringDiagramService wiringDiagramService, IMonitoringDataService monitoringDataService,IMonitoringSummaryService monitoringSummaryService)
         {
             _wiringDiagramService = wiringDiagramService;
             _monitoringDataService = monitoringDataService;
+            _monitoringSummaryService = monitoringSummaryService;
             _monitoringDataService.DataUpdated += _monitoringDataService_DataUpdated;
             _uiManager = UIManager.Instance;
             _uiManager.Dispatcher = Application.Current.Dispatcher;
@@ -33,47 +38,6 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             _uiManager.UpdateData(e.Key, e.Value);
         }
 
-        private string _companyName;
-        public string CompanyName
-        {
-            get { return _companyName; }
-            set { SetProperty(ref _companyName, value); }
-        }
-
-        private string _companyProfile;
-        public string CompanyProfile
-        {
-            get { return _companyProfile; }
-            set { SetProperty(ref _companyProfile, value); }
-        }
-
-        private string _contacts;
-        public string Contacts
-        {
-            get { return _contacts; }
-            set { SetProperty(ref _contacts, value); }
-        }
-
-        private string _address;
-        public string Address
-        {
-            get { return _address; }
-            set { SetProperty(ref _address, value); }
-        }
-
-        private string _phone;
-        public string Phone
-        {
-            get { return _phone; }
-            set { SetProperty(ref _phone, value); }
-        }
-
-        private string _industryType;
-        public string IndustryType
-        {
-            get { return _industryType; }
-            set { SetProperty(ref _industryType, value); }
-        }
 
         private Customer _currentCustomer;
         public Customer CurrentCustomer
@@ -84,12 +48,24 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
 
         private FrameworkElement _wiringDiagramUI;
-        private UIManager _uiManager;
-
         public FrameworkElement WiringDiagramUI
         {
             get { return _wiringDiagramUI; }
             set { SetProperty(ref _wiringDiagramUI, value); }
+        }
+
+        private AlarmSummaryDTO _alarmSummaryInfo;
+        public AlarmSummaryDTO AlarmSummaryInfo
+        {
+            get { return _alarmSummaryInfo; }
+            set { SetProperty(ref _alarmSummaryInfo, value); }
+        }
+
+        private PowerSummaryDTO _powerSummaryInfo;
+        public PowerSummaryDTO PowerSummaryInfo
+        {
+            get { return _powerSummaryInfo; }
+            set { SetProperty(ref _powerSummaryInfo, value); }
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
@@ -98,17 +74,55 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             if (customer != null)
             {
                 CurrentCustomer = customer;
-                var wiringDiagramConfig = _wiringDiagramService.GetWiringDiagramConfig(customer.Id.ToString());
-                var mainDiagram = wiringDiagramConfig.FirstOrDefault(d => d.isMain == 1);
-                if (mainDiagram != null)
-                {
-                    Uri uri = new Uri(mainDiagram.filePath);
-                    var fileName = uri.Segments[uri.Segments.Length - 1];
-                    var dataBuffer = GetWiringDiagram(uri);
-                    var xamlUI = _uiManager.Load(dataBuffer, fileName);
-                    WiringDiagramUI = xamlUI.UI;
-                }
+                var customerId = CurrentCustomer.Id.ToString();
+                SetWiringDiagramUITaskAsync(customerId);
+                AlarmSummaryInfo = GetAlarmSummaryInfoTaskAsync(customerId).Result;
+                PowerSummaryInfo = GetPowerSummaryInfoTaskAsync(customerId).Result;
             }
+        }
+
+        public Task<PowerSummaryDTO> GetPowerSummaryInfoTaskAsync(string s) => Task.Run(() => GetPowerSummaryInfo(s));
+        private PowerSummaryDTO GetPowerSummaryInfo(string customerId)
+        {
+            return _monitoringSummaryService.GetPowerSummary(customerId);
+        }
+
+        public Task<AlarmSummaryDTO> GetAlarmSummaryInfoTaskAsync(string s) => Task.Run(() => GetAlarmSummaryInfo(s));
+        private AlarmSummaryDTO GetAlarmSummaryInfo(string customerId)
+        {
+            return _monitoringSummaryService.GetAlarmSummary(customerId);
+        }
+        
+        public Task<FrameworkElement> SetWiringDiagramUITaskAsync(string s) => Task.Run(() => WiringDiagramUI = GetWiringDiagramUI(s));
+        private FrameworkElement GetWiringDiagramUI(string customerId)
+        {
+            FrameworkElement wiringDiagramUI = null;
+            var wiringDiagramConfig = _wiringDiagramService.GetWiringDiagramConfig(customerId);
+            var mainDiagram = wiringDiagramConfig.FirstOrDefault(d => d.isMain == 1);
+            if (mainDiagram != null)
+            {
+                Uri uri = new Uri(mainDiagram.filePath);
+                var fileName = uri.Segments[uri.Segments.Length - 1];
+                var dataBuffer = GetWiringDiagram(uri);
+                XamlUI xamlUI = null;
+                _uiManager.Dispatcher.Invoke(new Action(() =>
+                {
+                    xamlUI = _uiManager.Load(dataBuffer, fileName);
+                }));
+                wiringDiagramUI = xamlUI.UI;
+            }
+            return wiringDiagramUI;
+        }
+
+        private byte[] GetWiringDiagram(Uri diagramUri)
+        {
+            var httpClient = new RestClient(diagramUri);
+            var request = new RestRequest();
+            var response = httpClient.Execute(request);
+            if (response.ErrorMessage != null)
+            {
+            }
+            return Encoding.UTF8.GetBytes(response.Content);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -125,15 +139,6 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             //throw new NotImplementedException();
         }
 
-        private byte[] GetWiringDiagram(Uri diagramUri)
-        {
-            var httpClient = new RestClient(diagramUri);
-            var request = new RestRequest();
-            var response = httpClient.Execute(request);
-            if (response.ErrorMessage != null)
-            {
-            }
-            return Encoding.UTF8.GetBytes(response.Content);
-        }
+     
     }
 }

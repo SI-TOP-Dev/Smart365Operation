@@ -32,7 +32,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ContentControl Grid.Column="1" prism:RegionManager.RegionName="CustomerDetailRegion"/>
+        <ContentControl Grid.Column="1" prism:RegionManager.RegionName="CustomerDetailRegion" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
        
     </Grid>
    
