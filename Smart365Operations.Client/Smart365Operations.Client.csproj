@@ -46,6 +46,13 @@
     <Reference Include="KeNetEditor.Designer">
       <HintPath>..\Smart365Operation.Modules.Monitoring\ReferenceLibrary\KeNetEditor.Designer.dll</HintPath>
     </Reference>
+    <Reference Include="KeNetEditor.Support.Controls, Version=1.0.17059.716, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DE\KeNetEditor\bin\Debug\KeNetEditor.Support.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="KeNetEditor.Support.CustomControls">
+      <HintPath>..\..\..\DE\KeNetEditor\bin\Debug\KeNetEditor.Support.CustomControls.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -120,8 +127,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WpfControlLibrary1">
-      <HintPath>C:\Users\Hardborn\Desktop\WpfControlLibrary1.dll</HintPath>
+    <Reference Include="WpfControlLibrary1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Smart365Operation.Modules.Monitoring\ReferenceLibrary\WpfControlLibrary1.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

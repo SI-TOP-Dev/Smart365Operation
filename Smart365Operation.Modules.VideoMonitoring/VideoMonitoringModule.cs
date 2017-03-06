@@ -25,7 +25,7 @@ namespace Smart365Operation.Modules.VideoMonitoring
         }
         public void Initialize()
         {
-            this._container.RegisterType<ICameraService, MockCameraService>();
+            this._container.RegisterType<ICameraService, CameraService>();
             _container.RegisterType(typeof(object), typeof(VideoSurveillanceView), "VideoSurveillanceView");
             _container.RegisterType(typeof(object), typeof(VideoMonitoringView), "VideoMonitoringView");
             _container.RegisterType<VideoSurveillanceViewModel>(new ContainerControlledLifetimeManager());

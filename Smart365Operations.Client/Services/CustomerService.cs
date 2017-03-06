@@ -30,7 +30,18 @@ namespace Smart365Operations.Client.Services
                     Id = customerDto.customerId,
                     Name = customerDto.customerName,
                     Latitude = customerDto.latitude,
-                    Longitude = customerDto.longitude
+                    Longitude = customerDto.longitude,
+                    CompanyProfile=customerDto.customerIntroduce,
+                    Contacts=customerDto.customerLinkman,
+                    ContactsPhone = customerDto.customerPhone,
+                    CompanyAddress = customerDto.customerAddress,
+                    IndustryType = customerDto.customerType.typeName,
+                    ContractExpiresDate = customerDto.contractTime,
+                    InitiationDate = customerDto.inTime,
+                    MeteringPoint = customerDto.meteringPoint,
+                    InstalledCapacity = customerDto.installedCapacity,
+                    OperatingCapacity = customerDto.operatingCapacity,
+                    TransformerNumber =customerDto.transformerNumber,
                 };
                 customerList.Add(customer);
             }

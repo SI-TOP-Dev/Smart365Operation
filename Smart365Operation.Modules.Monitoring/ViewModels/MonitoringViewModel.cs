@@ -18,21 +18,19 @@ using Smart365Operations.Common.Infrastructure.Prism;
 
 namespace Smart365Operation.Modules.Monitoring
 {
-    public class MonitoringViewModel : BindableBase, INavigationAware,IRegionManagerAware
+    public class MonitoringViewModel : BindableBase, INavigationAware, IRegionManagerAware
     {
         private readonly ICustomerService _customerService;
         private readonly IWiringDiagramService _wiringDiagramService;
-        private readonly IMonitoringDataService _monitoringDataService;
-        private UIManager _uiManager;
+        //private readonly IMonitoringDataService _monitoringDataService;
+        //private UIManager _uiManager;
 
-        public MonitoringViewModel(ICustomerService customerService, IWiringDiagramService wiringDiagramService, IMonitoringDataService monitoringDataService)
+        public MonitoringViewModel(ICustomerService customerService, IWiringDiagramService wiringDiagramService)
         {
             _customerService = customerService;
             _wiringDiagramService = wiringDiagramService;
-            _monitoringDataService = monitoringDataService;
-            _monitoringDataService.DataUpdated += _monitoringDataService_DataUpdated;
-
-           
+            //_monitoringDataService = monitoringDataService;
+            //_monitoringDataService.DataUpdated += _monitoringDataService_DataUpdated;
         }
 
 
@@ -49,13 +47,8 @@ namespace Smart365Operation.Modules.Monitoring
             get { return _selectedCustomer; }
             set
             {
-                if (value != _selectedCustomer)
-                {
-                    var parameters = new NavigationParameters();
-                    parameters.Add("Customer", value);
-                    RegionManager.RequestNavigate("CustomerDetailRegion", "CustomerDetail", parameters);
-                }
                 SetProperty(ref _selectedCustomer, value);
+                NavigateTo("CustomerDetailRegion", "CustomerDetail", _selectedCustomer);
             }
         }
 
@@ -76,44 +69,33 @@ namespace Smart365Operation.Modules.Monitoring
             var agentId = principal.Identity.Id;
             var customers = _customerService.GetCustomersBy(agentId);
             CustomerList.AddRange(customers);
-        
+
 
             //_uiManager = UIManager.Instance;
             //_uiManager.Dispatcher = Application.Current.Dispatcher;
             //_uiManager.EnableSafeMode = true;
-            //var wiringDiagramConfig = _wiringDiagramService.GetWiringDiagramConfig("11");
-            //var mainDiagram = wiringDiagramConfig.FirstOrDefault(d => d.isMain == 1);
-            //Uri uri = new Uri(mainDiagram.filePath);
-            //var fileName = uri.Segments[uri.Segments.Length - 1];
-            //var dataBuffer = GetWiringDiagram(uri);
-            //var xamlUI = _uiManager.Load(dataBuffer, fileName);
-            //WiringDiagramUI = xamlUI.UI;
+
         }
 
-        private byte[] GetWiringDiagram(Uri diagramUri)
-        {
-            var httpClient = new RestClient(diagramUri);
-            var request = new RestRequest();
-            var response = httpClient.Execute(request);
-            if (response.ErrorMessage != null)
-            {
-            }
-            return Encoding.UTF8.GetBytes(response.Content);
-        }
+
 
         private bool CanInitialize()
         {
             return true;
         }
 
-        private void _monitoringDataService_DataUpdated(object sender, MonitoringDataEventArgs e)
-        {
-            _uiManager.UpdateData(e.Key, e.Value);
-        }
+        //private void _monitoringDataService_DataUpdated(object sender, MonitoringDataEventArgs e)
+        //{
+        //    _uiManager.UpdateData(e.Key, e.Value);
+        //}
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             var customer = navigationContext.Parameters["Customer"] as Customer;
+            if (customer != null)
+            {
+                SelectedCustomer = customer;
+            }
 
         }
 
@@ -128,5 +110,12 @@ namespace Smart365Operation.Modules.Monitoring
         }
 
         public IRegionManager RegionManager { get; set; }
+
+        private void NavigateTo(string regionName, string viewName, object value)
+        {
+            var parameters = new NavigationParameters();
+            parameters.Add("Customer", value);
+            RegionManager.RequestNavigate("CustomerDetailRegion", "CustomerDetail", parameters);
+        }
     }
 }

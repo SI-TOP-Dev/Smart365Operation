@@ -25,7 +25,13 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--<ContentControl Grid.Column="0" prism:RegionManager.RegionName="CustomerListRegion"/>-->
-        <ListBox Grid.Column="0" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberPath="Name"/>
+        <ListBox Grid.Column="0" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" Margin="32,0"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <ContentControl Grid.Column="1" prism:RegionManager.RegionName="CustomerDetailRegion"/>
        
     </Grid>
