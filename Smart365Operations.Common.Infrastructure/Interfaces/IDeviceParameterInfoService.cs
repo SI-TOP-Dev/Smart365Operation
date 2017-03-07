@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,11 +8,8 @@ using Smart365Operations.Common.Infrastructure.Models.TO;
 
 namespace Smart365Operations.Common.Infrastructure.Interfaces
 {
-    public interface IMonitoringSummaryService
+    public interface IDeviceParameterInfoService
     {
-        PowerSummaryDTO GetPowerSummary(string customerId);
-        AlarmSummaryDTO GetAlarmSummary(string customerId);
-        IList<TopPowerDTO> GetTopPowerSummary(string customerId, DateTime dateTime);
-
+        IEnumerable<DeviceParameterInfoDTO> GetDeviceParameterList(string deviceId);
     }
 }

@@ -28,5 +28,13 @@ namespace Smart365Operation.Modules.Monitoring.Services
             var alarmSummaryDTO = httpServiceApi.Execute<AlarmSummaryDTO>(request);
             return alarmSummaryDTO;
         }
+
+        public IList<TopPowerDTO> GetTopPowerSummary(string customerId, DateTime dateTime)
+        {
+            DataServiceApi httpServiceApi = new DataServiceApi();
+            var request = new RestRequest($"customer/topfive/power.json?customerId={customerId}&time={dateTime.ToString("yyyy-MM")}", Method.GET);
+            var topPowerDTOList = httpServiceApi.Execute<List<TopPowerDTO>>(request);
+            return topPowerDTOList;
+        }
     }
 }

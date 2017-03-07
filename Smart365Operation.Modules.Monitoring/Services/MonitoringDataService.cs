@@ -12,15 +12,18 @@ namespace Smart365Operation.Modules.Monitoring.Services
 {
     public class MonitoringDataService : IMonitoringDataService
     {
-        public event EventHandler<MonitoringDataEventArgs> DataUpdated;
+        public event EventHandler<MonitoringDataEventArgs> MonitoringDataUpdated;
+        public event EventHandler<AlarmDataEventArgs> AlarmDataUpdated;
 
         private IAdvancedBus _bus;
         private IExchange _exchange;
         private IQueue _queue;
         public MonitoringDataService()
         {
-            InitializeBus();
+            InitializeBusTaskAsync();
         }
+
+        private void InitializeBusTaskAsync() => Task.Run(() => InitializeBus());
 
         private void InitializeBus()
         {
@@ -31,22 +34,32 @@ namespace Smart365Operation.Modules.Monitoring.Services
             _bus.Consume(_queue, (body, properties, info) => Task.Factory.StartNew(() =>
             {
                 var message = Encoding.UTF8.GetString(body);
-                HandleTextMessage(info.RoutingKey, message);
+                if (String.Equals(info.RoutingKey, "Alarm"))
+                {
+                    HandleAlarmData(message);
+                }
+                else
+                {
+                    HandleMonitoringData(info.RoutingKey, message);
+                }
             }));
         }
 
-
-        private void HandleTextMessage(string key, object obj)
+        private void HandleAlarmData(string data)
         {
-            Debug.WriteLine($"[{key}:]{obj}");
-            if (DataUpdated != null)
+            if (AlarmDataUpdated != null)
             {
-                DataUpdated(this, new MonitoringDataEventArgs(key, obj));
+                AlarmDataUpdated(this,new AlarmDataEventArgs(data));
             }
         }
-
-        #region UIManager
-        //private UIManager _uiManager;
-        #endregion
+        private void HandleMonitoringData(string key, object obj)
+        {
+            Debug.WriteLine($"[{key}:]{obj}");
+            if (MonitoringDataUpdated != null)
+            {
+                MonitoringDataUpdated(this, new MonitoringDataEventArgs(key, obj));
+            }
+        }
+        
     }
 }

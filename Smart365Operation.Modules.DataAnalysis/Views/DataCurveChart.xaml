@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Smart365Operation.Modules.DataAnalysis.Views.DataCurveChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Smart365Operation.Modules.DataAnalysis.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:utility="clr-namespace:Smart365Operations.Common.Infrastructure.Utility;assembly=Smart365Operations.Common.Infrastructure"
+             xmlns:models="clr-namespace:Smart365Operations.Common.Infrastructure.Models;assembly=Smart365Operations.Common.Infrastructure"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <ListBox ItemsSource="{Binding ParameterTypes}" SelectedItem="{Binding SelectedParameterType}" Style="{StaticResource MaterialDesignToolToggleListBox}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="TemperatureCelsius" />
+                            <TextBlock Text="{Binding typeName}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox ItemsSource="{Binding Source={utility:EnumBindingSource {x:Type models:TimeType}}}" SelectedItem="{Binding SelectedTimeType}" Style="{StaticResource MaterialDesignToolToggleListBox}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                            <TextBlock Text="{Binding}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+      
+    </Grid>
+</UserControl>

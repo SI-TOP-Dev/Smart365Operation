@@ -48,7 +48,7 @@
         </Grid.RowDefinitions>
         <TreeView ItemsSource="{Binding CustomerList}" Margin="0" Grid.Row="0" Grid.RowSpan="2" Padding="1" />
         <!--<Viewbox Grid.Row="1" Grid.Column="1" Stretch="Fill" >-->
-            <views:VideoSurveillanceView Grid.Row="1" Grid.Column="1" DataContext="{Binding VideoSurveillance}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <views:VideoSurveillanceView Grid.Row="1" Grid.Column="1" DataContext="{Binding VideoSurveillance}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <!--</Viewbox>-->
 
     </Grid>

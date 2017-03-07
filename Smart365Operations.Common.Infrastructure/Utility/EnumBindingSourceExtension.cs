@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 
-namespace Smart365Operation.Modules.VideoMonitoring.Utility
+namespace Smart365Operations.Common.Infrastructure.Utility
 {
     public class EnumBindingSourceExtension : MarkupExtension
     {

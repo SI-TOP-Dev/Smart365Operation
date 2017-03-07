@@ -258,8 +258,8 @@
                                 </lvc:CartesianChart>
                                 <StackPanel Grid.Row="3" VerticalAlignment="Center" Margin="25, 0">
                                     <TextBlock Opacity=".4" FontSize="13">
-                                    The Last 12 hours average <LineBreak />
-                                    Electricity Consumption
+                                    过去24小时电能平均值 <LineBreak />
+                                    电力消耗
                                     </TextBlock>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Foreground="#303030" FontSize="40" Text="20.45" />
@@ -273,13 +273,58 @@
                         </Grid>
                     </materialDesign:Card>
                 </DockPanel>
-                <StackPanel Grid.Column="2">
-                    <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Bottom">
+                <StackPanel Grid.Column="2" Grid.Row="0"  Margin="5" VerticalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+
+                        <materialDesign:Card Margin="5">
+                            <Grid Margin="10,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Text="今日电量"/>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <TextBlock Foreground="#303030" FontSize="40" Text="{Binding PowerSummaryInfo.todayPower}" />
+                                    <TextBlock Foreground="#303030" FontSize="18" VerticalAlignment="Bottom"
+                                               Margin="8, 6" Text="kWh"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                        <materialDesign:Card Margin="5">
+                            <Grid Margin="10,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Text="当月电量"/>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <TextBlock Foreground="#303030" FontSize="40" Text="{Binding PowerSummaryInfo.monthPower}" />
+                                    <TextBlock Foreground="#303030" FontSize="18" VerticalAlignment="Bottom"
+                                               Margin="8, 6" Text="kWh"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                        <materialDesign:Card Margin="5">
+                            <Grid Margin="10,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Text="当年电量"/>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <TextBlock Foreground="#303030" FontSize="40" Text="{Binding PowerSummaryInfo.yearPower}" />
+                                    <TextBlock Foreground="#303030" FontSize="18" VerticalAlignment="Bottom"
+                                               Margin="8, 6" Text="kWh"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </StackPanel>
+                    <lvc:CartesianChart Series="{Binding TopPowerSummaryInfoSeriesCollection}" Height="300"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Salesman" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                            <lvc:Axis Title="用电量" LabelFormatter="{Binding TopPowerSummaryInfoFormatter}"></lvc:Axis>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Sold Apps" Labels="{Binding Labels}"></lvc:Axis>
+                            <lvc:Axis Title="用电设备" Labels="{Binding TopPowerSummaryInfoLabels}" LabelFormatter="{Binding TopPowerSummaryInfoDeviceFormatter}"></lvc:Axis>
                         </lvc:CartesianChart.AxisY>
                         <lvc:CartesianChart.DataTooltip>
                             <lvc:DefaultTooltip SelectionMode="SharedYValues"></lvc:DefaultTooltip>
@@ -292,49 +337,7 @@
                     <ContentControl Content="{Binding WiringDiagramUI}" />
                 </Viewbox>
             </Grid>
-            <materialDesign:Card Grid.Row="2" Margin="5">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="400" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="400" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Image
-                            Source="pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/Placeholder.png"
-                            Height="400" Width="400"
-                            Stretch="Fill" />
-                        <!--<Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                Margin="0 0 16 -20">
-                            <materialDesign:PackIcon Kind="Bike" />
-                        </Button>-->
-                        <StackPanel Grid.Row="1" Margin="8 24 8 0">
-                            <TextBlock Text="{Binding CurrentCustomer.Name}" FontSize="36" FontWeight="Bold" />
-                            <TextBlock Text="{Binding CurrentCustomer.CompanyProfile}" TextWrapping="Wrap"
-                                       VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding CurrentCustomer.Contacts}" />
-                            <TextBlock Text="{Binding CurrentCustomer.CompanyAddress}" />
-                            <TextBlock Text="{Binding CurrentCustomer.ContactsPhone}" />
-                            <TextBlock Text="{Binding CurrentCustomer.IndustryType}" />
-                        </StackPanel>
-                        <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
-                            <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-                                    materialDesign:RippleAssist.IsCentered="True">
-                                <materialDesign:PackIcon Kind="ShareVariant" />
-                            </Button>
-                            <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-                                    materialDesign:RippleAssist.IsCentered="True">
-                                <materialDesign:PackIcon Kind="Heart" />
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </materialDesign:Card>
+        
         </Grid>
     </ScrollViewer>
 </UserControl>

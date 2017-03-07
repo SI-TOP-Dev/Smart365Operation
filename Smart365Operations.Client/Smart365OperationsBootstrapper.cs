@@ -26,6 +26,7 @@ using System.Reflection;
 using Prism.Regions;
 using Smart365Operations.Common.Infrastructure;
 using Smart365Operations.Common.Infrastructure.Prism;
+using Smart365Operation.Modules.DataAnalysis;
 
 namespace Smart365Operations.Client
 {
@@ -76,7 +77,8 @@ namespace Smart365Operations.Client
             moduleCatalog.AddModule(typeof(MonitoringModule));
             moduleCatalog.AddModule(typeof(VideoMonitoringModule));
             moduleCatalog.AddModule(typeof(DashboardModule));
-          
+            moduleCatalog.AddModule(typeof(DataAnaysisModule));
+
         }
 
         public void Show()

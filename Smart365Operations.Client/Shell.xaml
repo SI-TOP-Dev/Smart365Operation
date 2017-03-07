@@ -43,7 +43,7 @@
                 <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="-1" >
                     <Button Style="{StaticResource MenuButton}" Content="实时监测" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="MonitoringView"/>
                     <Button Style="{StaticResource MenuButton}" Content="视频监测" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="VideoMonitoringView"/>
-                    <Button Style="{StaticResource MenuButton}" Content="数据分析" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter=""/>
+                    <Button Style="{StaticResource MenuButton}" Content="数据分析" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="DataAnaysisView"/>
                 </ListBox>
             </DockPanel>
         </materialDesign:DrawerHost.LeftDrawerContent>

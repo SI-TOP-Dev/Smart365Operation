@@ -10,7 +10,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:Smart365Operation.Modules.VideoMonitoring.Converters"
               xmlns:mvvm="http://prismlibrary.com/"
-             mc:Ignorable="d" 
+              xmlns:common="clr-namespace:Smart365Operations.Common.Infrastructure.Utility;assembly=Smart365Operations.Common.Infrastructure"
+              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:DisplayModeToPackIconConverter x:Key="DisplayModeToPackIconConverter"/>
@@ -21,7 +22,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  VerticalAlignment="Center">
-            <ListBox ItemsSource="{Binding Source={utility:EnumBindingSource {x:Type models:DisplayMode}}}" SelectedItem="{Binding SelectedDisplayMode}"
+            <ListBox ItemsSource="{Binding Source={common:EnumBindingSource {x:Type models:DisplayMode}}}" SelectedItem="{Binding SelectedDisplayMode}"
                      Style="{StaticResource MaterialDesignToolToggleListBox}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -31,24 +32,24 @@
             </ListBox>
         </StackPanel>
         <Border Grid.Row="1">
-           
-                <ItemsControl ItemsSource="{Binding Regions}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="White" BorderThickness="1">
-                                <WindowsFormsHost Loaded="WindowsFormsHost_Loaded" Tag="{Binding Index}">
-                                    <forms:PictureBox BackColor="Black"/>
-                                </WindowsFormsHost>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding Regions}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="White" BorderThickness="1">
+                            <WindowsFormsHost Loaded="WindowsFormsHost_Loaded" Tag="{Binding Index}">
+                                <forms:PictureBox BackColor="Black"/>
+                            </WindowsFormsHost>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Border>
     </Grid>
-   
+
 </UserControl>

@@ -8,7 +8,8 @@ namespace Smart365Operations.Common.Infrastructure.Interfaces
 {
     public interface IMonitoringDataService
     {
-        event EventHandler<MonitoringDataEventArgs> DataUpdated;
+        event EventHandler<MonitoringDataEventArgs> MonitoringDataUpdated;
+        event EventHandler<AlarmDataEventArgs> AlarmDataUpdated;
         //void ReceiveData(string identity, object data);
 
     }
