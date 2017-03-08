@@ -12,17 +12,15 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
 {
     public class CustomerViewModel : BindableBase
     {
-        private readonly IVideoService _videoService;
         private Customer _customer;
 
-        public CustomerViewModel(IVideoService videoService, Customer customer, IList<Camera> cameraList)
+        public CustomerViewModel(Customer customer, IList<Camera> cameraList)
         {
-            _videoService = videoService;
             this._customer = customer;
             this._name = _customer.Name;
             foreach (var camera in cameraList)
             {
-                CameraList.Add(new CameraViewModel(_videoService,camera));
+                CameraList.Add(new CameraViewModel(camera));
             }
         }
 

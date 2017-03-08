@@ -29,6 +29,7 @@
             <i:InvokeCommandAction Command="{Binding InitializeCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>

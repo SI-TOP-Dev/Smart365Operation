@@ -64,22 +64,25 @@ namespace Smart365Operation.Modules.Monitoring
 
         private void Initialize()
         {
+            InitializeDataTaskAsync();
+        }
 
+
+        private Task InitializeDataTaskAsync() => Task.Run(() => InitializeData());
+        private void InitializeData()
+        {
             var principal = Thread.CurrentPrincipal as SystemPrincipal;
             var agentId = principal.Identity.Id;
             var customers = _customerService.GetCustomersBy(agentId);
-            CustomerList.AddRange(customers);
-            if (SelectedCustomer != null)
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
-                SelectedCustomer = CustomerList.FirstOrDefault(c => c.Id == SelectedCustomer.Id);
-            }
-
-            //_uiManager = UIManager.Instance;
-            //_uiManager.Dispatcher = Application.Current.Dispatcher;
-            //_uiManager.EnableSafeMode = true;
-
+                CustomerList.AddRange(customers);
+                if (SelectedCustomer != null)
+                {
+                    SelectedCustomer = CustomerList.FirstOrDefault(c => c.Id == SelectedCustomer.Id);
+                }
+            }));
         }
-
 
 
         private bool CanInitialize()
@@ -87,10 +90,6 @@ namespace Smart365Operation.Modules.Monitoring
             return true;
         }
 
-        //private void _monitoringDataService_DataUpdated(object sender, MonitoringDataEventArgs e)
-        //{
-        //    _uiManager.UpdateData(e.Key, e.Value);
-        //}
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {

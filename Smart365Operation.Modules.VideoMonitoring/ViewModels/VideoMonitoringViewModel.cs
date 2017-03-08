@@ -5,28 +5,33 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using Smart365Operation.Modules.VideoMonitoring.Services;
 using Smart365Operation.Modules.VideoMonitoring.ViewModels;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
+using Smart365Operations.Common.Infrastructure.Prism;
 
 namespace Smart365Operation.Modules.VideoMonitoring
 {
-    public class VideoMonitoringViewModel:BindableBase
+    public class VideoMonitoringViewModel : BindableBase, IRegionManagerAware
     {
+        private readonly IRegionManager _regionManager;
+        private readonly IUnityContainer _container;
         private readonly ICustomerService _customerService;
         private readonly ICameraService _cameraService;
-        private readonly IVideoService _videoService;
 
-        public VideoMonitoringViewModel(IUnityContainer container, IVideoService videoService, ICustomerService customerService, ICameraService cameraService)
+        public VideoMonitoringViewModel(IRegionManager regionManager, IUnityContainer container,ICustomerService customerService, ICameraService cameraService)
         {
-            _videoService = videoService;
+            _regionManager = regionManager;
+            _container = container;
             _customerService = customerService;
             _cameraService = cameraService;
-            VideoSurveillance = container.Resolve<VideoSurveillanceViewModel>();
+           // VideoSurveillance = container.Resolve<VideoSurveillanceViewModel>();
         }
 
         private ObservableCollection<CustomerViewModel> _customerList = new ObservableCollection<CustomerViewModel>();
@@ -52,16 +57,33 @@ namespace Smart365Operation.Modules.VideoMonitoring
 
         private void Initialize()
         {
+            RegionManager.RequestNavigate("VideoSurveillanceRegion", "VideoSurveillanceView");
+            InitializeDataTaskAsync();
+        }
+
+        private Task InitializeDataTaskAsync() => Task.Run(() => InitializeData());
+
+        private void InitializeData()
+        {
+        
+
             var principal = Thread.CurrentPrincipal as SystemPrincipal;
             var agentId = principal.Identity.Id;
             var customerList = _customerService.GetCustomersBy(agentId);
+
             foreach (var customer in customerList)
             {
                 var cameraList = _cameraService.GetCamerasBy(customer.Id);
-
-                CustomerViewModel customerViewModel = new CustomerViewModel(_videoService,customer, cameraList);
-                CustomerList.Add(customerViewModel);
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    CustomerViewModel customerViewModel = new CustomerViewModel(customer, cameraList);
+                    CustomerList.Add(customerViewModel);
+                }));
             }
+
+
         }
+
+        public IRegionManager RegionManager { get; set; }
     }
 }

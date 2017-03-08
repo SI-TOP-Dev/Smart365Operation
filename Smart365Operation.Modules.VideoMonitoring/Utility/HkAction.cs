@@ -28,7 +28,7 @@ namespace Smart365Operation.Modules.VideoMonitoring.Utility
         public static int SessionIdLth;
         public static string SessionIdstr;
         private static int TokenLth = 0;
-        private static int level = 2;//清晰度，0流畅，1标清，2高清
+        private static int level = 0;//清晰度，0流畅，1标清，2高清
         public static string userId = Guid.NewGuid().ToString(); //"1b14cf56-b61d-43f5-a2c8-62b9626cbaaf";//自定义用户名，用guid防止重复
         private static int ptz_speed = 5; //默认使用云台控制速度为7
         private static string _SafeKey = "FRXQJH";

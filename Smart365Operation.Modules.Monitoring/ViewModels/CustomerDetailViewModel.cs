@@ -119,12 +119,14 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                 {
                     CurrentCustomer = customer;
                     var customerId = CurrentCustomer.Id.ToString();
-                    AlarmSummaryInfo = GetAlarmSummaryInfoTaskAsync(customerId).Result;
-                    PowerSummaryInfo = GetPowerSummaryInfoTaskAsync(customerId).Result;
-                    GetTopPowerSummaryInfoList(customerId);
+                    GetAlarmSummaryInfoTaskAsync(customerId);
+                    GetPowerSummaryInfoTaskAsync(customerId);
+                    GetTopPowerSummaryInfoListTaskAsync(customerId);
                 }
             }
         }
+
+        public Task GetTopPowerSummaryInfoListTaskAsync(string s) => Task.Run(() => GetTopPowerSummaryInfoList(s));
 
         private void GetTopPowerSummaryInfoList(string customerId)
         {
@@ -146,13 +148,13 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         }
 
 
-        public Task<PowerSummaryDTO> GetPowerSummaryInfoTaskAsync(string s) => Task.Run(() => GetPowerSummaryInfo(s));
+        public Task<PowerSummaryDTO> GetPowerSummaryInfoTaskAsync(string s) => Task.Run(() => PowerSummaryInfo=GetPowerSummaryInfo(s));
         private PowerSummaryDTO GetPowerSummaryInfo(string customerId)
         {
             return _monitoringSummaryService.GetPowerSummary(customerId);
         }
 
-        public Task<AlarmSummaryDTO> GetAlarmSummaryInfoTaskAsync(string s) => Task.Run(() => GetAlarmSummaryInfo(s));
+        public Task<AlarmSummaryDTO> GetAlarmSummaryInfoTaskAsync(string s) => Task.Run(() => AlarmSummaryInfo = GetAlarmSummaryInfo(s));
         private AlarmSummaryDTO GetAlarmSummaryInfo(string customerId)
         {
             return _monitoringSummaryService.GetAlarmSummary(customerId);

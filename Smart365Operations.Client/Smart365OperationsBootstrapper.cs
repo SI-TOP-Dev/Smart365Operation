@@ -101,10 +101,10 @@ namespace Smart365Operations.Client
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ICameraService, CameraService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ICustomerEquipmentService, CustomerEquipmentService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMonitoringDataService, MonitoringDataService>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<ICameraService, CameraService>();
-            //Container.RegisterType<ICustomerService, CustomerService>();
+         
         }
 
         protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()

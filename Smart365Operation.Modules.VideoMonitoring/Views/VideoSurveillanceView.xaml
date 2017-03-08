@@ -11,6 +11,7 @@
              xmlns:converters="clr-namespace:Smart365Operation.Modules.VideoMonitoring.Converters"
               xmlns:mvvm="http://prismlibrary.com/"
               xmlns:common="clr-namespace:Smart365Operations.Common.Infrastructure.Utility;assembly=Smart365Operations.Common.Infrastructure"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
               mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -32,7 +33,6 @@
             </ListBox>
         </StackPanel>
         <Border Grid.Row="1">
-
             <ItemsControl ItemsSource="{Binding Regions}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

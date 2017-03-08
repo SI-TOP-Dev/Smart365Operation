@@ -18,6 +18,13 @@ namespace Smart365Operation.Modules.VideoMonitoring.Services
     {
         public CameraService()
         {
+            InitializeTaskAsync();
+        }
+
+        private Task InitializeTaskAsync() => Task.Run(() => Initialize());
+
+        private void Initialize()
+        {
             if (HkAction.Start())
             {
                 if (HkAction.GetAccessToken() != null)

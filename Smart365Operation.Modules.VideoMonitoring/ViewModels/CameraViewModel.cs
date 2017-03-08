@@ -12,15 +12,13 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
 {
     public class CameraViewModel : BindableBase
     {
-        private readonly IVideoService _videoService;
         private Camera _camera;
         private string _name;
         private string _id;
         private int _status;
 
-        public CameraViewModel(IVideoService videoService, Camera camera)
+        public CameraViewModel(Camera camera)
         {
-            _videoService = videoService;
             this._camera = camera;
             _name = camera.Name;
             _id = camera.Id;
@@ -46,28 +44,6 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
             set { SetProperty(ref _status, value); }
         }
 
-        private DelegateCommand _playVideoCommand;
-
-        public DelegateCommand PlayVideoCommand
-        {
-            get
-            {
-                if (_playVideoCommand == null)
-                {
-                    _playVideoCommand = new DelegateCommand(PlayVideo, CanPlayVideo);
-                }
-                return _playVideoCommand;
-            }
-        }
-
-        private void PlayVideo()
-        {
-            _videoService.Play(CameraId);
-        }
-
-        private bool CanPlayVideo()
-        {
-            return true;
-        }
+       
     }
 }

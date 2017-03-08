@@ -31,6 +31,20 @@ namespace Smart365Operations.Client
         public DelegateCommand<string> OpenShellCommand => new DelegateCommand<string>(OpenShell);
         public DelegateCommand<string> NavigateCommand => new DelegateCommand<string>(Navigate);
         public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
+        public DelegateCommand CloseShellCommand => new DelegateCommand(CloseShell, CanCloseShell);
+
+        private bool CanCloseShell()
+        {
+            return true;
+        }
+
+        private void CloseShell()
+        {
+            if (IsMainShell)
+            {
+                Environment.Exit(1);
+            }
+        }
 
         private bool _isMainShell = true;
         public bool IsMainShell

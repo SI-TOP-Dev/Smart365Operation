@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Prism.Commands;
 using Prism.Mvvm;
 using Smart365Operation.Modules.VideoMonitoring.Models;
 using Smart365Operation.Modules.VideoMonitoring.Services;
@@ -134,6 +135,33 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
         {
             get { return _selectedIndex; }
             set { SetProperty(ref _selectedIndex, value); }
+        }
+
+
+        private DelegateCommand<object> _playVideoCommand;
+
+        public DelegateCommand<object> PlayVideoCommand
+        {
+            get
+            {
+                if (_playVideoCommand == null)
+                {
+                    _playVideoCommand = new DelegateCommand<object>(PlayVideo, CanPlayVideo);
+                }
+                return _playVideoCommand;
+            }
+        }
+
+        private void PlayVideo(object obj)
+        {
+            var cameraViewModel = obj as CameraViewModel;
+            if (cameraViewModel != null)
+                Play(cameraViewModel.CameraId);
+        }
+
+        private bool CanPlayVideo(object obj)
+        {
+            return true;
         }
 
         private void UpdateDisplayRegions(DisplayMode displayMode)

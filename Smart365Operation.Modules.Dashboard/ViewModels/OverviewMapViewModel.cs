@@ -65,14 +65,10 @@ namespace Smart365Operation.Modules.Dashboard
                     mapMarker.Shape = new CustomerMarker(customerViewModel);
                     customerMonitoringList.Add(customerViewModel);
                     customerMapMarkerList.Add(mapMarker);
-                    //map.Markers.Add(mapMarker);
                 }
-
-                //System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                //{
+                
                 CustomerMonitoringList.AddRange(customerMonitoringList);
                 map.Markers.AddRange(customerMapMarkerList);
-                //}));
             }
             StatisticsViewModel = new DataStatisticsViewModel(_dataStatisticsService);
             RegionManager.RequestNavigate("AlarmRegion", "AlarmTipsView");
