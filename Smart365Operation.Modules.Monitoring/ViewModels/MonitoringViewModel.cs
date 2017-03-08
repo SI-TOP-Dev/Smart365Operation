@@ -81,6 +81,10 @@ namespace Smart365Operation.Modules.Monitoring
                 {
                     SelectedCustomer = CustomerList.FirstOrDefault(c => c.Id == SelectedCustomer.Id);
                 }
+                else
+                {
+                    SelectedCustomer = CustomerList.Count == 0 ? null : CustomerList[0];
+                }
             }));
         }
 
@@ -96,7 +100,7 @@ namespace Smart365Operation.Modules.Monitoring
             var parameter = navigationContext.Parameters.FirstOrDefault(p => p.Key == "CustomerId");
             if (parameter.Value != null)
             {
-                SelectedCustomer = new Customer() {Id = int.Parse(parameter.Value.ToString())};
+                SelectedCustomer = new Customer() { Id = int.Parse(parameter.Value.ToString()) };
             }
             else
             {

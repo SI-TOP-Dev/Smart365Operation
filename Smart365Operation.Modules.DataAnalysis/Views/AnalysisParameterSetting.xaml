@@ -7,9 +7,15 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:utility="clr-namespace:Smart365Operations.Common.Infrastructure.Utility;assembly=Smart365Operations.Common.Infrastructure"
              xmlns:models="clr-namespace:Smart365Operations.Common.Infrastructure.Models;assembly=Smart365Operations.Common.Infrastructure"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />

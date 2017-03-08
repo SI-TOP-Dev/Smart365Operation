@@ -43,32 +43,58 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
         public EquipmentDTO CurrentEquipment
         {
             get { return _currentEquipment; }
-            set { SetProperty(ref _currentEquipment, value); }
+            set
+            {
+                SetProperty(ref _currentEquipment, value);
+                QueryDataCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private DeviceParameterInfoDTO _selectedParameterType;
         public DeviceParameterInfoDTO SelectedParameterType
         {
             get { return _selectedParameterType; }
-            set { SetProperty(ref _selectedParameterType, value); }
+            set
+            {
+                SetProperty(ref _selectedParameterType, value);
+                QueryDataCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private TimeType _selectedTimeType = TimeType.Day;
         public TimeType SelectedTimeType
         {
             get { return _selectedTimeType; }
-            set { SetProperty(ref _selectedTimeType, value); }
+            set
+            {
+                SetProperty(ref _selectedTimeType, value);
+                QueryDataCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private DateTime _selectedDate = DateTime.Now;
         public DateTime SelectedDate
         {
             get { return _selectedDate; }
-            set { SetProperty(ref _selectedDate, value); }
+            set
+            {
+                SetProperty(ref _selectedDate, value);
+                QueryDataCommand.RaiseCanExecuteChanged();
+            }
         }
 
 
+        public DelegateCommand InitializeCommand => new DelegateCommand(Initialize, CanInitialize);
 
+        private bool CanInitialize()
+        {
+            return true;
+        }
+
+        private void Initialize()
+        {
+
+        }
 
         public DelegateCommand QueryDataCommand => new DelegateCommand(QueryData, CanQueryData);
 
@@ -98,6 +124,15 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
         private bool CanQueryData()
         {
             return true;
+            //if (CurrentEquipment != null && SelectedParameterType != null && SelectedDate != null)
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
@@ -109,6 +144,7 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                 var parameterList = _deviceParameterInfoService.GetDeviceParameterList(equipment.equipmentId.ToString());
                 ParameterTypes.Clear();
                 ParameterTypes.AddRange(parameterList);
+                SelectedParameterType = ParameterTypes.Count == 0 ? null : ParameterTypes[0];
             }
         }
 

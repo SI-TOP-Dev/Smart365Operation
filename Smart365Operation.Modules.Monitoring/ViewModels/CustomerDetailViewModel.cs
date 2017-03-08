@@ -180,7 +180,8 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                 {
                     xamlUI = _uiManager.Load(dataBuffer, fileName);
                 }));
-                wiringDiagramUI = xamlUI.UI;
+                if (xamlUI != null)
+                    wiringDiagramUI = xamlUI.UI;
             }
             return wiringDiagramUI;
         }
