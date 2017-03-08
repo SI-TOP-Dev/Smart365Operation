@@ -208,6 +208,7 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
                     HkAction.Stop(region.SessionId);
                 }
             }
+            SelectedIndex = 0;
         }
         #endregion
     }
