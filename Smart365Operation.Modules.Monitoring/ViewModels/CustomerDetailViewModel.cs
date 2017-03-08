@@ -133,22 +133,26 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             var topPowerSummaryList = _monitoringSummaryService.GetTopPowerSummary(customerId,
                     DateTime.Now.AddMonths(-1));
             List<string> labels = new List<string>();
-            var topPowerSummarySeries = new RowSeries();
-            topPowerSummarySeries.Title = "TOP 5";
-            topPowerSummarySeries.Values = new ChartValues<double>();
-            foreach (var topPowerSummary in topPowerSummaryList)
-            {
-                topPowerSummarySeries.Values.Add(double.Parse(topPowerSummary.value));
-                labels.Add(topPowerSummary.equipment);
-            }
-            TopPowerSummaryInfoSeriesCollection.Add(topPowerSummarySeries);
-            TopPowerSummaryInfoLabels.AddRange(labels);
-            TopPowerSummaryInfoFormatter = value => value.ToString();
-            TopPowerSummaryInfoDeviceFormatter = value => value;
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+          {
+              var topPowerSummarySeries = new RowSeries();
+              topPowerSummarySeries.Title = "TOP 5";
+              topPowerSummarySeries.Values = new ChartValues<double>();
+              foreach (var topPowerSummary in topPowerSummaryList)
+              {
+                  topPowerSummarySeries.Values.Add(double.Parse(topPowerSummary.value));
+                  labels.Add(topPowerSummary.equipment);
+              }
+
+              TopPowerSummaryInfoSeriesCollection.Add(topPowerSummarySeries);
+              TopPowerSummaryInfoLabels.AddRange(labels);
+              TopPowerSummaryInfoFormatter = value => value.ToString();
+              TopPowerSummaryInfoDeviceFormatter = value => value;
+          }));
         }
 
 
-        public Task<PowerSummaryDTO> GetPowerSummaryInfoTaskAsync(string s) => Task.Run(() => PowerSummaryInfo=GetPowerSummaryInfo(s));
+        public Task<PowerSummaryDTO> GetPowerSummaryInfoTaskAsync(string s) => Task.Run(() => PowerSummaryInfo = GetPowerSummaryInfo(s));
         private PowerSummaryDTO GetPowerSummaryInfo(string customerId)
         {
             return _monitoringSummaryService.GetPowerSummary(customerId);

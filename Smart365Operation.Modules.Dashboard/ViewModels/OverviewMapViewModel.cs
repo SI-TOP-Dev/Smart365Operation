@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Feeling.GIS.Map;
 using Feeling.GIS.Map.Core;
 using Prism.Mvvm;
@@ -50,6 +51,15 @@ namespace Smart365Operation.Modules.Dashboard
 
         private void Initialize(object obj)
         {
+
+            InitializeDataTaskAsync(obj);
+            RegionManager.RequestNavigate("AlarmRegion", "AlarmTipsView");
+        }
+
+        private Task InitializeDataTaskAsync(object obj) => Task.Run(() => InitializeData(obj));
+
+        private void InitializeData(object obj)
+        {
             var map = obj as MapControl;
             if (map != null)
             {
@@ -58,20 +68,27 @@ namespace Smart365Operation.Modules.Dashboard
                 var customerList = _customerService.GetCustomersBy(agentId);
                 var customerMonitoringList = new List<CustomerMonitoringViewModel>();
                 var customerMapMarkerList = new List<MapMarker>();
-                foreach (var customer in customerList)
-                {
-                    var customerViewModel = new CustomerMonitoringViewModel(_shellService, RegionManager, customer);
-                    var mapMarker = new MapMarker(new PointLatLng(customerViewModel.Latitude, customerViewModel.Longitude));
-                    mapMarker.Shape = new CustomerMarker(customerViewModel);
-                    customerMonitoringList.Add(customerViewModel);
-                    customerMapMarkerList.Add(mapMarker);
-                }
-                
-                CustomerMonitoringList.AddRange(customerMonitoringList);
-                map.Markers.AddRange(customerMapMarkerList);
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+               {
+                   foreach (var customer in customerList)
+                   {
+                       var customerViewModel = new CustomerMonitoringViewModel(_shellService, RegionManager, customer);
+                       var mapMarker = new MapMarker(new PointLatLng(customerViewModel.Latitude, customerViewModel.Longitude));
+                       mapMarker.Shape = new CustomerMarker(customerViewModel);
+                       customerMonitoringList.Add(customerViewModel);
+                       customerMapMarkerList.Add(mapMarker);
+                   }
+
+
+                   CustomerMonitoringList.AddRange(customerMonitoringList);
+                   map.Markers.AddRange(customerMapMarkerList);
+               }));
+
             }
-            StatisticsViewModel = new DataStatisticsViewModel(_dataStatisticsService);
-            RegionManager.RequestNavigate("AlarmRegion", "AlarmTipsView");
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                StatisticsViewModel = new DataStatisticsViewModel(_dataStatisticsService);
+            }));
         }
 
         public IRegionManager RegionManager { get; set; }
