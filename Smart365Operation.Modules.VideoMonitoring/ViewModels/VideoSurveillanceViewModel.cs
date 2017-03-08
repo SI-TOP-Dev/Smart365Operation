@@ -22,14 +22,76 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
         private void MakeRegions(int row, int columns)
         {
             int index = 0;
-            Regions.Clear();
             for (int rowIndex = 0; rowIndex < row; rowIndex++)
             {
                 for (int columnIndex = 0; columnIndex < columns; columnIndex++)
                 {
-                    Regions.Add(new RegionInfo() { ColumnIndex = columnIndex, RowIndex = rowIndex, Index = index++ });
+                    if (Regions.Count < (row * columns))
+                    {
+                        if (Regions.Count <= index)
+                        {
+                            Regions.Add(new RegionInfo() { ColumnIndex = columnIndex, RowIndex = rowIndex, Index = index });
+                        }
+                    }
+                    else if (Regions.Count > (row * columns))
+                    {
+                        int isDisplayingCount = 0;
+                        for (int iNum = 0; iNum < Regions.Count; iNum++)
+                        {
+                            if (Regions[iNum].IsDisplaying)
+                            {
+                                isDisplayingCount++;
+                            }
+                        }
+
+                        if (isDisplayingCount > (row * columns))
+                        {
+                            for (int iNum = row * columns; iNum < Regions.Count; iNum++)
+                            {
+                                if (Regions[iNum].IsDisplaying && Regions[iNum].SessionId != IntPtr.Zero)
+                                {
+                                    HkAction.Stop(Regions[iNum].SessionId);
+                                }
+                            }
+                            for (int iNum = Regions.Count; iNum > row * columns; iNum--)
+                            {
+                                Regions.RemoveAt(iNum - 1);
+                            }
+                        }
+                        else
+                        {
+                            for (int iNum = Regions.Count; iNum > row * columns; iNum--)
+                            {
+                                Regions.RemoveAt(iNum - 1);
+                            }
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                    index++;
                 }
             }
+        }
+
+        private void ResetSelectedIndex()
+        {
+            if (SelectedIndex == 0)
+            {
+                foreach (var region in Regions)
+                {
+                    if (region.IsDisplaying && region.SessionId != IntPtr.Zero)
+                    {
+                        SelectedIndex++;
+                    }
+                }
+            }
+
+            if (SelectedIndex >= Regions.Count - 1)
+                SelectedIndex = 0;
         }
 
         private int _rows = 1;
@@ -76,6 +138,11 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
 
         private void UpdateDisplayRegions(DisplayMode displayMode)
         {
+            if (displayMode == DisplayMode.Stop)
+            {
+                StopAll();
+                return;
+            }
             switch (displayMode)
             {
                 case DisplayMode.One:
@@ -102,6 +169,8 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
                     break;
             }
             MakeRegions(Rows, Columns);
+
+            ResetSelectedIndex();
         }
 
 
@@ -130,6 +199,16 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
             return Regions.FirstOrDefault(r => r.Index == SelectedIndex);
         }
 
+        public void StopAll()
+        {
+            foreach (var region in Regions)
+            {
+                if (region.IsDisplaying && region.SessionId != IntPtr.Zero)
+                {
+                    HkAction.Stop(region.SessionId);
+                }
+            }
+        }
         #endregion
     }
 }

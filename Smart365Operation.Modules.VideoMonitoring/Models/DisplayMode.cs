@@ -12,6 +12,7 @@ namespace Smart365Operation.Modules.VideoMonitoring.Models
         Two,
         Four,
         Six,
-        Nine
+        Nine,
+        Stop
     }
 }
