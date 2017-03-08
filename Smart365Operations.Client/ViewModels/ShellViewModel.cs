@@ -19,7 +19,6 @@ namespace Smart365Operations.Client
         public ShellViewModel(IShellService shellService)
         {
             _shellService = shellService;
-            //Navigate("OverviewMapView");
         }
 
         private string _title;
@@ -33,6 +32,12 @@ namespace Smart365Operations.Client
         public DelegateCommand<string> NavigateCommand => new DelegateCommand<string>(Navigate);
         public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
 
+        private bool _isMainShell = true;
+        public bool IsMainShell
+        {
+            get { return _isMainShell; }
+            set { SetProperty(ref _isMainShell, value); }
+        }
         private void Initialize(object obj)
         {
             //Navigate("OverviewMapView");

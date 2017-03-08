@@ -6,8 +6,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using Smart365Operation.Modules.DataAnalysis.Events;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
 using Smart365Operations.Common.Infrastructure.Models.TO;
@@ -17,11 +19,13 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 {
     public class DataAnaysisViewModel : BindableBase, IRegionManagerAware
     {
+        private readonly IEventAggregator _eventAggregator;
         private readonly ICustomerService _customerService;
         private readonly ICustomerEquipmentService _customerEquipmentService;
 
-        public DataAnaysisViewModel(ICustomerService customerService, ICustomerEquipmentService customerEquipmentService)
+        public DataAnaysisViewModel(IEventAggregator eventAggregator, ICustomerService customerService, ICustomerEquipmentService customerEquipmentService)
         {
+            _eventAggregator = eventAggregator;
             _customerService = customerService;
             _customerEquipmentService = customerEquipmentService;
 
@@ -39,9 +43,10 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 
         private void SelectEquipment(object obj)
         {
+            SelectedEquipment = obj as EquipmentDTO;
             var parameters = new NavigationParameters();
-            parameters.Add("Equipment", obj);
-            RegionManager.RequestNavigate("DataAnaysisRegion", "DataCurveChart", parameters);
+            parameters.Add("Equipment", SelectedEquipment);
+            RegionManager.RequestNavigate("AnalysisSettingRegion", "AnalysisParameterSetting", parameters);
         }
 
         private bool CanInitialize()
@@ -51,7 +56,8 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 
         private void Initialize()
         {
-            
+
+            RegionManager.RequestNavigate("DataChartRegion", "DataCurveChart");
         }
 
         public IRegionManager RegionManager { get; set; }
@@ -73,6 +79,21 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
         {
             get { return _equipmentTableList; }
             set { SetProperty(ref _equipmentTableList, value); }
+        }
+
+        private EquipmentDTO _selectedEquipment;
+        public EquipmentDTO SelectedEquipment
+        {
+            get { return _selectedEquipment; }
+            set
+            {
+                if (value != _selectedEquipment)
+                {
+                    _eventAggregator.GetEvent<SelectedEquipmentChangedEvent>()
+                        .Publish(new SelectedEquipmentChangedEventArg());
+                }
+                SetProperty(ref _selectedEquipment, value);
+            }
         }
 
         private void GetEquipmentTableListTaskAsync(string s) => Task.Run(() => EquipmentTableList = new ObservableCollection<CustomerEquipmentTableDTO>(GetEquipmentTableList(s)));

@@ -8,35 +8,20 @@
              xmlns:utility="clr-namespace:Smart365Operations.Common.Infrastructure.Utility;assembly=Smart365Operations.Common.Infrastructure"
              xmlns:models="clr-namespace:Smart365Operations.Common.Infrastructure.Models;assembly=Smart365Operations.Common.Infrastructure"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              prism:ViewModelLocator.AutoWireViewModel="True"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Vertical">
-            <ListBox ItemsSource="{Binding ParameterTypes}" SelectedItem="{Binding SelectedParameterType}" Style="{StaticResource MaterialDesignToolToggleListBox}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Kind="TemperatureCelsius" />
-                            <TextBlock Text="{Binding typeName}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox ItemsSource="{Binding Source={utility:EnumBindingSource {x:Type models:TimeType}}}" SelectedItem="{Binding SelectedTimeType}" Style="{StaticResource MaterialDesignToolToggleListBox}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
-                            <TextBlock Text="{Binding}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-      
+             mc:Ignorable="d" >
+    <Grid >
+        <lvc:CartesianChart Series="{Binding SeriesCollection}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="时间" Labels="{Binding Labels}"/>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="值" />
+            </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.DataTooltip>
+                <lvc:DefaultTooltip SelectionMode="SharedYInSeries"></lvc:DefaultTooltip>
+            </lvc:CartesianChart.DataTooltip>
+        </lvc:CartesianChart>
     </Grid>
 </UserControl>

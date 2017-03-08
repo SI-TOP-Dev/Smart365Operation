@@ -111,15 +111,18 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             var customer = navigationContext.Parameters["Customer"] as Customer;
             if (customer != null)
             {
-                CurrentCustomer = customer;
-                var customerId = CurrentCustomer.Id.ToString();
-                SetWiringDiagramUITaskAsync(customerId);
-                AlarmSummaryInfo = GetAlarmSummaryInfoTaskAsync(customerId).Result;
-                PowerSummaryInfo = GetPowerSummaryInfoTaskAsync(customerId).Result;
-                GetTopPowerSummaryInfoList(customerId);
-
-
-
+                if (CurrentCustomer != null && CurrentCustomer.Id == customer.Id)
+                {
+                    SetWiringDiagramUITaskAsync(customer.Id.ToString());
+                }
+                else
+                {
+                    CurrentCustomer = customer;
+                    var customerId = CurrentCustomer.Id.ToString();
+                    AlarmSummaryInfo = GetAlarmSummaryInfoTaskAsync(customerId).Result;
+                    PowerSummaryInfo = GetPowerSummaryInfoTaskAsync(customerId).Result;
+                    GetTopPowerSummaryInfoList(customerId);
+                }
             }
         }
 

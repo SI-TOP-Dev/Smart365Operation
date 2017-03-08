@@ -24,7 +24,9 @@ namespace Smart365Operations.Client
         public void ShowShell(string uri, NavigationParameters parameters)
         {
             var shell = _container.Resolve<Shell>();
-            
+
+            (shell.DataContext as ShellViewModel).IsMainShell = false;
+
             var scopedRegion = _regionManager.CreateRegionManager();
             RegionManager.SetRegionManager(shell, scopedRegion);
          

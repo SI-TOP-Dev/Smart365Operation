@@ -85,8 +85,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Interfaces\AlarmDataEventArgs.cs" />
     <Compile Include="Interfaces\ICustomerEquipmentService.cs" />
+    <Compile Include="Interfaces\IHistoryDataService.cs" />
     <Compile Include="Interfaces\IMonitoringDataService.cs" />
     <Compile Include="Interfaces\IMonitoringSummaryService.cs" />
     <Compile Include="Interfaces\IDeviceParameterInfoService.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Interfaces\IWiringDiagramService.cs" />
     <Compile Include="Interfaces\MonitoringDataEventArgs.cs" />
     <Compile Include="KnownRegionNames.cs" />
+    <Compile Include="Models\AlarmInfo.cs" />
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Interfaces\ICameraService.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="Models\TO\CustomerEquipmentTableDTO.cs" />
     <Compile Include="Models\TO\CustomerIncrementsDTO.cs" />
     <Compile Include="Models\TO\CustomerIndustryCategoryDTO.cs" />
+    <Compile Include="Models\TO\HistoryDataDTO.cs" />
     <Compile Include="Models\TO\LoginInfoDTO.cs" />
     <Compile Include="Models\TO\DeviceParameterInfoDTO.cs" />
     <Compile Include="Models\TO\PowerSummaryDTO.cs" />

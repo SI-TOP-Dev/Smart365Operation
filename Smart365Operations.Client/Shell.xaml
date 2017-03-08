@@ -12,10 +12,17 @@
         mc:Ignorable="d"
         Title=""
         WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Height="600" Width="800"
         mvvm:ViewModelLocator.AutoWireViewModel="True">
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style x:Key="MenuButton" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -41,7 +48,7 @@
                               HorizontalAlignment="Right" Margin="16"
                               IsChecked="{Binding Source={x:Reference MainMenuToggleButton}, Path=IsChecked, Mode=TwoWay}" />
                 <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="-1" >
-                    <Button Style="{StaticResource MenuButton}" Content="实时监测" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="MonitoringView"/>
+                    <Button Style="{StaticResource MenuButton}" Content="实时监测" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="Monitoring"/>
                     <Button Style="{StaticResource MenuButton}" Content="视频监测" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="VideoMonitoringView"/>
                     <Button Style="{StaticResource MenuButton}" Content="数据分析" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="DataAnaysisView"/>
                 </ListBox>
@@ -50,21 +57,28 @@
 
         <DockPanel>
             <materialDesign:ColorZone Padding="10" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                          Mode="PrimaryMid" DockPanel.Dock="Top">
+                                      Mode="PrimaryMid" DockPanel.Dock="Top">
                 <DockPanel>
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False" Name="MainMenuToggleButton"/>
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
+                                  Visibility="{Binding IsMainShell,Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  Name="MainMenuToggleButton" />
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">365电力智能运维</TextBlock>
                 </DockPanel>
             </materialDesign:ColorZone>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <ContentControl Grid.Column="0" mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.SubRegion}"/>
-                <ContentControl Grid.Column="1" mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.MainRegion}"
-                            VerticalContentAlignment="Stretch"
-                            HorizontalContentAlignment="Stretch"/>
+                <ContentControl Grid.Column="0"
+                                mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.SubRegion}" />
+                <ContentControl Grid.Column="1"
+                                mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.MainRegion}"
+                                VerticalContentAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch" />
+                <ContentControl Grid.Column="1" 
+                                mvvm:RegionManager.RegionName="AlarmRegion"
+                                VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="60" Margin="0,0,40,20"/>
             </Grid>
         </DockPanel>
 

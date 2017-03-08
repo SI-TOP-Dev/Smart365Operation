@@ -75,7 +75,7 @@ namespace Smart365Operation.Modules.Dashboard
             var parameters = new NavigationParameters();
             parameters.Add("Customer", _customer);
             _shellService.ShowShell("Monitoring", parameters);
-            //_regionManager.RequestNavigate(KnownRegionNames.MainRegion, "Monitoring", parameters);
+           // _regionManager.RequestNavigate(KnownRegionNames.MainRegion, "Monitoring", parameters);
         }
     }
 }

@@ -69,7 +69,10 @@ namespace Smart365Operation.Modules.Monitoring
             var agentId = principal.Identity.Id;
             var customers = _customerService.GetCustomersBy(agentId);
             CustomerList.AddRange(customers);
-
+            if (SelectedCustomer != null)
+            {
+                SelectedCustomer = CustomerList.FirstOrDefault(c => c.Id == SelectedCustomer.Id);
+            }
 
             //_uiManager = UIManager.Instance;
             //_uiManager.Dispatcher = Application.Current.Dispatcher;
@@ -91,10 +94,18 @@ namespace Smart365Operation.Modules.Monitoring
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var customer = navigationContext.Parameters["Customer"] as Customer;
-            if (customer != null)
+            var parameter = navigationContext.Parameters.FirstOrDefault(p => p.Key == "CustomerId");
+            if (parameter.Value != null)
             {
-                SelectedCustomer = customer;
+                SelectedCustomer = new Customer() {Id = int.Parse(parameter.Value.ToString())};
+            }
+            else
+            {
+                parameter = navigationContext.Parameters.FirstOrDefault(p => p.Key == "Customer");
+                if (parameter.Value != null)
+                {
+                    SelectedCustomer = parameter.Value as Customer;
+                }
             }
 
         }
@@ -106,7 +117,7 @@ namespace Smart365Operation.Modules.Monitoring
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public IRegionManager RegionManager { get; set; }

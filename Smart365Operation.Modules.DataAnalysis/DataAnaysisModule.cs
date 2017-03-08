@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
+using Smart365Operation.Modules.DataAnalysis.Services;
 using Smart365Operation.Modules.DataAnalysis.Views;
+using Smart365Operations.Common.Infrastructure.Interfaces;
 
 namespace Smart365Operation.Modules.DataAnalysis
 {
@@ -22,9 +24,12 @@ namespace Smart365Operation.Modules.DataAnalysis
         }
         public void Initialize()
         {
+            _container.RegisterType<IDeviceParameterInfoService, DeviceParameterInfoService>();
+            _container.RegisterType<IHistoryDataService, HistoryDataService>();
             _container.RegisterType(typeof(object), typeof(DataAnaysisView), "DataAnaysisView");
             _container.RegisterType(typeof(object), typeof(DataCurveChart), "DataCurveChart");
-            
+            _container.RegisterType(typeof(object), typeof(AnalysisParameterSetting), "AnalysisParameterSetting");
+
         }
     }
 }

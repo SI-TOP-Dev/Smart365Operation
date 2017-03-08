@@ -76,8 +76,8 @@ namespace Smart365Operations.Client
             ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
             moduleCatalog.AddModule(typeof(MonitoringModule));
             moduleCatalog.AddModule(typeof(VideoMonitoringModule));
-            moduleCatalog.AddModule(typeof(DashboardModule));
             moduleCatalog.AddModule(typeof(DataAnaysisModule));
+            moduleCatalog.AddModule(typeof(DashboardModule));
 
         }
 

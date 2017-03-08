@@ -35,6 +35,13 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <TreeView Name="equipmentTreeView" Grid.Column="0" ItemsSource="{Binding EquipmentTableList}"/>
-        <ContentControl Grid.Column="1" prism:RegionManager.RegionName="DataAnaysisRegion" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <Grid Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ContentControl  Grid.Row="0" prism:RegionManager.RegionName="AnalysisSettingRegion" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="DataChartRegion" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        </Grid>
     </Grid>
 </UserControl>
