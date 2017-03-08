@@ -33,6 +33,9 @@ namespace Smart365Operation.Modules.VideoMonitoring.Converters
                 case DisplayMode.Nine:
                     kind = PackIconKind.Numeric9BoxMultipleOutline;
                     break;
+                case DisplayMode.Stop:
+                    kind = PackIconKind.Stop;
+                    break;
                 default:
                     break;
             }

@@ -26,6 +26,12 @@ namespace Smart365Operation.Modules.VideoMonitoring.Services
                 }
             }
         }
+
+        ~CameraService()
+        {
+            HkAction.Close();
+        }
+
         public IList<Camera> GetCamerasBy(int customerId)
         {
             List<Camera> cameraList = new List<Camera>();
