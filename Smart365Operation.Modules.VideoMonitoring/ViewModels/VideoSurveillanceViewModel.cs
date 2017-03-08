@@ -122,6 +122,10 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
             get { return _selectedDisplayMode; }
             set
             {
+                if (value == DisplayMode.Stop)
+                {
+                    StopAll();
+                }
                 if (value != _selectedDisplayMode)
                 {
                     UpdateDisplayRegions(value);
@@ -166,11 +170,7 @@ namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
 
         private void UpdateDisplayRegions(DisplayMode displayMode)
         {
-            if (displayMode == DisplayMode.Stop)
-            {
-                StopAll();
-                return;
-            }
+           
             switch (displayMode)
             {
                 case DisplayMode.One:
