@@ -136,17 +136,28 @@
                             </Trigger>
                             <EventTrigger RoutedEvent="UIElement.PreviewMouseDown"/>
                             <Trigger Property="IsEnabled" Value="False"/>
-                            <DataTrigger Binding="{Binding AlarmLevel}" Value="-1">
-                                <DataTrigger.EnterActions>
-                                    <RemoveStoryboard BeginStoryboardName="SeriousAlarm"/>
-                                    <RemoveStoryboard BeginStoryboardName="MinorAlarm"/>
-                                </DataTrigger.EnterActions>
-                                <Setter TargetName="TechnicStation_body" Property="Fill" Value="#FF00D200"/>
-                            </DataTrigger>
                             <DataTrigger Binding="{Binding AlarmLevel}" Value="0">
                                 <DataTrigger.EnterActions>
                                     <RemoveStoryboard BeginStoryboardName="SeriousAlarm"/>
-                                    <BeginStoryboard x:Name="MinorAlarm">
+                                    <RemoveStoryboard BeginStoryboardName="Minor2Alarm"/>
+                                    <RemoveStoryboard BeginStoryboardName="Minor3Alarm"/>
+                                </DataTrigger.EnterActions>
+                                <Setter TargetName="TechnicStation_body" Property="Fill" Value="#FF00D200"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding AlarmLevel}" Value="2">
+                                <DataTrigger.EnterActions>
+                                    <RemoveStoryboard BeginStoryboardName="SeriousAlarm"/>
+                                    <BeginStoryboard x:Name="Minor2Alarm">
+                                        <Storyboard>
+                                            <StaticResource ResourceKey="Alarm_Yellow"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding AlarmLevel}" Value="3">
+                                <DataTrigger.EnterActions>
+                                    <RemoveStoryboard BeginStoryboardName="SeriousAlarm"/>
+                                    <BeginStoryboard x:Name="Minor3Alarm">
                                         <Storyboard>
                                             <StaticResource ResourceKey="Alarm_Yellow"/>
                                         </Storyboard>

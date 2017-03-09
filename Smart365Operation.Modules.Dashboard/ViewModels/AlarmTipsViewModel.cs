@@ -21,61 +21,13 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IMonitoringDataService _monitoringDataService;
 
-        public AlarmTipsViewModel(IShellService shellService,IRegionManager regionManager, IMonitoringDataService monitoringDataService)
+        public AlarmTipsViewModel(IShellService shellService, IRegionManager regionManager, IMonitoringDataService monitoringDataService)
         {
             _shellService = shellService;
             _regionManager = regionManager;
             _monitoringDataService = monitoringDataService;
             _monitoringDataService.AlarmDataUpdated += _monitoringDataService_AlarmDataUpdated;
-            AlarmList = new ObservableCollection<AlarmInfo>()
-            {
-                new AlarmInfo()
-                {
-                    Content = "配电室环境湿度阈值越限告警",
-                    CustomerId = 1,
-                    EquipmentId = 1,
-                    Level = 3,
-                    Time = "2017-03-07 10=46=00",
-                    Type = 12
-                },
-                 new AlarmInfo()
-                {
-                    Content = "配电室环境湿度阈值越限告警",
-                    CustomerId = 1,
-                    EquipmentId = 1,
-                    Level = 3,
-                    Time = "2017-03-07 10=46=00",
-                    Type = 12
-                },
-                  new AlarmInfo()
-                {
-                    Content = "配电室环境湿度阈值越限告警",
-                    CustomerId = 1,
-                    EquipmentId = 1,
-                    Level = 3,
-                    Time = "2017-03-07 10=46=00",
-                    Type = 12
-                },
-                   new AlarmInfo()
-                {
-                    Content = "配电室环境湿度阈值越限告警",
-                    CustomerId = 1,
-                    EquipmentId = 1,
-                    Level = 3,
-                    Time = "2017-03-07 10=46=00",
-                    Type = 12
-                },
-            };
 
-            CurrentAlarmInfo = new AlarmInfo()
-            {
-                Content = "配电室环境湿度阈值越限告警",
-                CustomerId = 1,
-                EquipmentId = 1,
-                Level = 3,
-                Time = "2017-03-07 10:46:00",
-                Type = 12
-            };
         }
 
         private void _monitoringDataService_AlarmDataUpdated(object sender, AlarmDataEventArgs e)
@@ -84,8 +36,15 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
             if (!string.IsNullOrEmpty(alarmStr))
             {
                 var alarmInfo = JsonConvert.DeserializeObject<AlarmInfo>(alarmStr);
-                AlarmList.Add(alarmInfo);
-                CurrentAlarmInfo = alarmInfo;
+                if (alarmInfo != null)
+                {
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        AlarmList.Add(alarmInfo);
+                        CurrentAlarmInfo = alarmInfo;
+                        IsShow = true;
+                    }));
+                }
             }
         }
 
@@ -118,6 +77,13 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         {
             var info = obj as AlarmInfo;
             AlarmList.Remove(info);
+        }
+
+        private bool _isShow;
+        public bool IsShow
+        {
+            get { return _isShow; }
+            set { SetProperty(ref _isShow, value); }
         }
 
         private AlarmInfo _currentAlarmInfo;

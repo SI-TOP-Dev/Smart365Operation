@@ -48,6 +48,12 @@ namespace Smart365Operation.Modules.Dashboard
             get { return _hasAlarm; }
             set { SetProperty(ref _hasAlarm, value); }
         }
+        private int _alarmLevel = 0;
+        public int AlarmLevel
+        {
+            get { return _alarmLevel; }
+            set { SetProperty(ref _alarmLevel, value); }
+        }
 
         private double _latitude;
         public double Latitude

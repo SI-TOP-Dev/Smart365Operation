@@ -25,23 +25,5 @@ namespace Smart365Operation.Modules.Dashboard
             InitializeComponent();
             this.DataContext = viewModel;
         }
-
-        private void elevator_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //if (!string.IsNullOrEmpty(Elevators.First().ID))
-            //{
-            //    //MyEventArgs me = new MyEventArgs();
-            //    //me.myEventArgsData = Elevators.First().ID;
-            //    //ComEventDelegate.FireEvent(me);
-            //}
-            //else
-            //{
-            //    //if (popupView.IsOpen)
-            //    //    popupView.IsOpen = false;
-            //    //else
-            //    popupView.IsOpen = true;
-            //}
-        }
-
     }
 }
