@@ -333,7 +333,7 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
-                <Viewbox Name="box" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill">
+                <Viewbox Name="box" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" >
                     <ContentControl Content="{Binding WiringDiagramUI}" />
                 </Viewbox>
             </Grid>

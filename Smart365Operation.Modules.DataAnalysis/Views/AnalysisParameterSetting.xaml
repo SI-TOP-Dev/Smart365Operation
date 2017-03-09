@@ -29,7 +29,8 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="设备:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0"/>
         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentEquipment.equipmentName}" VerticalAlignment="Center" Margin="0,10"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="参数类型:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0"/>
-        <ListBox Grid.Row="1" Grid.Column="1" Margin="0,10" ItemsSource="{Binding ParameterTypes}" SelectedItem="{Binding SelectedParameterType}" Style="{StaticResource MaterialDesignToolToggleListBox}">
+        <ListBox Grid.Row="1" Grid.Column="1" Margin="0,10" ItemsSource="{Binding ParameterTypes}" SelectedItem="{Binding SelectedParameterType}" 
+                 Style="{StaticResource MaterialDesignCardsListBox}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

@@ -15,6 +15,7 @@ using Com.Shengzuo.RuntimeCore.Common;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Smart365Operations.Common.Infrastructure.Models.TO;
+using System.Windows.Controls;
 
 namespace Smart365Operation.Modules.Monitoring.ViewModels
 {
@@ -111,18 +112,27 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             var customer = navigationContext.Parameters["Customer"] as Customer;
             if (customer != null)
             {
-                if (CurrentCustomer != null && CurrentCustomer.Id == customer.Id)
-                {
-                    SetWiringDiagramUITaskAsync(customer.Id.ToString());
-                }
-                else
+                if (CurrentCustomer == null)
                 {
                     CurrentCustomer = customer;
                     var customerId = CurrentCustomer.Id.ToString();
+                    SetWiringDiagramUITaskAsync(customer.Id.ToString());
                     GetAlarmSummaryInfoTaskAsync(customerId);
                     GetPowerSummaryInfoTaskAsync(customerId);
                     GetTopPowerSummaryInfoListTaskAsync(customerId);
                 }
+                else
+                {
+                    SetWiringDiagramUITaskAsync(customer.Id.ToString());
+                    if (CurrentCustomer.Id != customer.Id)
+                    {
+                        var customerId = CurrentCustomer.Id.ToString();
+                        GetAlarmSummaryInfoTaskAsync(customerId);
+                        GetPowerSummaryInfoTaskAsync(customerId);
+                        GetTopPowerSummaryInfoListTaskAsync(customerId);
+                    }
+                }
+               
             }
         }
 
@@ -168,6 +178,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         private FrameworkElement GetWiringDiagramUI(string customerId)
         {
             FrameworkElement wiringDiagramUI = null;
+            
             var wiringDiagramConfig = _wiringDiagramService.GetWiringDiagramConfig(customerId);
             var mainDiagram = wiringDiagramConfig.FirstOrDefault(d => d.isMain == 1);
             if (mainDiagram != null)
@@ -179,9 +190,20 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                 _uiManager.Dispatcher.Invoke(new Action(() =>
                 {
                     xamlUI = _uiManager.Load(dataBuffer, fileName);
+                    if (xamlUI != null)
+                    {
+                        var viewBox = new Viewbox();
+                        viewBox.Stretch = System.Windows.Media.Stretch.Fill;
+                        if(xamlUI.UI.Parent != null)
+                        {
+                            (xamlUI.UI.Parent as Viewbox).Child = null;
+                        }
+                        viewBox.Child = xamlUI.UI;
+                        wiringDiagramUI = viewBox;
+                    }
+                        
                 }));
-                if (xamlUI != null)
-                    wiringDiagramUI = xamlUI.UI;
+               
             }
             return wiringDiagramUI;
         }
