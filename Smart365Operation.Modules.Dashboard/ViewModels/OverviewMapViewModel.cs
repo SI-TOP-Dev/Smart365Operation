@@ -72,7 +72,7 @@ namespace Smart365Operation.Modules.Dashboard
                {
                    foreach (var customer in customerList)
                    {
-                       var customerViewModel = new CustomerMonitoringViewModel(_shellService, RegionManager, customer);
+                       var customerViewModel = new CustomerMonitoringViewModel(_shellService, RegionManager, _monitoringDataService, customer);
                        var mapMarker = new MapMarker(new PointLatLng(customerViewModel.Latitude, customerViewModel.Longitude));
                        mapMarker.Shape = new CustomerMarker(customerViewModel);
                        customerMonitoringList.Add(customerViewModel);

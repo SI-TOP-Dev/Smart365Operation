@@ -124,15 +124,6 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
         private bool CanQueryData()
         {
             return true;
-            //if (CurrentEquipment != null && SelectedParameterType != null && SelectedDate != null)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)

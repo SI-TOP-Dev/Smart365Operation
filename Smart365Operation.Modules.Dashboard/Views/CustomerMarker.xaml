@@ -29,10 +29,10 @@
                                 </ColorAnimationUsingKeyFrames>
                             </Storyboard>
                         </ControlTemplate.Resources>
-                        <Canvas x:Name="pin_content" Background="#00000000"  Width="10" >
-                            <Viewbox HorizontalAlignment="Stretch" Stretch="Uniform" VerticalAlignment="Stretch" Width="23" Height="40">
-                                <Grid Height="138.891" Width="76.668">
-                                    <Ellipse x:Name="light_cir" Fill="#7FFFF600" Height="30" VerticalAlignment="Bottom" Margin="-20,0" RenderTransformOrigin="0.5,0.5" StrokeThickness="2" Stroke="#FFF8B500" Visibility="Collapsed">
+                        <Canvas x:Name="pin_content" Background="#00000000"  Width="20" ClipToBounds="False" >
+                            <Viewbox HorizontalAlignment="Stretch" Stretch="Uniform" VerticalAlignment="Stretch" Width="23" Height="40" >
+                                <Grid Height="138.891" Width="76.668" ClipToBounds="False">
+                                    <Ellipse x:Name="light_cir" Fill="#FF19CE00" Height="30" VerticalAlignment="Bottom" Margin="-20,0" RenderTransformOrigin="0.5,0.5" StrokeThickness="2" Stroke="#FFF8B500" Visibility="Collapsed">
                                         <Ellipse.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform/>
@@ -144,7 +144,7 @@
                                 </DataTrigger.EnterActions>
                                 <Setter TargetName="TechnicStation_body" Property="Fill" Value="#FF00D200"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding AlarmLevel}" Value="2">
+                            <DataTrigger Binding="{Binding AlarmLevel}" Value="1">
                                 <DataTrigger.EnterActions>
                                     <RemoveStoryboard BeginStoryboardName="SeriousAlarm"/>
                                     <BeginStoryboard x:Name="Minor2Alarm">
@@ -154,7 +154,7 @@
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding AlarmLevel}" Value="3">
+                            <DataTrigger Binding="{Binding AlarmLevel}" Value="2">
                                 <DataTrigger.EnterActions>
                                     <RemoveStoryboard BeginStoryboardName="SeriousAlarm"/>
                                     <BeginStoryboard x:Name="Minor3Alarm">
@@ -164,9 +164,10 @@
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding AlarmLevel}" Value="1">
+                            <DataTrigger Binding="{Binding AlarmLevel}" Value="3">
                                 <DataTrigger.EnterActions>
-                                    <RemoveStoryboard BeginStoryboardName="MinorAlarm"/>
+                                    <RemoveStoryboard BeginStoryboardName="Minor2Alarm"/>
+                                    <RemoveStoryboard BeginStoryboardName="Minor3Alarm"/>
                                     <BeginStoryboard x:Name="SeriousAlarm">
                                         <Storyboard>
                                             <StaticResource ResourceKey="Alarm_Red"/>
@@ -179,26 +180,13 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </UserControl.Resources> 
-    <Grid>
-        <Grid Height="40" >
-            <Button Content="Button" Style="{StaticResource TechnicStation}" HorizontalAlignment="Left" VerticalAlignment="Top"
+    </UserControl.Resources>
+
+   
+        <Button Content="Button"  Height="40"  Style="{StaticResource TechnicStation}" HorizontalAlignment="Left" VerticalAlignment="Top"
                     Command="{Binding CustomerSelectedCommand}"/>
-        </Grid>
-        <!--<Viewbox Stretch="Fill" Width="20" >
-            <Path Stretch="Fill" StrokeMiterLimit="2.75"  Fill="Red"  Data="F1 M 272.417,186.642C 272.417,166.023 289.131,149.308 309.75,149.308C 330.369,149.308 347.083,166.023 347.083,186.642C 347.083,207.26 335.083,207.473 309.75,279.642C 283.083,207.473 272.417,207.26 272.417,186.642 Z "/>
-        </Viewbox>
-        <Popup  x:Name="popupView" Placement="Top" StaysOpen="True" >
-            <Grid x:Name="elevatorinfo_show" VerticalAlignment="Center" Visibility="Visible">
-                <Rectangle Fill="White" Opacity="0.5"/>
-                <Grid Margin="5" Opacity="0.995">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="客户名称：" VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding CustomerName}" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-        </Popup>-->
-    </Grid>
+   
+
+
 
 </UserControl>

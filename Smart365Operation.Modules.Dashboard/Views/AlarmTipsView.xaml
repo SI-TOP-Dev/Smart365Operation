@@ -33,7 +33,7 @@
     </UserControl.Resources>
     <Grid>
         <materialDesign:PopupBox Style="{DynamicResource MaterialDesignMultiFloatingActionPopupBox}"
-                                 PlacementMode="LeftAndAlignBottomEdges" IsPopupOpen="{Binding IsShow}"
+                                 PlacementMode="LeftAndAlignBottomEdges" IsPopupOpen="{Binding IsShow,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                  HorizontalAlignment="Right" VerticalAlignment="Bottom" StaysOpen="True">
             <Grid Width="400" Height="200">
                 <Grid.RowDefinitions>

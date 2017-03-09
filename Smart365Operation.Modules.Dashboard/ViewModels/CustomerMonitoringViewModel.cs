@@ -9,25 +9,50 @@ using Prism.Regions;
 using Smart365Operations.Common.Infrastructure;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
+using Newtonsoft.Json;
 
 namespace Smart365Operation.Modules.Dashboard
 {
     public class CustomerMonitoringViewModel : BindableBase
     {
         private readonly IShellService _shellService;
+        private readonly IMonitoringDataService _monitoringDataService;
         private readonly IRegionManager _regionManager;
         private readonly Customer _customer;
 
-        public CustomerMonitoringViewModel(IShellService shellService, IRegionManager regionManager, Customer customer)
+        public CustomerMonitoringViewModel(IShellService shellService,IRegionManager regionManager, IMonitoringDataService monitoringDataService, Customer customer)
         {
             _shellService = shellService;
             _regionManager = regionManager;
+            _monitoringDataService = monitoringDataService;
+            _monitoringDataService.AlarmDataUpdated += _monitoringDataService_AlarmDataUpdated;
             _customer = customer;
             _customerId = customer.Id.ToString();
             _customerName = customer.Name;
             _latitude = string.IsNullOrEmpty(customer.Latitude) ? 0d : double.Parse(customer.Latitude);
             _longitude = string.IsNullOrEmpty(customer.Longitude) ? 0d : double.Parse(customer.Longitude);
         }
+
+        private void _monitoringDataService_AlarmDataUpdated(object sender, AlarmDataEventArgs e)
+        {
+            var alarmStr = e.Data as string;
+            if (!string.IsNullOrEmpty(alarmStr))
+            {
+                var alarmInfo = JsonConvert.DeserializeObject<AlarmInfo>(alarmStr);
+                if (alarmInfo != null)
+                {
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        if (!string.IsNullOrEmpty(CustomerId) && CustomerId == alarmInfo.CustomerId.ToString())
+                        {
+                            HasAlarm = true;
+                            AlarmLevel = alarmInfo.Level;
+                        }
+                    }));
+                }
+            }
+        }
+
         private string _customerId;
         public string CustomerId
         {
@@ -63,6 +88,8 @@ namespace Smart365Operation.Modules.Dashboard
         }
 
         private double _longitude;
+
+
         public double Longitude
         {
             get { return _longitude; }
@@ -81,7 +108,7 @@ namespace Smart365Operation.Modules.Dashboard
             var parameters = new NavigationParameters();
             parameters.Add("Customer", _customer);
             _shellService.ShowShell("Monitoring", parameters);
-           // _regionManager.RequestNavigate(KnownRegionNames.MainRegion, "Monitoring", parameters);
+            // _regionManager.RequestNavigate(KnownRegionNames.MainRegion, "Monitoring", parameters);
         }
     }
 }
