@@ -156,6 +156,11 @@
     <Content Include="ReferenceLibrary\KeNetEditor.Support.Controls.dll" />
     <Content Include="ReferenceLibrary\KeNetEditor.Support.CustomControls.dll" />
     <Content Include="ReferenceLibrary\WpfControlLibrary1.dll" />
+    <Resource Include="Resources\Images\icon01.png" />
+    <Resource Include="Resources\Images\icon02.png" />
+    <Resource Include="Resources\Images\icon03.png" />
+    <Resource Include="Resources\Images\icon04.png" />
+    <Resource Include="Resources\Images\image_default.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,6 +12,7 @@ namespace Smart365Operations.Common.Infrastructure.Models.TO
         public DateTime contractTime { get; set; }
         public string customerAddress { get; set; }
         public int customerId { get; set; }
+        public string customerPic { get; set; }
         public string customerIntroduce { get; set; }
         public string customerLinkman { get; set; }
         public string customerName { get; set; }

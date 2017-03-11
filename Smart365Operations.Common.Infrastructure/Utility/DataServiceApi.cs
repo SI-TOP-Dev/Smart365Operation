@@ -13,7 +13,7 @@ namespace Smart365Operations.Common.Infrastructure.Utility
 {
     public class DataServiceApi
     {
-        private const string BaseUrl = "http://114.215.94.141:8060/365ElectricGuard";// "http://114.215.94.141:8060/365ElectricGuard"; // "http://192.168.8.250:8088/365ElectricGuard";
+        public const string BaseUrl = "http://114.215.94.141:8060/365ElectricGuard";// "http://114.215.94.141:8060/365ElectricGuard"; // "http://192.168.8.250:8088/365ElectricGuard";
 
         private static CookieContainer _cookieContainer = new CookieContainer();
         private static readonly Dictionary<int, string> ResultTable = new Dictionary<int, string>
@@ -89,6 +89,37 @@ namespace Smart365Operations.Common.Infrastructure.Utility
             }
 
             return result;
+        }
+
+        public byte[] Download(RestRequest request)
+        {
+            var client = new RestClient
+            {
+                BaseUrl = new System.Uri(BaseUrl),
+                CookieContainer = _cookieContainer
+            };
+            var response = client.Execute(request);
+
+            if (response.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, response.ErrorException);
+                throw twilioException;
+            }
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var cookie = response.Cookies.FirstOrDefault();
+                if (cookie != null)
+                {
+                    CookieContainer cookiecon = new CookieContainer();
+                    cookiecon.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+                    SetCookieContainer(cookiecon);
+                }
+            }
+
+
+            return response.RawBytes;
         }
 
         private void SetCookieContainer(CookieContainer cookieContainer)

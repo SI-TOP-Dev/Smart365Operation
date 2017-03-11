@@ -39,7 +39,11 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
         private void _monitoringDataService_DataUpdated(object sender, MonitoringDataEventArgs e)
         {
-            _uiManager.UpdateData(e.Key, e.Value);
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                _uiManager.UpdateData(e.Key, e.Value);
+            }));
+           
         }
 
 
@@ -141,7 +145,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         private void GetTopPowerSummaryInfoList(string customerId)
         {
             var topPowerSummaryList = _monitoringSummaryService.GetTopPowerSummary(customerId,
-                    DateTime.Now.AddMonths(-1));
+                    DateTime.Now);
             List<string> labels = new List<string>();
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
           {
@@ -174,7 +178,14 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             return _monitoringSummaryService.GetAlarmSummary(customerId);
         }
 
-        public Task<FrameworkElement> SetWiringDiagramUITaskAsync(string s) => Task.Run(() => WiringDiagramUI = GetWiringDiagramUI(s));
+        public Task SetWiringDiagramUITaskAsync(string s) => Task.Run(() => {
+            var ui = GetWiringDiagramUI(s);
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                WiringDiagramUI = ui;
+            }));
+        });
+
         private FrameworkElement GetWiringDiagramUI(string customerId)
         {
             FrameworkElement wiringDiagramUI = null;
@@ -187,7 +198,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                 var fileName = uri.Segments[uri.Segments.Length - 1];
                 var dataBuffer = GetWiringDiagram(uri);
                 XamlUI xamlUI = null;
-                _uiManager.Dispatcher.Invoke(new Action(() =>
+                Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     xamlUI = _uiManager.Load(dataBuffer, fileName);
                     if (xamlUI != null)

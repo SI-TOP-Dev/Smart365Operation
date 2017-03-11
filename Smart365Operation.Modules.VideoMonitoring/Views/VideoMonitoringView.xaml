@@ -14,6 +14,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
+             Name="videoMonitoringView"
              d:DesignHeight="300" d:DesignWidth="300"
              >
     <i:Interaction.Triggers>
@@ -28,7 +29,7 @@
         </HierarchicalDataTemplate>
         <DataTemplate DataType="{x:Type viewModels:CameraViewModel}">
             <Button Content="{Binding CameraName}" 
-                    Command="{Binding DataContext.PlayVideoCommand,Source={x:Reference videoSurveillanceView}}"
+                    Command="{Binding DataContext.PlayVideoCommand,Source={x:Reference videoMonitoringView}}"
                     CommandParameter="{Binding}"/>
             <!--<TextBlock Text="{Binding CameraName}">
                 <i:Interaction.Triggers>

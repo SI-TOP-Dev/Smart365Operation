@@ -54,7 +54,7 @@ namespace Smart365Operation.Modules.Monitoring.Services
         }
         private void HandleMonitoringData(string key, object obj)
         {
-            Debug.WriteLine($"[{key}:]{obj}");
+            Debug.WriteLine($"[{key}]{obj}");
             if (MonitoringDataUpdated != null)
             {
                 MonitoringDataUpdated(this, new MonitoringDataEventArgs(key, obj));

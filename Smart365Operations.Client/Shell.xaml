@@ -50,10 +50,15 @@
                               DockPanel.Dock="Top"
                               HorizontalAlignment="Right" Margin="16"
                               IsChecked="{Binding Source={x:Reference MainMenuToggleButton}, Path=IsChecked, Mode=TwoWay}" />
-                <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="-1" >
-                    <Button Style="{StaticResource MenuButton}" Content="实时监测" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="Monitoring"/>
-                    <Button Style="{StaticResource MenuButton}" Content="视频监测" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="VideoMonitoringView"/>
-                    <Button Style="{StaticResource MenuButton}" Content="数据分析" Margin="32 0 32 0" Command="{Binding OpenShellCommand}" CommandParameter="DataAnaysisView"/>
+                <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="-1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <!--<ListBox.Resources>
+                        <Style BasedOn="{DynamicResource MaterialDesignListBoxItem}" TargetType="ListBoxItem">
+                            <Setter
+                        </Style>
+                    </ListBox.Resources>--> 
+                    <Button  HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Content="实时监测" Command="{Binding OpenShellCommand}" CommandParameter="Monitoring"/>
+                    <Button  HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Content="视频监测" Command="{Binding OpenShellCommand}" CommandParameter="VideoMonitoringView"/>
+                    <Button  HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Content="数据分析" Command="{Binding OpenShellCommand}" CommandParameter="DataAnaysisView"/>
                 </ListBox>
             </DockPanel>
         </materialDesign:DrawerHost.LeftDrawerContent>

@@ -31,8 +31,8 @@ namespace Smart365Operations.Client.Services
                     Name = customerDto.customerName,
                     Latitude = customerDto.latitude,
                     Longitude = customerDto.longitude,
-                    CompanyProfile=customerDto.customerIntroduce,
-                    Contacts=customerDto.customerLinkman,
+                    CompanyProfile = customerDto.customerIntroduce,
+                    Contacts = customerDto.customerLinkman,
                     ContactsPhone = customerDto.customerPhone,
                     CompanyAddress = customerDto.customerAddress,
                     IndustryType = customerDto.customerType.typeName,
@@ -41,8 +41,17 @@ namespace Smart365Operations.Client.Services
                     MeteringPoint = customerDto.meteringPoint,
                     InstalledCapacity = customerDto.installedCapacity,
                     OperatingCapacity = customerDto.operatingCapacity,
-                    TransformerNumber =customerDto.transformerNumber,
+                    TransformerNumber = customerDto.transformerNumber,
+                   
                 };
+                if (string.IsNullOrEmpty(customerDto.customerPic))
+                {
+                    customer.CustomerPic = "pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/image_default.png";
+                }
+                else
+                {
+                    customer.CustomerPic = DataServiceApi.BaseUrl + "/" + customerDto.customerPic;
+                }              
                 customerList.Add(customer);
             }
 

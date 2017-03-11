@@ -9,15 +9,19 @@ using Prism.Mvvm;
 using Smart365Operation.Modules.VideoMonitoring.Models;
 using Smart365Operation.Modules.VideoMonitoring.Services;
 using Smart365Operation.Modules.VideoMonitoring.Utility;
+using Prism.Events;
 
 namespace Smart365Operation.Modules.VideoMonitoring.ViewModels
 {
     public class VideoSurveillanceViewModel : BindableBase, IVideoService
     {
+        private IEventAggregator _eventAggregator;
 
-        public VideoSurveillanceViewModel()
+        public VideoSurveillanceViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             MakeRegions(Rows, Columns);
+            _eventAggregator.GetEvent<PubSubEvent<string>>().Subscribe(s => Play(s));
         }
 
         private void MakeRegions(int row, int columns)

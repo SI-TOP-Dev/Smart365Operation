@@ -19,5 +19,6 @@ namespace Smart365Operations.Common.Infrastructure.Models
         public DateTime InitiationDate { get; set; }
         public DateTime ContractExpiresDate { get; set; }
         public int TransformerNumber { get; set; }
+        public string CustomerPic { get; set; }
     }
 }

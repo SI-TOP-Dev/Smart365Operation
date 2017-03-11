@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Converters\UriToImageSourceConverter.cs" />
     <Compile Include="Interfaces\AlarmDataEventArgs.cs" />
     <Compile Include="Interfaces\ICustomerEquipmentService.cs" />
     <Compile Include="Interfaces\IHistoryDataService.cs" />

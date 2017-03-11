@@ -7,67 +7,200 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:converters="clr-namespace:Smart365Operations.Common.Infrastructure.Converters;assembly=Smart365Operations.Common.Infrastructure"
              prism:ViewModelLocator.AutoWireViewModel="True"
              ScrollViewer.CanContentScroll="True" 
              ScrollViewer.VerticalScrollBarVisibility="Auto"
+             Height="1024"
              mc:Ignorable="d">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <Grid Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+    <UserControl.Resources>
+        <converters:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+    </UserControl.Resources>
+    <!--<Viewbox Name="box" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" >
+        <ContentControl Content="{Binding WiringDiagramUI}" />
+    </Viewbox>-->
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <TabControl >
+            <TabItem Header="一次接线图">
+                <Viewbox Name="box" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" >
+                    <ContentControl Content="{Binding WiringDiagramUI}" />
+                </Viewbox>
+            </TabItem>
+            <TabItem Header="统计数据">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="20,15,20,50">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <materialDesign:Card Grid.Column="0" Margin="5">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="400" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="400" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Image
-                            Source="pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/Placeholder.png"
-                            Height="400" Width="400"
-                            Stretch="Fill" />
-                            <!--<Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                Margin="0 0 16 -20">
-                            <materialDesign:PackIcon Kind="Bike" />
-                        </Button>-->
-                            <StackPanel Grid.Row="1" Margin="8 24 8 0">
-                                <TextBlock Text="{Binding CurrentCustomer.Name}" FontSize="36" FontWeight="Bold" />
-                                <TextBlock Text="{Binding CurrentCustomer.CompanyProfile}" TextWrapping="Wrap"
-                                       VerticalAlignment="Center" />
-                                <TextBlock Text="{Binding CurrentCustomer.Contacts}" />
-                                <TextBlock Text="{Binding CurrentCustomer.CompanyAddress}" />
-                                <TextBlock Text="{Binding CurrentCustomer.ContactsPhone}" />
-                                <TextBlock Text="{Binding CurrentCustomer.IndustryType}" />
-                            </StackPanel>
-                            <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
-                                <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-                                    materialDesign:RippleAssist.IsCentered="True">
-                                    <materialDesign:PackIcon Kind="ShareVariant" />
-                                </Button>
-                                <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-                                    materialDesign:RippleAssist.IsCentered="True">
-                                    <materialDesign:PackIcon Kind="Heart" />
-                                </Button>
-                            </StackPanel>
+                        <Grid Grid.Row="0" Margin="0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:Card Grid.Column="0"  VerticalAlignment="Stretch" Background="#E9E9E9">
+                                <Grid Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Grid.ColumnSpan="3" 
+                              VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Source="{Binding CurrentCustomer.CustomerPic}" Stretch="Fill" 
+                                   VerticalAlignment="Stretch"
+                                   HorizontalAlignment="Stretch"
+                                   Height="142" Width="142" />
+                                        <!--,Converter={StaticResource UriToImageSourceConverter}-->
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="30,0,0,0">
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="24" FontWeight="Bold" Margin="0,5,0,20" Text="{Binding CurrentCustomer.Name }"/>
+                                            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="18"  TextWrapping="Wrap" Text="{Binding CurrentCustomer.CompanyProfile }"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="18" Text="{Binding CurrentCustomer.CompanyAddress}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontSize="18" Text="{Binding CurrentCustomer.Contacts}" />
+                                    <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="18" Text="{Binding CurrentCustomer.ContactsPhone}"/>
+                                </Grid>
+                            </materialDesign:Card>
+                            <materialDesign:Card Grid.Column="1" Margin="10,0,0,0" Background="#E9E9E9">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="20,20,20,10">
+                                        <Image
+                                Source="pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/icon01.png"
+                                Width="68" Height="68" />
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding CurrentCustomer.TransformerNumber}" FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                                            <TextBlock Text="台" VerticalAlignment="Bottom" FontSize="14" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" Margin="20,20,20,10" >
+                                        <Image Width="68" Height="68" 
+                                 Source="pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/icon02.png"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding CurrentCustomer.InstalledCapacity}" FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                                            <TextBlock Text="kVA" VerticalAlignment="Bottom" FontSize="14" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical"  Margin="20,20,20,10" >
+                                        <Image Width="68" Height="68" 
+                                Source="pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/icon03.png"                                />
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding CurrentCustomer.OperatingCapacity}" FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                                            <TextBlock Text="kVA" VerticalAlignment="Bottom" FontSize="14" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="20,20,20,20" >
+                                        <Image Width="68" Height="68" 
+                                Source="pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/icon04.png"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding CurrentCustomer.MeteringPoint}" FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                                            <TextBlock Text="个" VerticalAlignment="Bottom" FontSize="14" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+
                         </Grid>
-                    </Grid>
-                </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="1" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,6" Background="#E9E9E9">
+                            <lvc:CartesianChart Grid.Row="2" Margin="10, 0, 10, 20" Height="auto"
+                                                Hoverable="False" DataTooltip="{x:Null}">
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Values="50,9,8,6,1,5,7,3,6,30" />
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Grid.Row="2" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="0,6" Background="#E9E9E9">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                                <materialDesign:Card Margin="0,0,20,0" VerticalAlignment="Center">
+                                    <Grid Margin="10,5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Text="今日电量"/>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                            <TextBlock Foreground="#303030" FontSize="40" Text="{Binding PowerSummaryInfo.todayPower}" />
+                                            <TextBlock Foreground="#303030" FontSize="18" VerticalAlignment="Bottom"
+                                               Margin="8, 6" Text="kWh"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                                <materialDesign:Card Margin="0,0,20,0" VerticalAlignment="Center" >
+                                    <Grid Margin="10,5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Text="当月电量"/>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                            <TextBlock Foreground="#303030" FontSize="40" Text="{Binding PowerSummaryInfo.monthPower}" />
+                                            <TextBlock Foreground="#303030" FontSize="18" VerticalAlignment="Bottom"
+                                               Margin="8, 6" Text="kWh"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                                <materialDesign:Card Margin="0,0,0,0" VerticalAlignment="Center">
+                                    <Grid Margin="10,5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Margin="5" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Text="当年电量"/>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                            <TextBlock Foreground="#303030" FontSize="40" Text="{Binding PowerSummaryInfo.yearPower}" />
+                                            <TextBlock Foreground="#303030" FontSize="18" VerticalAlignment="Bottom"
+                                               Margin="8, 6" Text="kWh"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </StackPanel>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Grid.Row="3" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,6" Background="#E9E9E9">
+                            <lvc:CartesianChart Series="{Binding TopPowerSummaryInfoSeriesCollection}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="用电量" LabelFormatter="{Binding TopPowerSummaryInfoFormatter}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="用电设备" Labels="{Binding TopPowerSummaryInfoLabels}" LabelFormatter="{Binding TopPowerSummaryInfoDeviceFormatter}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.DataTooltip>
+                                    <lvc:DefaultTooltip SelectionMode="SharedYValues"></lvc:DefaultTooltip>
+                                </lvc:CartesianChart.DataTooltip>
+                            </lvc:CartesianChart>
+                        </materialDesign:Card>
+
+                        <!--<Grid Grid.Row="1" Visibility="Collapsed">
                 <DockPanel Grid.Column="1" Margin="5">
                     <materialDesign:Card Margin="5" DockPanel.Dock="Top">
                         <StackPanel Orientation="Horizontal">
@@ -164,7 +297,9 @@
                                 <lvc:CartesianChart Grid.Row="2" Margin="0, 0, 0, 0" Series="{Binding LastHourSeries}"
                                                 Hoverable="False" DataTooltip="{x:Null}">
                                     <lvc:CartesianChart.AxisX>
-                                        <!--a small visual improvement, lets hide the first points (x = 0, x=1) to get better animations-->
+                                        -->
+                        <!--a small visual improvement, lets hide the first points (x = 0, x=1) to get better animations-->
+                        <!--
                                         <lvc:Axis MinValue="2"></lvc:Axis>
                                     </lvc:CartesianChart.AxisX>
                                 </lvc:CartesianChart>
@@ -331,13 +466,17 @@
                         </lvc:CartesianChart.DataTooltip>
                     </lvc:CartesianChart>
                 </StackPanel>
-            </Grid>
-            <Grid Grid.Row="1">
-                <Viewbox Name="box" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" >
+                -->
+                        <!--<Viewbox Name="box" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill" >
                     <ContentControl Content="{Binding WiringDiagramUI}" />
-                </Viewbox>
-            </Grid>
-        
-        </Grid>
+                </Viewbox>-->
+                        <!--
+            </Grid>-->
+
+
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
     </ScrollViewer>
 </UserControl>
