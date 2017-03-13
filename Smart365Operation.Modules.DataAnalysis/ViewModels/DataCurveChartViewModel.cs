@@ -13,6 +13,11 @@ using Smart365Operation.Modules.DataAnalysis.Events;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models.TO;
 using LiveCharts.Configurations;
+using Prism.Commands;
+using System.Windows.Media;
+using System.Windows;
+using LiveCharts.Wpf.Components;
+using Smart365Operations.Common.Infrastructure.Models;
 
 namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 {
@@ -30,8 +35,20 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                 .X(m => (double)m.DateTime.Ticks / TimeSpan.FromHours(1).Ticks)
                 .Y(m => m.Value);
             SeriesCollection = new SeriesCollection(_dateConfig);
+            SeriesCollection.CollectionChanged += SeriesCollection_CollectionChanged;
+            SeriesCollection.NoisyCollectionChanged += SeriesCollection_NoisyCollectionChanged;
             _eventAggregator.GetEvent<HistoryDataUpdatedEvent>().Subscribe(UpdateHistoryDataSeriesCollection);
             _eventAggregator.GetEvent<SelectedEquipmentChangedEvent>().Subscribe(ResetHistoryDataSeriesCollection);
+        }
+
+        private void SeriesCollection_NoisyCollectionChanged(IEnumerable<LiveCharts.Definitions.Series.ISeriesView> oldItems, IEnumerable<LiveCharts.Definitions.Series.ISeriesView> newItems)
+        {
+            // throw new NotImplementedException();
+        }
+
+        private void SeriesCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         private void ResetHistoryDataSeriesCollection(SelectedEquipmentChangedEventArg obj)
@@ -42,7 +59,9 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
         private void UpdateHistoryDataSeriesCollection(HistoryDataUpdatedEventArg arg)
         {
             var dataList = arg.HistoryDataDtos.ToList();
+            var timeType = arg.DataTimeType;
             SeriesCollection.Clear();
+            SeriesList.Clear();
             if (dataList.Count > 0)
             {
                 foreach (var historyData in dataList)
@@ -57,9 +76,54 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                     SeriesCollection.Add(lineSeries);
                 }
                 string unit = dataList[0]?.unit;
-                var labelList = new List<string>();
-                XFormatter = value => new System.DateTime((long)(value * TimeSpan.FromHours(1).Ticks)).ToString("yyyy-MM-dd HH:mm");
-                YFormatter = value => $"{value}{unit}";
+                string dateFormat = string.Empty;
+                switch (timeType)
+                {
+                    case TimeType.Day:
+                        dateFormat = "yyyy-MM-dd HH:mm";
+                        break;
+                    case TimeType.Month:
+                        dateFormat = "yyyy-MM-dd";
+                        break;
+                    case TimeType.Year:
+                        dateFormat = "yyyy-MM";
+                        break;
+                    default:
+                        break;
+                }
+                XFormatter = value => new System.DateTime((long)(value * TimeSpan.FromHours(1).Ticks)).ToString(dateFormat);
+                YFormatter = value => $"{value} {unit}";
+                var colors = CartesianChart.Colors;
+                int index = 0;
+                foreach (var item in SeriesCollection.Chart.View.ActualSeries)
+                {
+                    var seriesItem = (item as Series);
+                    if (seriesItem != null)
+                    {
+                       var color =  colors.ElementAt(index++);
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        {
+                            SeriesList.Add(new SeriesInfo()
+                            {
+                                Title = seriesItem.Title,
+                                Fill = new SolidColorBrush(color),// == null ? (seriesItem as IFondeable).PointForeround : seriesItem.Fill,
+                                Stroke = seriesItem.Stroke,
+                                StrokeThickness = seriesItem.StrokeThickness
+                            });
+                        }));
+
+                    }
+                }
+            }
+        }
+
+        private ObservableCollection<SeriesInfo> _seriesList = new ObservableCollection<SeriesInfo>();
+        public ObservableCollection<SeriesInfo> SeriesList
+        {
+            get { return _seriesList; }
+            set
+            {
+                SetProperty(ref _seriesList, value);
             }
         }
 
@@ -91,11 +155,65 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                 SetProperty(ref _yFormatter, value);
             }
         }
+
+
+        public DelegateCommand<object> CheckCommand => new DelegateCommand<object>(CheckVisible, CanCheckVisible);
+        public DelegateCommand InitializeChartInfoCommand => new DelegateCommand(InitializeChartInfo, CanInitializeChartInfo);
+
+        private bool CanInitializeChartInfo()
+        {
+            return true;
+        }
+
+        private void InitializeChartInfo()
+        {
+            //foreach (var item in SeriesCollection.Chart.View.ActualSeries)
+            //{
+            //    var seriesItem = (item as Series);
+            //    if (seriesItem != null)
+            //    {
+            //        SeriesList.Add(new SeriesInfo()
+            //        {
+            //            Title = seriesItem.Title,
+            //            Fill = seriesItem.Fill,
+            //            Stroke = seriesItem.Stroke,
+            //            StrokeThickness = seriesItem.StrokeThickness
+            //        });
+            //    }
+            //}
+        }
+
+        private void CheckVisible(object obj)
+        {
+            string title = obj as string;
+            var series = SeriesCollection.FirstOrDefault(s => s.Title == title);
+            if (series != null)
+            {
+                var element = (series as System.Windows.FrameworkElement);
+                if (element != null)
+                {
+                    element.Visibility = element.Visibility == System.Windows.Visibility.Visible ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+                }
+            }
+        }
+
+        private bool CanCheckVisible(object arg)
+        {
+            return true;
+        }
     }
 
     public class DateModel
     {
         public DateTime DateTime { get; set; }
         public double Value { get; set; }
+    }
+
+    public class SeriesInfo
+    {
+        public string Title { get; set; }
+        public Brush Stroke { get; set; }
+        public double StrokeThickness { get; set; }
+        public Brush Fill { get; set; }
     }
 }

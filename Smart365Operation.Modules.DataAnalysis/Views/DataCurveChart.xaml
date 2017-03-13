@@ -9,10 +9,44 @@
              xmlns:models="clr-namespace:Smart365Operations.Common.Infrastructure.Models;assembly=Smart365Operations.Common.Infrastructure"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" >
-    <Grid >
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ItemsControl ItemsSource="{Binding SeriesList}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Grid.IsSharedSizeScope="True">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate >
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Title"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Name="visibleCheckBox" IsChecked="True"  Command="{Binding DataContext.CheckCommand,RelativeSource={RelativeSource AncestorType=ItemsControl} }" CommandParameter="{Binding Title}" />
+                        <Rectangle Grid.Column="1" Stroke="{Binding Stroke}" Fill="{Binding Fill}" 
+                               Width="15" Height="15"/>
+                        <TextBlock Grid.Column="2" Margin="4 0" Text="{Binding Title}" Foreground="Black" VerticalAlignment="Center" />
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=visibleCheckBox,Path=IsChecked}" Value="False">
+                            <Setter Property="Opacity" Value="0.6"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+                
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <lvc:CartesianChart Grid.Row="1" Series="{Binding SeriesCollection}" 
+                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="时间" LabelFormatter="{Binding XFormatter}"/>
             </lvc:CartesianChart.AxisX>

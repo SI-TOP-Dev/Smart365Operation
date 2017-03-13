@@ -117,7 +117,7 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
             }
             var dataList = _historyDataService.GetHistoryDataList(CurrentEquipment.equipmentId.ToString(),
                 _selectedParameterType.typeId.ToString(), SelectedTimeType, SelectedDate.ToString(selectedDateFormat));
-            _eventAggregator.GetEvent<HistoryDataUpdatedEvent>().Publish(new HistoryDataUpdatedEventArg(dataList));
+            _eventAggregator.GetEvent<HistoryDataUpdatedEvent>().Publish(new HistoryDataUpdatedEventArg(dataList,SelectedTimeType));
 
         }
 

@@ -107,6 +107,9 @@
     <Compile Include="Views\AnalysisParameterSetting.xaml.cs">
       <DependentUpon>AnalysisParameterSetting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CustomLegend.xaml.cs">
+      <DependentUpon>CustomLegend.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DataAnalysisView.xaml.cs">
       <DependentUpon>DataAnalysisView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +122,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AnalysisParameterSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomLegend.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
