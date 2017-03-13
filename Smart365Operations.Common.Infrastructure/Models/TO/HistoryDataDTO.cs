@@ -21,7 +21,7 @@ namespace Smart365Operations.Common.Infrastructure.Models.TO
 
     public class DatavalueDTO
     {
-        public string time { get; set; }
+        public DateTime time { get; set; }
         public string value { get; set; }
     }
 

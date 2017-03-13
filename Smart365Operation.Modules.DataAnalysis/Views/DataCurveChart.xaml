@@ -14,14 +14,11 @@
     <Grid >
         <lvc:CartesianChart Series="{Binding SeriesCollection}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="时间" Labels="{Binding Labels}"/>
+                <lvc:Axis Title="时间" LabelFormatter="{Binding XFormatter}"/>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="值" />
+                <lvc:Axis Title="值" LabelFormatter="{Binding YFormatter}" />
             </lvc:CartesianChart.AxisY>
-            <lvc:CartesianChart.DataTooltip>
-                <lvc:DefaultTooltip SelectionMode="SharedYInSeries"></lvc:DefaultTooltip>
-            </lvc:CartesianChart.DataTooltip>
         </lvc:CartesianChart>
     </Grid>
 </UserControl>
