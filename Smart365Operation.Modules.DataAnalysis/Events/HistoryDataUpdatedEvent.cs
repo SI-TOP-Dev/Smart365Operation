@@ -15,13 +15,16 @@ namespace Smart365Operation.Modules.DataAnalysis.Events
 
     public class HistoryDataUpdatedEventArg
     {
-        public HistoryDataUpdatedEventArg(IEnumerable<HistoryDataDTO> historyDatas,TimeType dataTimeType)
+        public HistoryDataUpdatedEventArg(IEnumerable<HistoryDataDTO> historyDatas,TimeType dataTimeType,string dataTypeName)
         {
             HistoryDataDtos = historyDatas;
             DataTimeType = dataTimeType;
+            DataTypeName = dataTypeName;
         }
 
         public IEnumerable<HistoryDataDTO> HistoryDataDtos { get; set; }
         public TimeType DataTimeType { get; set; }
+        public string DataTypeName { get; set; }
+
     }
 }

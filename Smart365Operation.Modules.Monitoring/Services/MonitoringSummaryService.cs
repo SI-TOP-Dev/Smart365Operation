@@ -36,5 +36,14 @@ namespace Smart365Operation.Modules.Monitoring.Services
             var topPowerDTOList = httpServiceApi.Execute<List<TopPowerDTO>>(request);
             return topPowerDTOList;
         }
+
+        public IList<DevicePowerInfoDTO> GetDevicePowerInfo(string deviceId, DateTime dateTime)
+        {
+            DataServiceApi httpServiceApi = new DataServiceApi();
+            var request = new RestRequest($"data/equipment/power/list.json?equipmentId={deviceId}&time={dateTime.ToString("yyyy-MM")}", Method.GET);
+            var devicePowerInfoList = httpServiceApi.Execute<List<DevicePowerInfoDTO>>(request);
+            return devicePowerInfoList;
+
+        }
     }
 }

@@ -936,33 +936,37 @@
                                 </RadialGradientBrush>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <RepeatButton x:Name="repeatbtn_left"  Content="RepeatButton" HorizontalAlignment="Left" Margin="1.659,9.336,0,11.367" Style="{DynamicResource left_RepeatButton}" Width="16.498" Background="#FF6390CC" Cursor="Hand" ToolTip="向左平移"/>
-                        <RepeatButton x:Name="repeatbtn_right"  Content="RepeatButton" HorizontalAlignment="Right" Margin="0,9.336,3.119,11.367" Style="{DynamicResource right_RepeatButton}" Width="16.498" Background="#FF6390CC" Cursor="Hand" ToolTip="向右平移"/>
-                        <RepeatButton x:Name="repeatbtn_top"  Content="RepeatButton" Height="16.361" Margin="9.336,1.796,10.796,0" Style="{DynamicResource top_Repeatbutton}" VerticalAlignment="Top" Background="#FF6390CC" Cursor="Hand" ToolTip="向上平移"/>
-                        <RepeatButton x:Name="repeatbtn_bottom"  Content="RepeatButton" Height="16.498" Margin="9.199,0,10.659,3.69" Style="{DynamicResource bottom_RepeatButton}" VerticalAlignment="Bottom" Background="#FF6390CC" Cursor="Hand" ToolTip="向下平移"/>
-                        <RepeatButton x:Name="repeatbtn_hand"  Content="RepeatButton" Margin="15.75,15.75,17.21,17.918" Style="{DynamicResource hand_repeatbutton}" Cursor="Hand" ToolTip="右键拖动"/>
+                        <RepeatButton x:Name="repeatbtn_left" Click="repeatbtn_left_Click" Content="RepeatButton" HorizontalAlignment="Left" Margin="1.659,9.336,0,11.367" Style="{DynamicResource left_RepeatButton}" Width="16.498" Background="#FF6390CC" Cursor="Hand" ToolTip="向左平移"/>
+                        <RepeatButton x:Name="repeatbtn_right" Click="repeatbtn_right_Click"  Content="RepeatButton" HorizontalAlignment="Right" Margin="0,9.336,3.119,11.367" Style="{DynamicResource right_RepeatButton}" Width="16.498" Background="#FF6390CC" Cursor="Hand" ToolTip="向右平移"/>
+                        <RepeatButton x:Name="repeatbtn_top" Click="repeatbtn_top_Click"  Content="RepeatButton" Height="16.361" Margin="9.336,1.796,10.796,0" Style="{DynamicResource top_Repeatbutton}" VerticalAlignment="Top" Background="#FF6390CC" Cursor="Hand" ToolTip="向上平移"/>
+                        <RepeatButton x:Name="repeatbtn_bottom" Click="repeatbtn_bottom_Click"  Content="RepeatButton" Height="16.498" Margin="9.199,0,10.659,3.69" Style="{DynamicResource bottom_RepeatButton}" VerticalAlignment="Bottom" Background="#FF6390CC" Cursor="Hand" ToolTip="向下平移"/>
+                        <RepeatButton x:Name="repeatbtn_hand" Click="repeatbtn_hand_Click" Content="RepeatButton" Margin="15.75,15.75,17.21,17.918" Style="{DynamicResource hand_repeatbutton}" Cursor="Hand" ToolTip="右键拖动"/>
                     </Grid>
                 </Viewbox>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
-            <materialDesign:PopupBox 
+            <materialDesign:PopupBox Background="#E9E9E9"
                                      PlacementMode="LeftAndAlignTopEdges"  HorizontalAlignment="Right" VerticalAlignment="Top" 
-                                     IsPopupOpen="False"><!--Style="{DynamicResource MaterialDesignMultiFloatingActionAccentPopupBox}"-->
+                                     IsPopupOpen="False">
+                <!--Style="{DynamicResource MaterialDesignMultiFloatingActionAccentPopupBox}"-->
                 <materialDesign:PopupBox.ToggleCheckedContent>
                     <materialDesign:PackIcon Kind="ViewDashboard" Width="24" Height="24" />
                 </materialDesign:PopupBox.ToggleCheckedContent>
-                <StackPanel Margin="10,20" Orientation="Vertical">
-                    <lvc:CartesianChart Series="{Binding StatisticsViewModel.CustomerIncrementsInfoSeriesCollection}" LegendLocation="Bottom" Width="300" Height="200">
-                        <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Labels="{Binding StatisticsViewModel.CustomerIncrementsLabels}"/>
-                        </lvc:CartesianChart.AxisX>
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis LabelFormatter="{Binding StatisticsViewModel.CustomerIncrementsFormatter}"></lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                    </lvc:CartesianChart>
-                    <lvc:PieChart Series="{Binding StatisticsViewModel.CustomerIndustryCategorySeriesCollection}"  LegendLocation="Bottom" Width="200" Height="200">
-                        <!--<lvc:PieChart.Series>
+                <materialDesign:Card Background="#E9E9E9">
+                    <StackPanel Margin="10,20" Orientation="Vertical" >
+                        <TextBlock Text="月新增客户数" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <lvc:CartesianChart Series="{Binding StatisticsViewModel.CustomerIncrementsInfoSeriesCollection}" LegendLocation="Bottom" Width="300" Height="200" Margin="0,0,0,20">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Labels="{Binding StatisticsViewModel.CustomerIncrementsLabels}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis LabelFormatter="{Binding StatisticsViewModel.CustomerIncrementsFormatter}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                        <TextBlock Text="客户分类统计图" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <lvc:PieChart Series="{Binding StatisticsViewModel.CustomerIndustryCategorySeriesCollection}"  LegendLocation="Bottom" Width="200" Height="200" Margin="0,0,0,20">
+                            <!--<lvc:PieChart.Series>
                             <lvc:PieSeries Title="Maria" Values="3" DataLabels="True" PushOut="20" 
                                LabelPoint="{Binding PointLabel}"/>
                             <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
@@ -972,16 +976,18 @@
                             <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
                                LabelPoint="{Binding PointLabel}"/>
                         </lvc:PieChart.Series>-->
-                    </lvc:PieChart>
-                    <lvc:CartesianChart Series="{Binding StatisticsViewModel.AlarmStatisticsSeriesCollection}" LegendLocation="Bottom" Width="300" Height="200">
-                        <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Labels="{Binding StatisticsViewModel.AlarmStatisticsLabels}"/>
-                        </lvc:CartesianChart.AxisX>
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis LabelFormatter="{Binding StatisticsViewModel.AlarmStatisticsFormatter}"></lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                    </lvc:CartesianChart>
-                </StackPanel>
+                        </lvc:PieChart>
+                        <TextBlock Text="告警统计图" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <lvc:CartesianChart Series="{Binding StatisticsViewModel.AlarmStatisticsSeriesCollection}" LegendLocation="Bottom" Width="300" Height="200" Margin="0,0,0,10">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Labels="{Binding StatisticsViewModel.AlarmStatisticsLabels}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis LabelFormatter="{Binding StatisticsViewModel.AlarmStatisticsFormatter}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </StackPanel>
+                </materialDesign:Card>
             </materialDesign:PopupBox>
         </Grid>
     </Grid>

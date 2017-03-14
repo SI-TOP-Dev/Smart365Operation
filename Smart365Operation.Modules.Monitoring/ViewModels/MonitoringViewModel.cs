@@ -25,7 +25,7 @@ namespace Smart365Operation.Modules.Monitoring
         //private readonly IMonitoringDataService _monitoringDataService;
         //private UIManager _uiManager;
 
-        public MonitoringViewModel(ICustomerService customerService, IWiringDiagramService wiringDiagramService)
+        public MonitoringViewModel(ICustomerService customerService,  IWiringDiagramService wiringDiagramService)
         {
             _customerService = customerService;
             _wiringDiagramService = wiringDiagramService;
@@ -74,6 +74,7 @@ namespace Smart365Operation.Modules.Monitoring
             var principal = Thread.CurrentPrincipal as SystemPrincipal;
             var agentId = principal.Identity.Id;
             var customers = _customerService.GetCustomersBy(agentId);
+          
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 CustomerList.AddRange(customers);

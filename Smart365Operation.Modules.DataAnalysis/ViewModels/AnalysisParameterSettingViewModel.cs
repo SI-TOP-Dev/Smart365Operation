@@ -50,7 +50,7 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
             }
         }
 
-        private DeviceParameterInfoDTO _selectedParameterType;
+        private DeviceParameterInfoDTO _selectedParameterType = null;
         public DeviceParameterInfoDTO SelectedParameterType
         {
             get { return _selectedParameterType; }
@@ -96,11 +96,28 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 
         }
 
-        public DelegateCommand QueryDataCommand => new DelegateCommand(QueryData, CanQueryData);
+        private DelegateCommand _queryDataCommand;
+        public DelegateCommand QueryDataCommand
+        {
+            get
+            {
+                if (_queryDataCommand == null)
+                {
+                    _queryDataCommand = new DelegateCommand(QueryData, CanQueryData);
+                }
+                return _queryDataCommand;
+            }
+        }
 
         private void QueryData()
         {
             string selectedDateFormat = string.Empty;
+
+            if (SelectedParameterType == null || SelectedDate == null || CurrentEquipment == null)
+            {
+                return;
+            }
+
             switch (SelectedTimeType)
             {
                 case TimeType.Day:
@@ -115,14 +132,20 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                 default:
                     break;
             }
+           
             var dataList = _historyDataService.GetHistoryDataList(CurrentEquipment.equipmentId.ToString(),
                 _selectedParameterType.typeId.ToString(), SelectedTimeType, SelectedDate.ToString(selectedDateFormat));
-            _eventAggregator.GetEvent<HistoryDataUpdatedEvent>().Publish(new HistoryDataUpdatedEventArg(dataList,SelectedTimeType));
+            _eventAggregator.GetEvent<HistoryDataUpdatedEvent>().Publish(new HistoryDataUpdatedEventArg(dataList,SelectedTimeType,SelectedParameterType.typeName));
 
         }
 
         private bool CanQueryData()
         {
+            var type = SelectedTimeType;
+            if (SelectedParameterType == null)
+            {
+                return false;
+            }
             return true;
         }
 

@@ -16,6 +16,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using Smart365Operations.Common.Infrastructure.Models.TO;
 using System.Windows.Controls;
+using LiveCharts.Configurations;
 
 namespace Smart365Operation.Modules.Monitoring.ViewModels
 {
@@ -24,26 +25,34 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         private readonly IWiringDiagramService _wiringDiagramService;
         private readonly IMonitoringDataService _monitoringDataService;
         private readonly IMonitoringSummaryService _monitoringSummaryService;
+        private readonly ICustomerEquipmentService _customerEquipmentService;
         private UIManager _uiManager;
 
-        public CustomerDetailViewModel(IWiringDiagramService wiringDiagramService, IMonitoringDataService monitoringDataService, IMonitoringSummaryService monitoringSummaryService)
+        public CustomerDetailViewModel(ICustomerEquipmentService customerEquipmentService, IWiringDiagramService wiringDiagramService, IMonitoringDataService monitoringDataService, IMonitoringSummaryService monitoringSummaryService)
         {
             _wiringDiagramService = wiringDiagramService;
             _monitoringDataService = monitoringDataService;
             _monitoringSummaryService = monitoringSummaryService;
+            _customerEquipmentService = customerEquipmentService;
             _monitoringDataService.MonitoringDataUpdated += _monitoringDataService_DataUpdated;
             _uiManager = UIManager.Instance;
             _uiManager.Dispatcher = Application.Current.Dispatcher;
             _uiManager.EnableSafeMode = true;
+
         }
 
         private void _monitoringDataService_DataUpdated(object sender, MonitoringDataEventArgs e)
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            //{
+            var action = new Action(() =>
             {
                 _uiManager.UpdateData(e.Key, e.Value);
-            }));
-           
+            });
+            action.BeginInvoke(null, null);
+
+            //}));
+
         }
 
 
@@ -54,6 +63,40 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             set { SetProperty(ref _currentCustomer, value); }
         }
 
+        private ObservableCollection<EquipmentDTO> _deviceList = new ObservableCollection<EquipmentDTO>();
+        public ObservableCollection<EquipmentDTO> DeviceList
+        {
+            get { return _deviceList; }
+            set { SetProperty(ref _deviceList, value); }
+        }
+
+        private EquipmentDTO _selectedDevice;
+        public EquipmentDTO SelectedDevice
+        {
+            get { return _selectedDevice; }
+            set
+            {
+                if (value != _selectedDevice)
+                {
+                    GetDevicePowerInfoTaskAsync(value.equipmentId.ToString(), SelectedDate);
+                }
+                SetProperty(ref _selectedDevice, value);
+            }
+        }
+
+        private DateTime _selectedDate = DateTime.Now;
+        public DateTime SelectedDate
+        {
+            get { return _selectedDate; }
+            set
+            {
+                if (value.Year != _selectedDate.Year || value.Month != _selectedDate.Month)
+                {
+                    GetDevicePowerInfoTaskAsync(SelectedDevice.equipmentId.ToString(), value);
+                }
+                SetProperty(ref _selectedDate, value);
+            }
+        }
 
         private FrameworkElement _wiringDiagramUI;
         public FrameworkElement WiringDiagramUI
@@ -111,6 +154,27 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             set { SetProperty(ref _topPowerSummaryInfoDeviceFormatter, value); }
         }
 
+        private SeriesCollection _devicePowerSeriesCollection;
+        public SeriesCollection DevicePowerSeriesCollection
+        {
+            get { return _devicePowerSeriesCollection; }
+            set { SetProperty(ref _devicePowerSeriesCollection, value); }
+        }
+
+        private Func<double, string> _devicePowerXFormatter;
+        public Func<double, string> DevicePowerXFormatter
+        {
+            get { return _devicePowerXFormatter; }
+            set { SetProperty(ref _devicePowerXFormatter, value); }
+        }
+
+        private Func<double, string> _devicePowerYFormatter;
+        public Func<double, string> DevicePowerYFormatter
+        {
+            get { return _devicePowerYFormatter; }
+            set { SetProperty(ref _devicePowerYFormatter, value); }
+        }
+
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             var customer = navigationContext.Parameters["Customer"] as Customer;
@@ -121,6 +185,8 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                     CurrentCustomer = customer;
                     var customerId = CurrentCustomer.Id.ToString();
                     SetWiringDiagramUITaskAsync(customer.Id.ToString());
+
+                    GetDefaultDevicePowerInfoTaskAsync(customerId);
                     GetAlarmSummaryInfoTaskAsync(customerId);
                     GetPowerSummaryInfoTaskAsync(customerId);
                     GetTopPowerSummaryInfoListTaskAsync(customerId);
@@ -131,13 +197,76 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                     if (CurrentCustomer.Id != customer.Id)
                     {
                         var customerId = CurrentCustomer.Id.ToString();
+                        GetDefaultDevicePowerInfoTaskAsync(customerId);
                         GetAlarmSummaryInfoTaskAsync(customerId);
                         GetPowerSummaryInfoTaskAsync(customerId);
                         GetTopPowerSummaryInfoListTaskAsync(customerId);
                     }
                 }
-               
+
             }
+        }
+
+        public Task GetDefaultDevicePowerInfoTaskAsync(string customerId) => Task.Run(() =>
+        {
+            GetDefaultDevicePowerInfo(customerId);
+        });
+        private void GetDefaultDevicePowerInfo(string customerId)
+        {
+            var deviceSummaryList = _customerEquipmentService.GetCustomerEquipmentTable(customerId);
+            List<EquipmentDTO> deviceList = new List<EquipmentDTO>();
+            deviceSummaryList.areaList.ForEach(a => a.switchingRoomList.ForEach(r => deviceList.AddRange(r.equipmentList)));
+            deviceList = deviceList.Distinct(new EquipmentIdComparer()).ToList();
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                DeviceList.Clear();
+                DeviceList.AddRange(deviceList);
+                SelectedDevice = DeviceList.Count != 0 ? DeviceList[0] : null;
+            }));
+            if (SelectedDevice != null)
+                GetDevicePowerInfoTaskAsync(SelectedDevice.equipmentId.ToString(), DateTime.Now);
+        }
+
+        public Task GetDevicePowerInfoTaskAsync(string deviceId, DateTime dateTime) => Task.Run(() =>
+        {
+            GetDevicePowerInfo(deviceId, dateTime);
+        });
+
+        private void GetDevicePowerInfo(string deviceId, DateTime dateTime)
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (DevicePowerSeriesCollection == null)
+                {
+                    var _dateConfig = Mappers.Xy<DateModel>()
+                    .X(m => (double)m.DateTime.Ticks / TimeSpan.FromHours(1).Ticks)
+                    .Y(m => m.Value);
+                    DevicePowerSeriesCollection = new SeriesCollection(_dateConfig);
+                }
+                else
+                {
+                    DevicePowerSeriesCollection?.Clear();
+                }
+            }));
+            var devicePowerInfoList = _monitoringSummaryService.GetDevicePowerInfo(deviceId, dateTime);
+            if (devicePowerInfoList.Count == 0)
+            {
+                return;
+            }
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                var lineSeries = new LineSeries();
+                lineSeries.Title = "电量";
+                lineSeries.Values = new ChartValues<DateModel>();
+
+                foreach (var devicePowerItem in devicePowerInfoList)
+                {
+                    lineSeries.Values.Add(new DateModel { Value = devicePowerItem.value, DateTime = devicePowerItem.time });
+                    DevicePowerSeriesCollection.Add(lineSeries);
+                }
+                DevicePowerXFormatter = value => new System.DateTime((long)(value * TimeSpan.FromHours(1).Ticks)).ToString("yyyy-MM-dd");
+                DevicePowerYFormatter = value => $"{value} kWh";
+            }));
         }
 
         public Task GetTopPowerSummaryInfoListTaskAsync(string s) => Task.Run(() => GetTopPowerSummaryInfoList(s));
@@ -150,7 +279,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
           {
               var topPowerSummarySeries = new RowSeries();
-              topPowerSummarySeries.Title = "TOP 5";
+              topPowerSummarySeries.Title = "电量";
               topPowerSummarySeries.Values = new ChartValues<double>();
               foreach (var topPowerSummary in topPowerSummaryList)
               {
@@ -160,8 +289,8 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
               TopPowerSummaryInfoSeriesCollection.Add(topPowerSummarySeries);
               TopPowerSummaryInfoLabels.AddRange(labels);
-              TopPowerSummaryInfoFormatter = value => value.ToString();
-              TopPowerSummaryInfoDeviceFormatter = value => value;
+              TopPowerSummaryInfoFormatter = value => $"{value.ToString()} kWh";
+              TopPowerSummaryInfoDeviceFormatter = value => $"{value} kWh";
           }));
         }
 
@@ -178,7 +307,8 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             return _monitoringSummaryService.GetAlarmSummary(customerId);
         }
 
-        public Task SetWiringDiagramUITaskAsync(string s) => Task.Run(() => {
+        public Task SetWiringDiagramUITaskAsync(string s) => Task.Run(() =>
+        {
             var ui = GetWiringDiagramUI(s);
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
@@ -189,7 +319,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         private FrameworkElement GetWiringDiagramUI(string customerId)
         {
             FrameworkElement wiringDiagramUI = null;
-            
+
             var wiringDiagramConfig = _wiringDiagramService.GetWiringDiagramConfig(customerId);
             var mainDiagram = wiringDiagramConfig.FirstOrDefault(d => d.isMain == 1);
             if (mainDiagram != null)
@@ -205,16 +335,16 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                     {
                         var viewBox = new Viewbox();
                         viewBox.Stretch = System.Windows.Media.Stretch.Fill;
-                        if(xamlUI.UI.Parent != null)
+                        if (xamlUI.UI.Parent != null)
                         {
                             (xamlUI.UI.Parent as Viewbox).Child = null;
                         }
                         viewBox.Child = xamlUI.UI;
                         wiringDiagramUI = viewBox;
                     }
-                        
+
                 }));
-               
+
             }
             return wiringDiagramUI;
         }
@@ -245,5 +375,28 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         }
 
 
+    }
+    public class DateModel
+    {
+        public DateTime DateTime { get; set; }
+        public double Value { get; set; }
+    }
+
+    class EquipmentIdComparer : IEqualityComparer<EquipmentDTO>
+    {
+        public bool Equals(EquipmentDTO x, EquipmentDTO y)
+        {
+            if (x == null)
+                return y == null;
+            return x.equipmentId == y.equipmentId;
+        }
+
+
+        public int GetHashCode(EquipmentDTO obj)
+        {
+            if (obj == null)
+                return 0;
+            return obj.equipmentId.GetHashCode(); ;
+        }
     }
 }

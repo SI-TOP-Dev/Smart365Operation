@@ -119,6 +119,7 @@
     <Compile Include="Models\TO\CustomerEquipmentTableDTO.cs" />
     <Compile Include="Models\TO\CustomerIncrementsDTO.cs" />
     <Compile Include="Models\TO\CustomerIndustryCategoryDTO.cs" />
+    <Compile Include="Models\TO\DevicePowerInfoDTO.cs" />
     <Compile Include="Models\TO\HistoryDataDTO.cs" />
     <Compile Include="Models\TO\LoginInfoDTO.cs" />
     <Compile Include="Models\TO\DeviceParameterInfoDTO.cs" />

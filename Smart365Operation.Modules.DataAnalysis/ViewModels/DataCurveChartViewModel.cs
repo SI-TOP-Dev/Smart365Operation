@@ -34,34 +34,26 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
             _dateConfig = Mappers.Xy<DateModel>()
                 .X(m => (double)m.DateTime.Ticks / TimeSpan.FromHours(1).Ticks)
                 .Y(m => m.Value);
+
             SeriesCollection = new SeriesCollection(_dateConfig);
-            SeriesCollection.CollectionChanged += SeriesCollection_CollectionChanged;
-            SeriesCollection.NoisyCollectionChanged += SeriesCollection_NoisyCollectionChanged;
+         
             _eventAggregator.GetEvent<HistoryDataUpdatedEvent>().Subscribe(UpdateHistoryDataSeriesCollection);
             _eventAggregator.GetEvent<SelectedEquipmentChangedEvent>().Subscribe(ResetHistoryDataSeriesCollection);
         }
 
-        private void SeriesCollection_NoisyCollectionChanged(IEnumerable<LiveCharts.Definitions.Series.ISeriesView> oldItems, IEnumerable<LiveCharts.Definitions.Series.ISeriesView> newItems)
-        {
-            // throw new NotImplementedException();
-        }
-
-        private void SeriesCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            //throw new NotImplementedException();
-        }
-
         private void ResetHistoryDataSeriesCollection(SelectedEquipmentChangedEventArg obj)
         {
-            SeriesCollection.Clear();
+            ResetDataSeries();
         }
 
         private void UpdateHistoryDataSeriesCollection(HistoryDataUpdatedEventArg arg)
         {
             var dataList = arg.HistoryDataDtos.ToList();
             var timeType = arg.DataTimeType;
-            SeriesCollection.Clear();
-            SeriesList.Clear();
+            var dataTypeName = arg.DataTypeName;
+
+            ResetDataSeries();
+
             if (dataList.Count > 0)
             {
                 foreach (var historyData in dataList)
@@ -100,7 +92,8 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                     var seriesItem = (item as Series);
                     if (seriesItem != null)
                     {
-                       var color =  colors.ElementAt(index++);
+
+                        var color = colors.ElementAt(index++);
                         Application.Current.Dispatcher.Invoke(new Action(() =>
                         {
                             SeriesList.Add(new SeriesInfo()
@@ -115,6 +108,21 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                     }
                 }
             }
+            DataTypeName = dataTypeName;
+        }
+
+        private void ResetDataSeries()
+        {
+            SeriesCollection.Clear();
+            SeriesList.Clear();
+            DataTypeName = string.Empty;
+        }
+
+        private string _dataTypeName = string.Empty;
+        public string DataTypeName
+        {
+            get { return _dataTypeName; }
+            set { SetProperty(ref _dataTypeName, value); }
         }
 
         private ObservableCollection<SeriesInfo> _seriesList = new ObservableCollection<SeriesInfo>();
@@ -158,31 +166,7 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 
 
         public DelegateCommand<object> CheckCommand => new DelegateCommand<object>(CheckVisible, CanCheckVisible);
-        public DelegateCommand InitializeChartInfoCommand => new DelegateCommand(InitializeChartInfo, CanInitializeChartInfo);
-
-        private bool CanInitializeChartInfo()
-        {
-            return true;
-        }
-
-        private void InitializeChartInfo()
-        {
-            //foreach (var item in SeriesCollection.Chart.View.ActualSeries)
-            //{
-            //    var seriesItem = (item as Series);
-            //    if (seriesItem != null)
-            //    {
-            //        SeriesList.Add(new SeriesInfo()
-            //        {
-            //            Title = seriesItem.Title,
-            //            Fill = seriesItem.Fill,
-            //            Stroke = seriesItem.Stroke,
-            //            StrokeThickness = seriesItem.StrokeThickness
-            //        });
-            //    }
-            //}
-        }
-
+ 
         private void CheckVisible(object obj)
         {
             string title = obj as string;

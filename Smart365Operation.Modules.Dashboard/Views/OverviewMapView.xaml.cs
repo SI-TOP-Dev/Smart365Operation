@@ -33,9 +33,9 @@ namespace Smart365Operation.Modules.Dashboard
         {
             Map.Manager.Mode = AccessMode.ServerAndCache;
             Map.Position = new PointLatLng(34.210170, 108.869360);
-            Map.Zoom = 1;
+            // Map.Zoom = 1;
             Map.MaxZoom = 16;
-            Map.Zoom = 12;
+            Map.Zoom = 10;
             Map.MapTileType = MapType.GoogleMapChina;
             //comboBoxMapType.ItemsSource = Enum.GetValues(typeof(MapType));
             //var currentMarker = new MapMarker(Map.Position);
@@ -46,6 +46,31 @@ namespace Smart365Operation.Modules.Dashboard
             //    Map.Markers.Add(currentMarker);
             //}
 
+        }
+
+        private void repeatbtn_left_Click(object sender, RoutedEventArgs e)
+        {
+            Map.MoveMap(50, 0);
+        }
+
+        private void repeatbtn_right_Click(object sender, RoutedEventArgs e)
+        {
+            Map.MoveMap(-50, 0);
+        }
+
+        private void repeatbtn_top_Click(object sender, RoutedEventArgs e)
+        {
+            Map.MoveMap(0, 50);
+        }
+
+        private void repeatbtn_bottom_Click(object sender, RoutedEventArgs e)
+        {
+            Map.MoveMap(0, -50);
+        }
+
+        private void repeatbtn_hand_Click(object sender, RoutedEventArgs e)
+        {
+            Map.Cursor = Cursors.Hand;
         }
     }
 }
