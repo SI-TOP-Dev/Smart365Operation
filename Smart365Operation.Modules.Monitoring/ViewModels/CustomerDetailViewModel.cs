@@ -34,10 +34,11 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             _monitoringDataService = monitoringDataService;
             _monitoringSummaryService = monitoringSummaryService;
             _customerEquipmentService = customerEquipmentService;
-            _monitoringDataService.MonitoringDataUpdated += _monitoringDataService_DataUpdated;
             _uiManager = UIManager.Instance;
             _uiManager.Dispatcher = Application.Current.Dispatcher;
             _uiManager.EnableSafeMode = true;
+
+            _monitoringDataService.MonitoringDataUpdated += _monitoringDataService_DataUpdated;
 
         }
 
