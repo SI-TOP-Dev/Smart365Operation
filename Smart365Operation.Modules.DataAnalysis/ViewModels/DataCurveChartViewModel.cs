@@ -61,6 +61,8 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                     var lineSeries = new LineSeries();
                     lineSeries.Title = historyData.pointName;
                     lineSeries.Values = new ChartValues<DateModel>();
+                    lineSeries.LabelPoint = value => $"{value.Y} {historyData.unit}";
+
                     foreach (var dataValue in historyData.dataValue)
                     {
                         lineSeries.Values.Add(new DateModel { Value = double.Parse(dataValue.value), DateTime = dataValue.time });

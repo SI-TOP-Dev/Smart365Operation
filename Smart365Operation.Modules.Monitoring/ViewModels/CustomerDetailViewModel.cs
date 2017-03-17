@@ -44,16 +44,12 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
         private void _monitoringDataService_DataUpdated(object sender, MonitoringDataEventArgs e)
         {
-            //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-            //{
+
             var action = new Action(() =>
             {
                 _uiManager.UpdateData(e.Key, e.Value);
             });
             action.BeginInvoke(null, null);
-
-            //}));
-
         }
 
 
@@ -169,6 +165,13 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             set { SetProperty(ref _devicePowerXFormatter, value); }
         }
 
+        private List<string> _devicePowerXLabels = new List<string>();
+        public List<string> DevicePowerXLabels
+        {
+            get { return _devicePowerXLabels; }
+            set { SetProperty(ref _devicePowerXLabels, value); }
+        }
+
         private Func<double, string> _devicePowerYFormatter;
         public Func<double, string> DevicePowerYFormatter
         {
@@ -216,7 +219,11 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         {
             var deviceSummaryList = _customerEquipmentService.GetCustomerEquipmentTable(customerId);
             List<EquipmentDTO> deviceList = new List<EquipmentDTO>();
-            deviceSummaryList.areaList.ForEach(a => a.switchingRoomList.ForEach(r => deviceList.AddRange(r.equipmentList)));
+            deviceSummaryList.areaList.ForEach(a => a.switchingRoomList.ForEach(r =>
+            {
+                var result = r.equipmentList.Where(e => e.equipmentType != 0);
+                deviceList.AddRange(result);
+            }));
             deviceList = deviceList.Distinct(new EquipmentIdComparer()).ToList();
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
@@ -235,12 +242,12 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
         private void GetDevicePowerInfo(string deviceId, DateTime dateTime)
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 if (DevicePowerSeriesCollection == null)
                 {
                     var _dateConfig = Mappers.Xy<DateModel>()
-                    .X(m => (double)m.DateTime.Ticks / TimeSpan.FromHours(1).Ticks)
+                    .X(m => (long)m.DateTime.Ticks / TimeSpan.FromDays(1).Ticks)
                     .Y(m => m.Value);
                     DevicePowerSeriesCollection = new SeriesCollection(_dateConfig);
                 }
@@ -254,7 +261,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             {
                 return;
             }
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 var lineSeries = new LineSeries();
                 lineSeries.Title = "电量";
@@ -262,10 +269,10 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
                 foreach (var devicePowerItem in devicePowerInfoList)
                 {
-                    lineSeries.Values.Add(new DateModel { Value = devicePowerItem.value, DateTime = devicePowerItem.time });
-                    DevicePowerSeriesCollection.Add(lineSeries);
+                    lineSeries.Values.Add(new DateModel() { Value = devicePowerItem.value, DateTime = devicePowerItem.time });
                 }
-                DevicePowerXFormatter = value => new System.DateTime((long)(value * TimeSpan.FromHours(1).Ticks)).ToString("yyyy-MM-dd");
+                DevicePowerSeriesCollection.Add(lineSeries);
+                DevicePowerXFormatter = value => new System.DateTime((long)(value * TimeSpan.FromDays(1).Ticks)).ToString("yyyy-MM-dd");
                 DevicePowerYFormatter = value => $"{value} kWh";
             }));
         }
@@ -291,7 +298,8 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
               TopPowerSummaryInfoSeriesCollection.Add(topPowerSummarySeries);
               TopPowerSummaryInfoLabels.AddRange(labels);
               TopPowerSummaryInfoFormatter = value => $"{value.ToString()} kWh";
-              TopPowerSummaryInfoDeviceFormatter = value => $"{value} kWh";
+              /*  TopPowerSummaryInfoDeviceFormatter = value => $"{value} kWh"*/
+              ;
           }));
         }
 

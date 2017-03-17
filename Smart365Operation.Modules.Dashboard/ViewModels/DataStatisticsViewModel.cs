@@ -148,14 +148,14 @@ namespace Smart365Operation.Modules.Dashboard
             }
             var alarmCountColumnSeries = new StackedColumnSeries
             {
-                Title = "告警总数",
+                Title = "每月发生次数",
                 Values = new ChartValues<int>(alarmCountList),
                 StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
                 DataLabels = true
             };
             var untreatedCountColumnSeries = new StackedColumnSeries
             {
-                Title = "未处理告警数",
+                Title = "未处理报警次数",
                 Values = new ChartValues<int>(untreatedCountList),
                 StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
                 DataLabels = true

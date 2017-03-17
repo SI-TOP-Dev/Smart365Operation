@@ -955,7 +955,7 @@
                 </materialDesign:PopupBox.ToggleCheckedContent>
                 <materialDesign:Card Background="#E9E9E9">
                     <StackPanel Margin="10,20" Orientation="Vertical" >
-                        <TextBlock Text="月新增客户数" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="每月新增客户数" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <lvc:CartesianChart Series="{Binding StatisticsViewModel.CustomerIncrementsInfoSeriesCollection}" LegendLocation="Bottom" Width="300" Height="200" Margin="0,0,0,20">
                             <lvc:CartesianChart.AxisX>
                                 <lvc:Axis Labels="{Binding StatisticsViewModel.CustomerIncrementsLabels}"/>
@@ -966,18 +966,8 @@
                         </lvc:CartesianChart>
                         <TextBlock Text="客户分类统计图" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <lvc:PieChart Series="{Binding StatisticsViewModel.CustomerIndustryCategorySeriesCollection}"  LegendLocation="Bottom" Width="200" Height="200" Margin="0,0,0,20">
-                            <!--<lvc:PieChart.Series>
-                            <lvc:PieSeries Title="Maria" Values="3" DataLabels="True" PushOut="20" 
-                               LabelPoint="{Binding PointLabel}"/>
-                            <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                            <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                            <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                        </lvc:PieChart.Series>-->
                         </lvc:PieChart>
-                        <TextBlock Text="告警统计图" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="报警统计图" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <lvc:CartesianChart Series="{Binding StatisticsViewModel.AlarmStatisticsSeriesCollection}" LegendLocation="Bottom" Width="300" Height="200" Margin="0,0,0,10">
                             <lvc:CartesianChart.AxisX>
                                 <lvc:Axis Labels="{Binding StatisticsViewModel.AlarmStatisticsLabels}"/>
