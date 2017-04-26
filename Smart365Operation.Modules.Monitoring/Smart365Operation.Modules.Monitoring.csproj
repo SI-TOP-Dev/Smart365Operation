@@ -121,11 +121,15 @@
     <Compile Include="Services\WiringDiagramService.cs" />
     <Compile Include="ViewModels\CustomerDetailViewModel.cs" />
     <Compile Include="ViewModels\MonitoringViewModel.cs" />
+    <Compile Include="ViewModels\WiringDiagramViewModel.cs" />
     <Compile Include="Views\CustomerDetail.xaml.cs">
       <DependentUpon>CustomerDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Monitoring.xaml.cs">
       <DependentUpon>Monitoring.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WiringDiagramView.xaml.cs">
+      <DependentUpon>WiringDiagramView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Monitoring.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WiringDiagramView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

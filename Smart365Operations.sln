@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart365Operations.Client", "Smart365Operations.Client\Smart365Operations.Client.csproj", "{CD6E321E-3A48-4500-8FD8-2B669905522F}"
 EndProject
@@ -24,6 +24,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hardborn.DataMonitoring.RuntimeCore", "Hardborn.DataMonitoring.RuntimeCore\Hardborn.DataMonitoring.RuntimeCore.csproj", "{21BC75F5-A39C-4963-B683-9C525C8B0D6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart365Operation.Modules.DataAnalysis", "Smart365Operation.Modules.DataAnalysis\Smart365Operation.Modules.DataAnalysis.csproj", "{9613273A-BB8E-4F55-B95A-8AD1F60BB22C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart365.Common.Themes", "Smart365.Common.Themes\Smart365.Common.Themes.csproj", "{BE9BD04A-01B4-47DB-9AF3-67FF070F4592}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart365.Themes.Test", "Smart365.Themes.Test\Smart365.Themes.Test.csproj", "{FC93E276-7653-4793-9952-379B8FE1A1AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +71,14 @@ Global
 		{9613273A-BB8E-4F55-B95A-8AD1F60BB22C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9613273A-BB8E-4F55-B95A-8AD1F60BB22C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9613273A-BB8E-4F55-B95A-8AD1F60BB22C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE9BD04A-01B4-47DB-9AF3-67FF070F4592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE9BD04A-01B4-47DB-9AF3-67FF070F4592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE9BD04A-01B4-47DB-9AF3-67FF070F4592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE9BD04A-01B4-47DB-9AF3-67FF070F4592}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC93E276-7653-4793-9952-379B8FE1A1AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC93E276-7653-4793-9952-379B8FE1A1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC93E276-7653-4793-9952-379B8FE1A1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC93E276-7653-4793-9952-379B8FE1A1AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,5 +92,6 @@ Global
 		{53EFCA7A-300C-4CA1-87D4-27EAD00E0674} = {36073197-EF3C-45E2-94C6-BF90920F739A}
 		{21BC75F5-A39C-4963-B683-9C525C8B0D6F} = {9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}
 		{9613273A-BB8E-4F55-B95A-8AD1F60BB22C} = {36073197-EF3C-45E2-94C6-BF90920F739A}
+		{BE9BD04A-01B4-47DB-9AF3-67FF070F4592} = {9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}
 	EndGlobalSection
 EndGlobal

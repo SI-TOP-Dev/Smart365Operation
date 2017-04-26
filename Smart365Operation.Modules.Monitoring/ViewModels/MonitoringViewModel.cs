@@ -64,6 +64,12 @@ namespace Smart365Operation.Modules.Monitoring
 
         private void Initialize()
         {
+            var parameters = new NavigationParameters();
+            parameters.Add("Customer", SelectedCustomer);
+            RegionManager.RequestNavigate("CustomerDetailRegion", "CustomerDetail", parameters);
+            RegionManager.RequestNavigate("WiringDiagramRegion", "WiringDiagramView", parameters);
+            RegionManager.RequestNavigate("VideoMonitoringRegion", "VideoMonitoringView", parameters);
+            RegionManager.RequestNavigate("DataAnaysisRegion", "DataAnaysisView", parameters);
             InitializeDataTaskAsync();
         }
 

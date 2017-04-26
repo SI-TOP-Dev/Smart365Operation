@@ -8,21 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Name="LoginView"
-        Title="LoginScreen"
-        SizeToContent="WidthAndHeight"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
-        ResizeMode="NoResize"
-        MinWidth="300"
-        BorderThickness="4"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{StaticResource MaterialDesignFont}"
-        AllowsTransparency="True">
+        Style="{DynamicResource LoginWindowStyle}"  WindowState="Maximized">
     <Window.Resources>
         <!--<Style TargetType="TextBox">
             <Setter Property="Margin" Value="4"/>
@@ -37,80 +23,32 @@
             <Setter Property="MinWidth" Value="75"/>
         </Style>-->
     </Window.Resources>
-
-    <!--<Window.BorderBrush>
-        <RadialGradientBrush>
-            <GradientStop Color="#FF404070" Offset="0"/>
-            <GradientStop Color="#55000000" Offset="1"/>
-        </RadialGradientBrush>
-    </Window.BorderBrush>-->
-
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-            <!--<Label HorizontalAlignment="Stretch"
-                   HorizontalContentAlignment="Center"
-                   Foreground="#FFD3D9EE"
-                   FontWeight="Normal"
-                   FontSize="16"
-                   FontFamily="Calibri"
-                   Content="365电力智能运维系统">
-                <Label.Background>
-                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                        <GradientStop Color="#FF293262" Offset="0"/>
-                        <GradientStop Color="#FF5A6DCD" Offset="0.4"/>
-                        <GradientStop Color="#FF5A6DCD" Offset="0.6"/>
-                        <GradientStop Color="#FF293262" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Background>
-            </Label>-->
-            <Image Source="..\Resources\Images\home_title.png" Width="460" Height="68" Margin="20,10"/>
-            <!--<Border Height="5">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF525252" Offset="0"/>
-                        <GradientStop Color="#00FFFFFF" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>-->
-        </StackPanel>
-
-
-       
-
-        <TextBox Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="用户名" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"                 
-                 Margin="40,10"
-                 FontSize="18" Text="{Binding UserName}"/>
-        <PasswordBox Grid.Column="1" Grid.Row="2" materialDesign:HintAssist.Hint="密码" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
-                     Margin="40,10"
-                     FontSize="16"
-                     utility:PasswordHelper.Attach="True"
+        <Image x:Name="linebg" VerticalAlignment="Bottom" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/loginmapbg2.png"/>
+        <Image x:Name="mapbg" VerticalAlignment="Top" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/loginmapbg.png"/>
+        <Grid x:Name="login_box" HorizontalAlignment="Center" VerticalAlignment="Center" Height="434" Margin="0,-50,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="14"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="15"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="166"/>
+                <RowDefinition/>
+                <RowDefinition Height="83"/>
+                <RowDefinition Height="15"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="image1" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/login-box.png" Stretch="None" Grid.RowSpan="4" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.ColumnSpan="3"/>
+            <Button x:Name="btn_login" Content="Button" Grid.Column="1" Grid.Row="2" Style="{DynamicResource btn_login}" IsDefault="True"
+                    Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=LoginView}"/>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Top" Width="339">
+                <TextBox Text="{Binding UserName}" Height="42" TextWrapping="Wrap" d:LayoutOverrides="LeftPosition, RightPosition" Width="340" VerticalContentAlignment="Center" Margin="0,0,0,20" Style="{DynamicResource textbox_login}" Tag="请输入用户名"/>
+                <PasswordBox Height="42" Width="340" materialDesign:HintAssist.Hint="密码" VerticalContentAlignment="Center" Margin="0,0,-1,20" Style="{DynamicResource key_login}" Tag="请输入密码"
+                              utility:PasswordHelper.Attach="True"
                      utility:PasswordHelper.Password="{Binding Password, Mode=TwoWay}"/>
-        <!--<Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
-               HorizontalAlignment="Center"
-               Foreground="Gray"
-               FontStyle="Italic"
-               Content="admin/123"/>-->
-
-        <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Bottom"
-                    Margin="15"
-                    HorizontalAlignment="Right" Height="Auto">
-            <Button Content="登录" IsDefault="True" Width="75" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=LoginView}" Margin="0,0,20,0"/>
-            <Button Content="取消" IsCancel="True" Width="75"/>
-        </StackPanel>
-
+                <!--<TextBox x:Name="passworld" Height="42" TextWrapping="Wrap" Width="340" VerticalContentAlignment="Center" Margin="0,0,-1,20" Style="{DynamicResource key_textbox_login}" Tag="请输入密码" d:LayoutOverrides="LeftPosition, RightPosition" Background="{x:Null}" BorderBrush="{x:Null}"/>-->
+            </StackPanel>
+        </Grid>
     </Grid>
+   
 </Window>

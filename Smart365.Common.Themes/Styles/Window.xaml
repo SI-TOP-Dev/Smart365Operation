@@ -1,0 +1,159 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:local="clr-namespace:Smart365.Common.Themes.Styles">
+
+    <Storyboard x:Key="btn_max_act">
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="topbarshow">
+            <EasingThicknessKeyFrame KeyTime="0:0:0.2" Value="0,-64,0,0"/>
+        </ThicknessAnimationUsingKeyFrames>
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="topbarhidden">
+            <EasingThicknessKeyFrame KeyTime="0" Value="0,-60,0,0"/>
+        </ThicknessAnimationUsingKeyFrames>
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="topbarhidden">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+        </ObjectAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="btn_min_act">
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="topbarshow">
+            <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+        </ThicknessAnimationUsingKeyFrames>
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="topbarhidden">
+            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+        </ObjectAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="topbarexpand_show">
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="topbarshow">
+            <EasingThicknessKeyFrame KeyTime="0" Value="0,-64,0,0"/>
+        </ThicknessAnimationUsingKeyFrames>
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="topbarhidden">
+            <EasingThicknessKeyFrame KeyTime="0" Value="0,-60,0,0"/>
+            <EasingThicknessKeyFrame KeyTime="0:0:0.2" Value="0"/>
+        </ThicknessAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="topbarexpand_hidden">
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="topbarhidden">
+            <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+            <EasingThicknessKeyFrame KeyTime="0:0:0.2" Value="0,-60,0,0"/>
+        </ThicknessAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <ControlTemplate x:Key="MainWindowTemplateKey" TargetType="{x:Type Window}">
+        <Grid ClipToBounds="True">
+            <DockPanel>
+                <Border x:Name="topbarshow" Height="62" BorderThickness="0,0,0,2" BorderBrush="Black" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" DockPanel.Dock="Top">
+                    <Grid x:Name="topbar" Background="{DynamicResource TBarColor24282C}">
+                        <Image x:Name="image" Source="/Smart365.Common.Themes;component/Resources/Images/ywsoft_logo.png" Stretch="None" HorizontalAlignment="Left"/>
+                        <DockPanel x:Name="rightarea" LastChildFill="False" HorizontalAlignment="Right" >
+                            <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">
+                                    <Label x:Name="date" Content="2017 2 20 星期日" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                                    <Label x:Name="time" Content="10：24：30" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                                    <Border Height="50" Width="50" Margin="5" Background="#FF202427" >
+                                        <Image x:Name="image1" Source="/Smart365.Common.Themes;component/Resources/Images/user.png" Stretch="None" Width="12"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                                        <Label x:Name="date1" Content="Admin" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                                        <Label x:Name="time1" Content="管理员" Padding="5,0" Foreground="{DynamicResource fontcolordef}" FontSize="18"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
+                                <Button x:Name="btn_win" Content="" Height="60" Style="{DynamicResource btn_win_max}" Background="{x:Null}" Width="60"/>
+                                <Button x:Name="btn_power" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"/>
+                            </StackPanel>
+                        </DockPanel>
+                        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="综合信息展示" VerticalAlignment="Center" Style="{DynamicResource page_top_title}"/>
+                    </Grid>
+                </Border>
+                <ContentPresenter DockPanel.Dock="Bottom"/>
+              
+            </DockPanel>
+            <Border x:Name="topbarhidden" Height="62" BorderThickness="0,0,0,2" BorderBrush="Black" VerticalAlignment="Top" Margin="0,-64,0,0">
+                <Grid x:Name="topbar1" Background="{DynamicResource TBarColor24282C}">
+                    <Image x:Name="image2" Source="/Smart365.Common.Themes;component/Resources/Images/ywsoft_logo.png" Stretch="None" HorizontalAlignment="Left"/>
+                    <DockPanel x:Name="rightarea1" LastChildFill="False" HorizontalAlignment="Right" >
+                        <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">
+                                <Label x:Name="date2" Content="2017 2 20 星期日" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                                <Label x:Name="time2" Content="10：24：30" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="20,0">
+                                <Border Height="50" Width="50" Margin="{DynamicResource margin5}" Background="#FF202427" >
+                                    <Image x:Name="image3" Source="/Smart365.Common.Themes;component/Resources/Images/user.png" Stretch="None" Width="12"/>
+                                </Border>
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    <Label x:Name="date3" Content="Admin" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                                    <Label x:Name="time3" Content="管理员" Padding="5,0" Foreground="{DynamicResource fontcolordef}" FontSize="18"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
+                            <Button x:Name="btn_win_min" Content="" Height="60" Style="{DynamicResource btn_win_min}" Background="{x:Null}" Width="60"/>
+                            <Button x:Name="btn_power1" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"/>
+                        </StackPanel>
+                    </DockPanel>
+                    <TextBlock x:Name="textBlock1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="综合信息展示" VerticalAlignment="Center" Style="{DynamicResource page_top_title}"/>
+                </Grid>
+            </Border>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <EventTrigger RoutedEvent="Button.Click" SourceName="btn_win">
+                <BeginStoryboard Storyboard="{StaticResource btn_max_act}"/>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Button.Click" SourceName="btn_win_min">
+                <BeginStoryboard Storyboard="{StaticResource btn_min_act}"/>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Border.MouseEnter" SourceName="topbarhidden">
+                <BeginStoryboard Storyboard="{StaticResource topbarexpand_show}"/>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Border.MouseLeave" SourceName="topbarhidden">
+                <BeginStoryboard Storyboard="{StaticResource topbarexpand_hidden}"/>
+            </EventTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="MainWindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="Icon" Value="/Smart365.Common.Themes;component/Resources/Images/smart365.ico"/>
+        <Setter Property="Template" Value="{StaticResource MainWindowTemplateKey}"/>
+    </Style>
+
+
+    <ControlTemplate x:Key="LoginWindowTemplateKey" TargetType="{x:Type Window}">
+        <DockPanel>
+            <Grid x:Name="topbar" DockPanel.Dock="Top" VerticalAlignment="Top" Background="{DynamicResource TBarColor24282C}" Height="60">
+                <Image x:Name="image" Source="/Smart365.Common.Themes;component/Resources/Images/XTLogo.png" Stretch="None" HorizontalAlignment="Left"/>
+                <DockPanel x:Name="rightarea" LastChildFill="False" HorizontalAlignment="Right" >
+                    <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <Label x:Name="date" Content="2017 2 20 星期日" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                            <Label x:Name="time" Content="10：24：30" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                        </StackPanel>
+                        <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
+                        <Button x:Name="button" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"/>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+            <ContentPresenter DockPanel.Dock="Bottom" />
+        </DockPanel>
+    </ControlTemplate>
+
+    <Style x:Key="LoginWindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="Icon" Value="/Smart365.Common.Themes;component/Resources/Images/smart365.ico"/>
+        <Setter Property="Template" Value="{StaticResource LoginWindowTemplateKey}"/>
+    </Style>
+</ResourceDictionary>

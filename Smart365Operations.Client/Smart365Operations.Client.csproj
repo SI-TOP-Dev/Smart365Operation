@@ -200,6 +200,10 @@
     <Resource Include="Resources\Images\home_title.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Smart365.Common.Themes\Smart365.Common.Themes.csproj">
+      <Project>{be9bd04a-01b4-47db-9af3-67ff070f4592}</Project>
+      <Name>Smart365.Common.Themes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Smart365Operation.Modules.Dashboard\Dashboard.csproj">
       <Project>{8fc49da2-5236-4826-b5e5-c1d927277fa3}</Project>
       <Name>Dashboard</Name>

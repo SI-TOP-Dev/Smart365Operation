@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Smart365Operation.Modules.Monitoring"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
               xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
@@ -19,12 +20,29 @@
             <ContentControl Content="{Binding WiringDiagramUI}"/>
         </DataTemplate>-->
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="maincontent" d:LayoutOverrides="Height, TopPosition, BottomPosition" DockPanel.Dock="Bottom">
+        <TabControl x:Name="tabControl" TabStripPlacement="Left" Style="{DynamicResource navtab_left}">
+            <TabItem Header="统&#xA;计&#xA;数&#xA;据" Margin="0" Style="{DynamicResource navtabitem_tjsj}" Width="50" FontSize="18">
+                <ContentControl prism:RegionManager.RegionName="CustomerDetailRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            </TabItem>
+            <TabItem Header="实&#xA;时&#xA;监&#xA;测" Margin="0" Style="{DynamicResource navtabitem_ssjc}" Width="50" FontSize="18" IsSelected="True">
+                <ContentControl prism:RegionManager.RegionName="WiringDiagramRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            </TabItem>                                                                                                         
+            <TabItem Header="视&#xA;频&#xA;监&#xA;控" Margin="0" Style="{DynamicResource navtabitem_spjk}" Width="50" FontSize="18">
+                <ContentControl prism:RegionManager.RegionName="VideoMonitoringRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            </TabItem>                                                                                                         
+            <TabItem Header="数&#xA;据&#xA;分&#xA;析" Margin="0" Style="{DynamicResource navtabitem_sjfx}" Width="50" FontSize="18" >
+                <ContentControl prism:RegionManager.RegionName="DataAnaysisRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+
+
+    <!--<Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <!--<ContentControl Grid.Column="0" prism:RegionManager.RegionName="CustomerListRegion"/>-->
         <ListBox Grid.Column="0" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -32,10 +50,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <!--<ScrollViewer Grid.Column="1"   HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
-            <ContentControl Grid.Column="1"  prism:RegionManager.RegionName="CustomerDetailRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-        <!--</ScrollViewer>-->
-       
-    </Grid>
-   
+        <ContentControl Grid.Column="1"  prism:RegionManager.RegionName="CustomerDetailRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+    </Grid>-->
+
 </UserControl>

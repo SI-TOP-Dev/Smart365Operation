@@ -5,21 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smart365Operations.Client"
         xmlns:mvvm="http://prismlibrary.com/"
-         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:videoMonitoring="clr-namespace:Smart365Operation.Modules.VideoMonitoring;assembly=Smart365Operation.Modules.VideoMonitoring"
         xmlns:infrastructure="clr-namespace:Smart365Operations.Common.Infrastructure;assembly=Smart365Operations.Common.Infrastructure"
         mc:Ignorable="d"
         Title=""
         WindowStartupLocation="CenterScreen"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        WindowState="Maximized"
+        Style="{DynamicResource MainWindowStyle}"  WindowState="Maximized"
         mvvm:ViewModelLocator.AutoWireViewModel="True">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -41,8 +34,28 @@
             <i:InvokeCommandAction Command="{Binding CloseShellCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MainMenuToggleButton, Path=IsChecked}">
 
+    <DockPanel>
+        <!--<materialDesign:ColorZone Padding="10" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                      Mode="PrimaryMid" DockPanel.Dock="Top">
+            <DockPanel>
+                <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
+                                  Visibility="{Binding IsMainShell,Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  Name="MainMenuToggleButton" />
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">365电力智能运维</TextBlock>
+            </DockPanel>
+        </materialDesign:ColorZone>-->
+        <Grid Background="{DynamicResource WinBgcolor111314}">
+            <ContentControl mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.MainRegion}"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch" />
+            <ContentControl mvvm:RegionManager.RegionName="AlarmRegion"
+                            VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="60" Margin="0,0,40,20"/>
+        </Grid>
+    </DockPanel>
+
+
+    <!--<materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MainMenuToggleButton, Path=IsChecked}">
         <materialDesign:DrawerHost.LeftDrawerContent>
             <DockPanel MinWidth="212">
                 <ToggleButton Name="MenuCloseToggleButton"
@@ -51,11 +64,7 @@
                               HorizontalAlignment="Right" Margin="16"
                               IsChecked="{Binding Source={x:Reference MainMenuToggleButton}, Path=IsChecked, Mode=TwoWay}" />
                 <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="-1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                    <!--<ListBox.Resources>
-                        <Style BasedOn="{DynamicResource MaterialDesignListBoxItem}" TargetType="ListBoxItem">
-                            <Setter
-                        </Style>
-                    </ListBox.Resources>--> 
+                   
                     <Button  HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Content="实时监测" Command="{Binding OpenShellCommand}" CommandParameter="Monitoring"/>
                     <Button  HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Content="视频监测" Command="{Binding OpenShellCommand}" CommandParameter="VideoMonitoringView"/>
                     <Button  HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Content="数据分析" Command="{Binding OpenShellCommand}" CommandParameter="DataAnaysisView"/>
@@ -90,6 +99,5 @@
             </Grid>
         </DockPanel>
 
-
-    </materialDesign:DrawerHost>
+    </materialDesign:DrawerHost>-->
 </Window>

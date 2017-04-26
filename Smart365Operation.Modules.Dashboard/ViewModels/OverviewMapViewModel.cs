@@ -47,6 +47,20 @@ namespace Smart365Operation.Modules.Dashboard
             set { SetProperty(ref _customerMonitoringList, value); }
         }
 
+        private CustomerMonitoringViewModel _selectedCustomer;
+        public CustomerMonitoringViewModel SelectedCustomer
+        {
+            get { return _selectedCustomer; }
+            set
+            {
+                if (value != null && _selectedCustomer != value)
+                {
+                    value.CustomerSelectedCommand.Execute();
+                }
+                SetProperty(ref _selectedCustomer, value);
+            }
+        }
+
         public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
 
         private void Initialize(object obj)
