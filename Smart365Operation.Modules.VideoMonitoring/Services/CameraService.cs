@@ -25,13 +25,21 @@ namespace Smart365Operation.Modules.VideoMonitoring.Services
 
         private void Initialize()
         {
-            if (HkAction.Start())
+            try
             {
-                if (HkAction.GetAccessToken() != null)
+                if (HkAction.Start())
                 {
+                    if (HkAction.GetAccessToken() != null)
+                    {
 
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           
         }
 
         ~CameraService()

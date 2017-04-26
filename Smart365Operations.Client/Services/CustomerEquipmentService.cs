@@ -13,25 +13,29 @@ namespace Smart365Operations.Client.Services
     public class CustomerEquipmentService: ICustomerEquipmentService
     {
         Dictionary<string, object> localCacheStoreDic = new Dictionary<String, Object>();
+        private static object _lockObject = new object();
         public CustomerEquipmentTableDTO GetCustomerEquipmentTable(string customerId)
         {
-            CustomerEquipmentTableDTO equipmentTable = null;
-            if (localCacheStoreDic.ContainsKey(customerId))
+            lock (_lockObject)
             {
-                equipmentTable = localCacheStoreDic[customerId] as CustomerEquipmentTableDTO;
-            }
-            else
-            {
-                DataServiceApi httpServiceApi = new DataServiceApi();
-                var request = new RestRequest($"customer/equipmentlist.json?customerId={customerId}", Method.GET);
-                equipmentTable = httpServiceApi.Execute<CustomerEquipmentTableDTO>(request);
-                if (equipmentTable != null)
+                CustomerEquipmentTableDTO equipmentTable = null;
+                if (localCacheStoreDic.ContainsKey(customerId))
                 {
-                    localCacheStoreDic.Add(customerId, equipmentTable);
+                    equipmentTable = localCacheStoreDic[customerId] as CustomerEquipmentTableDTO;
                 }
-            }
-           
-            return equipmentTable;
+                else
+                {
+                    DataServiceApi httpServiceApi = new DataServiceApi();
+                    var request = new RestRequest($"customer/equipmentlist.json?customerId={customerId}", Method.GET);
+                    equipmentTable = httpServiceApi.Execute<CustomerEquipmentTableDTO>(request);
+                    if (equipmentTable != null)
+                    {
+                        localCacheStoreDic.Add(customerId, equipmentTable);
+                    }
+                }
+                return equipmentTable;
+            }      
+                       
         }
     }
 }

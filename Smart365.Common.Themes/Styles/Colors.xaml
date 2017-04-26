@@ -13,6 +13,7 @@
     <SolidColorBrush x:Key="color212426" Color="#FF212426"/>
     <SolidColorBrush x:Key="color1D2024" Color="#FF1D2024"/>
     <SolidColorBrush x:Key="color00394C" Color="#FF00394C"/>
+    <SolidColorBrush x:Key="color24282C" Color="#FF24282C"/>
 
     <LinearGradientBrush x:Key="TabItem.Static.Background" EndPoint="0,1" StartPoint="0,0">
         <GradientStop Color="#F0F0F0" Offset="0.0"/>

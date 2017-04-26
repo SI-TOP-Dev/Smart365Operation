@@ -15,7 +15,422 @@
     </UserControl.Resources>
 
     <ScrollViewer  VerticalScrollBarVisibility="Auto">
-        <Grid Margin="20,15,20,50">
+        <DockPanel>
+            <Border DockPanel.Dock="Top" VerticalAlignment="Top" Height="40" BorderThickness="0,0,0,2" BorderBrush="Black" Background="{DynamicResource color1D2024}" >
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="label" Content="{Binding CurrentCustomer.Name }" Style="{DynamicResource titletxt_label}" VerticalContentAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding CurrentCustomer.CompanyAddress}" VerticalAlignment="Center" Style="{DynamicResource txtcontent_textblock}"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding CurrentCustomer.ContactsPhone}" VerticalAlignment="Center" Style="{DynamicResource txtcontent_textblock}" Margin="100,0,0,0"/>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="0,0,0,2" DockPanel.Dock="Top" VerticalAlignment="Top" Background="{DynamicResource color1D2024}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderThickness="0,0,2,0" BorderBrush="Black">
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource color24282C}">
+                                <Label x:Name="label1" Content="设备基本信息" Style="{DynamicResource titletxt_label}" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+                            <Grid DockPanel.Dock="Bottom" Margin="10 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border VerticalAlignment="Center" BorderThickness="0,0,2,0" BorderBrush="Black">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image x:Name="image4" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_zbts.png" Height="48"/>
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="主变台数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="20 10 10 10">
+                                                <TextBlock Text="{Binding CurrentCustomer.TransformerNumber}" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="台" VerticalAlignment="Top" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            <!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="1台" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>-->
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border Grid.Column="1" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" BorderThickness="0,0,2,0" BorderBrush="Black">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image x:Name="image5" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_zjrl.png" Height="48"/>
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="装机容量" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="20 10 10 10">
+                                                <TextBlock Text="{Binding CurrentCustomer.InstalledCapacity}" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="kVA" VerticalAlignment="Top" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            <!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="800KVA" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>-->
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border Grid.Column="2" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" BorderThickness="0,0,2,0" BorderBrush="Black">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image x:Name="image6" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_yxrl.png" Height="48"/>
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="运行容量" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="20 10 10 10">
+                                                <TextBlock Text="{Binding CurrentCustomer.OperatingCapacity}" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="kVA" VerticalAlignment="Top" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            <!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="600KVA" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>-->
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border Grid.Column="3" d:LayoutOverrides="Width, Height" VerticalAlignment="Center">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image x:Name="image7" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_jlds.png" Height="48"/>
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="计量点数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="20 10 10 10">
+                                                <TextBlock Text="{Binding CurrentCustomer.MeteringPoint}" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="个" VerticalAlignment="Top" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            <!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="6个" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>-->
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+                        </DockPanel>
+                    </Border>
+                    <Border BorderThickness="0" BorderBrush="Black" Grid.Column="1">
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource color24282C}">
+                                <Label x:Name="label2" Content="用电情况" Style="{DynamicResource titletxt_label}" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+                            <Grid DockPanel.Dock="Bottom" Margin="10 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border VerticalAlignment="Center" BorderThickness="0,0,2,0" BorderBrush="Black">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image x:Name="image8" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_drdl.png" Height="32" Margin="0,10,0,0"/>
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="今日电量" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="20 10 10 10">
+                                                <TextBlock Text="{Binding PowerSummaryInfo.todayPower}" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="kWh" VerticalAlignment="Top" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            <!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="914.2 Kwh" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>-->
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border BorderThickness="0,0,2,0" BorderBrush="Black" Grid.Column="1" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image x:Name="image9" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_dydl.png" Height="32" Margin="0,10,0,0"/>
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="当月电量" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="20 10 10 10">
+                                                <TextBlock Text="{Binding PowerSummaryInfo.monthPower}" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="kWh" VerticalAlignment="Top" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            <!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="23904.2Kwh" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>-->
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border BorderThickness="0" BorderBrush="Black" Grid.Column="2" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image x:Name="image10" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_dndl.png" Height="32" Margin="0,10,0,0"/>
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="当年电量" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="20 10 10 10">
+                                                <TextBlock Text="{Binding PowerSummaryInfo.yearPower}" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="kWh" VerticalAlignment="Top" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            <!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="680000.4Kwh" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>-->
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border BorderBrush="Black" VerticalAlignment="Top" DockPanel.Dock="Top" BorderThickness="0,0,0,2" Background="{DynamicResource color1D2024}">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource color24282C}">
+                        <Label x:Name="label3" Content="故障报警统计" Style="{DynamicResource titletxt_label}" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                    <Grid DockPanel.Dock="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border VerticalAlignment="Center" BorderThickness="0,0,2,0" BorderBrush="Black">
+                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image x:Name="image11" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_yclgz.png" Height="32" Margin="0,10,0,0"/>
+                                <StackPanel DockPanel.Dock="Right">
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="已处理故障" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="4次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                        <Border BorderThickness="0,0,2,0" BorderBrush="Black" Grid.Column="1" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image x:Name="image12" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_wclgz.png" Height="32" Margin="0,10,0,0"/>
+                                <StackPanel DockPanel.Dock="Right">
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="未处理故障" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="1次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                        <Border BorderThickness="0,0,2,0" BorderBrush="Black" Grid.Column="2" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image x:Name="image13" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_yjgj.png" Height="32" Margin="0,10,0,0"/>
+                                <StackPanel DockPanel.Dock="Right">
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="一级告警" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                        <Border BorderThickness="0,0,2,0" BorderBrush="Black" Grid.Column="3" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image x:Name="image14" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_rjgj.png" Height="32" Margin="0,10,0,0"/>
+                                <StackPanel DockPanel.Dock="Right">
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="二级告警" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="1次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                        <Border BorderThickness="0,0,2,0" BorderBrush="Black" Grid.Column="4" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image x:Name="image15" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_sjgj.png" Height="32" Margin="0,10,0,0"/>
+                                <StackPanel DockPanel.Dock="Right">
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="三级告警" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                        <Border BorderBrush="Black" Grid.Column="5" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image x:Name="image16" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_txycgj.png" Height="32" Margin="0,10,0,0"/>
+                                <StackPanel DockPanel.Dock="Right">
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="通讯异常告警" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="6次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                    </Grid>
+                </DockPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="0,0,0,2" DockPanel.Dock="Top" VerticalAlignment="Top" Background="{DynamicResource color1D2024}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderThickness="0,0,2,0" BorderBrush="Black">
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource color24282C}">
+                                <Label x:Name="label4" Content="巡检统计" Style="{DynamicResource titletxt_label}" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+                            <Grid DockPanel.Dock="Bottom">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border VerticalAlignment="Center" BorderThickness="0" BorderBrush="Black">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="巡检周期" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="3个月" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border BorderThickness="0" BorderBrush="Black" Grid.Column="1" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="本月巡检次数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border BorderThickness="0" BorderBrush="Black" Grid.Column="2" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="应巡检次数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border BorderThickness="0" BorderBrush="Black" Grid.Column="3" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="已完成巡检次数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border BorderThickness="0" BorderBrush="Black" Grid.Column="4" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="未完成巡检次数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border BorderThickness="0" BorderBrush="Black" Grid.Column="5" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <Button x:Name="button" Content="本次总结" HorizontalAlignment="Center" Style="{DynamicResource btn_def}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+                        </DockPanel>
+                    </Border>
+                    <Border BorderThickness="0" BorderBrush="Black" Grid.Column="1">
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal" Height="{DynamicResource titleheight}" VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource color24282C}">
+                                <Label x:Name="label5" Content="试验统计" Style="{DynamicResource titletxt_label}" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="上次试验时间" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="2017/03/04  16:24:30" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                <Button x:Name="button_Copy" Content="详情" HorizontalAlignment="Center" MinWidth="72" Style="{DynamicResource btn_def}" VerticalAlignment="Center" Margin="20 10 10 10"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+            </Border>
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Margin="40">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="设备用电量" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <ComboBox ItemsSource="{Binding DeviceList}" Style="{DynamicResource comboBoxStyle}" DisplayMemberPath="equipmentName" SelectedItem="{Binding SelectedDevice}" Margin="0,0,30,0"/>
+                        <DatePicker Width="120" Margin="20,0,20,0" VerticalAlignment="Center" SelectedDate="{Binding SelectedDate}" SelectedDateFormat="Long"/>
+                    </StackPanel>
+                    <lvc:CartesianChart Grid.Row="2" Series="{Binding DevicePowerSeriesCollection}" Height="auto">
+                        <lvc:CartesianChart.Resources>
+                            <Style TargetType="lvc:LineSeries">
+                                <Setter Property="StrokeThickness" Value="2"></Setter>
+                                <Setter Property="Stroke" Value="#FF00c0fe"></Setter>
+                                <Setter Property="Fill" Value="#6600C0FE"></Setter>
+                                <Setter Property="PointGeometrySize" Value="1"></Setter>
+                                <Setter Property="LineSmoothness" Value="0"></Setter>
+                            </Style>
+                            <Style TargetType="lvc:Axis">
+                                <Setter Property="ShowLabels" Value="True"></Setter>
+                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="AxisOrientation" Value="y">
+                                        <Setter Property="IsMerged" Value="False"></Setter>
+                                        <!--<Setter Property="MaxValue" Value="100"></Setter>-->
+                                    </Trigger>
+                                    <Trigger Property="AxisOrientation" Value="x">
+                                        <!--<Setter Property="IsMerged" Value="False"></Setter>
+                                        <Setter Property="MaxValue" Value="10"></Setter>-->
+                                        <Setter Property="LabelsRotation" Value="-135"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                            <Style TargetType="lvc:Separator">
+                                <Setter Property="StrokeThickness" Value="1"></Setter>
+                                <Setter Property="Stroke" Value="#FF14443b"></Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="AxisOrientation" Value="y">
+                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                        <!--<Setter Property="Step" Value="20"></Setter>-->
+                                    </Trigger>
+                                    <Trigger Property="AxisOrientation" Value="x">
+                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                        <Setter Property="Step" Value="1"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </lvc:CartesianChart.Resources>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="时间" Margin="0,10,0,0" LabelFormatter="{Binding DevicePowerXFormatter}"  />
+
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="电量"  Margin="0,0,0,10" LabelFormatter="{Binding DevicePowerYFormatter}" />
+                        </lvc:CartesianChart.AxisY>
+
+                    </lvc:CartesianChart>
+                </Grid>
+                <Grid Grid.Column="1" Margin="40" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="用电TOP 5" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding TopPowerSummaryInfoSeriesCollection}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                        <lvc:CartesianChart.Resources>
+                            <Style TargetType="lvc:ColumnSeries">
+                                <Setter Property="StrokeThickness" Value="1"></Setter>
+                                <Setter Property="Stroke" Value="#FF199b81"></Setter>
+                                <Setter Property="Fill" Value="#FF199b81"></Setter>
+                                <!--<Setter Property="MaxColumnWidth" Value="20"></Setter>-->
+                            </Style>
+                            <Style TargetType="lvc:Axis">
+                                <Setter Property="FontSize" Value="12"></Setter>
+                                <Setter Property="Foreground" Value="#FFadc0cc"></Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="AxisOrientation" Value="y">
+                                        <!--<Setter Property="IsMerged" Value="False"></Setter>
+                                        <Setter Property="MaxValue" Value="5"></Setter>-->
+                                    </Trigger>
+                                    <Trigger Property="AxisOrientation" Value="x">
+                                        <!--<Setter Property="IsMerged" Value="False"></Setter>
+                                        <Setter Property="MaxValue" Value="10"></Setter>-->
+                                        <Setter Property="LabelsRotation" Value="-135"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                            <Style TargetType="lvc:Separator">
+                                <Setter Property="StrokeThickness" Value="1"></Setter>
+                                <Setter Property="Stroke" Value="#FF14443b"></Setter>
+                                <Style.Triggers>
+                                    <!--<Trigger Property="AxisOrientation" Value="y">
+                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                        <Setter Property="Step" Value="1"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="AxisOrientation" Value="x">
+                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                        <Setter Property="Step" Value="1"></Setter>
+                                    </Trigger>-->
+                                </Style.Triggers>
+                            </Style>
+                        </lvc:CartesianChart.Resources>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="用电量" LabelFormatter="{Binding TopPowerSummaryInfoFormatter}"></lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="用电设备" Labels="{Binding TopPowerSummaryInfoLabels}" ></lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+
+                    </lvc:CartesianChart>
+                </Grid>
+
+                <!--<Image x:Name="image17" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/sbyd_chart.png" Margin="40"/>-->
+                <!--<Image x:Name="image17_Copy" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/yd_chart.png" Grid.Column="1" Margin="40"/>-->
+            </Grid>
+        </DockPanel>
+
+        <!--<Grid Margin="20,15,20,50">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -49,7 +464,7 @@
                                    VerticalAlignment="Stretch"
                                    HorizontalAlignment="Stretch"
                                    Height="142" Width="142" />
-                            <!--,Converter={StaticResource UriToImageSourceConverter}-->
+                         
                             <StackPanel Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="30,0,0,0">
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="24" FontWeight="Bold" Margin="0,5,0,20" Text="{Binding CurrentCustomer.Name }"/>
                                 <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="18"  TextWrapping="Wrap" Text="{Binding CurrentCustomer.CompanyProfile }"/>
@@ -131,15 +546,12 @@
                     <lvc:CartesianChart Grid.Row="2" Series="{Binding DevicePowerSeriesCollection}" Height="auto">
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="时间" Margin="0,10,0,0" LabelFormatter="{Binding DevicePowerXFormatter}"  />
-                            <!--Labels="{Binding DevicePowerXLabels}"-->
-                            <!--LabelFormatter="{Binding DevicePowerXFormatter}"-->
+                          
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title="电量"  Margin="0,0,0,10" LabelFormatter="{Binding DevicePowerYFormatter}" />
                         </lvc:CartesianChart.AxisY>
-                        <!--<lvc:CartesianChart.DataTooltip>
-                                <lvc:DefaultTooltip  SelectionMode="SharedXInSeries"></lvc:DefaultTooltip>
-                            </lvc:CartesianChart.DataTooltip>-->
+                      
                     </lvc:CartesianChart>
                 </Grid>
 
@@ -216,15 +628,13 @@
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title="用电设备" Labels="{Binding TopPowerSummaryInfoLabels}" ></lvc:Axis>
                         </lvc:CartesianChart.AxisY>
-                        <!--<lvc:CartesianChart.DataTooltip>
-                                <lvc:DefaultTooltip SelectionMode="SharedYValues"></lvc:DefaultTooltip>
-                            </lvc:CartesianChart.DataTooltip>-->
+                    
                     </lvc:CartesianChart>
                 </Grid>
 
             </materialDesign:Card>
 
-        </Grid>
+        </Grid>-->
     </ScrollViewer>
 
 

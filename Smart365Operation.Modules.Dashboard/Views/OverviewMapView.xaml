@@ -1015,8 +1015,8 @@
                                         <Setter Property="MaxValue" Value="5"></Setter>
                                     </Trigger>
                                     <Trigger Property="AxisOrientation" Value="x">
-                                        <Setter Property="IsMerged" Value="False"></Setter>
-                                        <Setter Property="MaxValue" Value="10"></Setter>
+                                        <!--<Setter Property="IsMerged" Value="False"></Setter>
+                                        <Setter Property="MaxValue" Value="10"></Setter>-->
                                         <Setter Property="LabelsRotation" Value="-45"></Setter>
                                     </Trigger>
                                 </Style.Triggers>
@@ -1081,8 +1081,8 @@
                                         <Setter Property="MaxValue" Value="5"></Setter>
                                     </Trigger>
                                     <Trigger Property="AxisOrientation" Value="x">
-                                        <Setter Property="IsMerged" Value="False"></Setter>
-                                        <Setter Property="MaxValue" Value="10"></Setter>
+                                        <!--<Setter Property="IsMerged" Value="False"></Setter>
+                                        <Setter Property="MaxValue" Value="10"></Setter>-->
                                         <Setter Property="LabelsRotation" Value="-45"></Setter>
                                     </Trigger>
                                 </Style.Triggers>

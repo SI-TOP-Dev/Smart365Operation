@@ -85,7 +85,7 @@ namespace Smart365Operation.Modules.VideoMonitoring
         private void Initialize()
         {
             RegionManager.RequestNavigate("VideoSurveillanceRegion", "VideoSurveillanceView");
-            InitializeDataTaskAsync();
+            //InitializeDataTaskAsync();
         }
 
         private Task InitializeDataTaskAsync() => Task.Run(() => InitializeData());

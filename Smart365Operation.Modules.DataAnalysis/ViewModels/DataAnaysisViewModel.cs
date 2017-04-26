@@ -17,7 +17,7 @@ using Smart365Operations.Common.Infrastructure.Prism;
 
 namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 {
-    public class DataAnaysisViewModel : BindableBase, IRegionManagerAware
+    public class DataAnaysisViewModel : BindableBase, IRegionManagerAware, INavigationAware
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly ICustomerService _customerService;
@@ -29,9 +29,9 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
             _customerService = customerService;
             _customerEquipmentService = customerEquipmentService;
 
-            var principal = Thread.CurrentPrincipal as SystemPrincipal;
-            var agentId = principal.Identity.Id;
-            GetEquipmentTableListTaskAsync(agentId);
+            //var principal = Thread.CurrentPrincipal as SystemPrincipal;
+            //var agentId = principal.Identity.Id;
+           // GetEquipmentTableListTaskAsyncByAgentId(agentId);
         }
         public DelegateCommand InitializeCommand => new DelegateCommand(Initialize, CanInitialize);
         public DelegateCommand<object> SelectEquipmentCommand => new DelegateCommand<object>(SelectEquipment, CanSelectEquipment);
@@ -62,7 +62,7 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 
         public IRegionManager RegionManager { get; set; }
 
-        private List<CustomerEquipmentTableDTO> GetEquipmentTableList(string agentId)
+        private List<CustomerEquipmentTableDTO> GetEquipmentTableListByAgentId(string agentId)
         {
             var equipmentTableList = new List<CustomerEquipmentTableDTO>();
             var customerList = _customerService.GetCustomersBy(agentId);
@@ -73,6 +73,16 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
             }
             return equipmentTableList;
         }
+
+        private List<CustomerEquipmentTableDTO> GetEquipmentTableListByCustomerId(string customerId)
+        {
+            var equipmentTableList = new List<CustomerEquipmentTableDTO>();
+
+            var equipmentTable = _customerEquipmentService.GetCustomerEquipmentTable(customerId);
+            equipmentTableList.Add(equipmentTable);
+            return equipmentTableList;
+        }
+
 
         private ObservableCollection<CustomerEquipmentTableDTO> _equipmentTableList = new ObservableCollection<CustomerEquipmentTableDTO>();
         public ObservableCollection<CustomerEquipmentTableDTO> EquipmentTableList
@@ -96,7 +106,26 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
             }
         }
 
-        private void GetEquipmentTableListTaskAsync(string s) => Task.Run(() => EquipmentTableList = new ObservableCollection<CustomerEquipmentTableDTO>(GetEquipmentTableList(s)));
+        private void GetEquipmentTableListTaskAsyncByAgentId(string s) => Task.Run(() => EquipmentTableList = new ObservableCollection<CustomerEquipmentTableDTO>(GetEquipmentTableListByAgentId(s)));
+        private void GetEquipmentTableListTaskAsyncByCustomerId(string s) => Task.Run(() => EquipmentTableList = new ObservableCollection<CustomerEquipmentTableDTO>(GetEquipmentTableListByCustomerId(s)));
 
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            var customer = navigationContext.Parameters["Customer"] as Customer;
+            if (customer != null)
+            {
+                GetEquipmentTableListTaskAsyncByCustomerId(customer.Id.ToString());
+            }
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

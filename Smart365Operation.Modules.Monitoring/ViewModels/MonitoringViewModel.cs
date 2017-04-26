@@ -70,7 +70,7 @@ namespace Smart365Operation.Modules.Monitoring
             RegionManager.RequestNavigate("WiringDiagramRegion", "WiringDiagramView", parameters);
             RegionManager.RequestNavigate("VideoMonitoringRegion", "VideoMonitoringView", parameters);
             RegionManager.RequestNavigate("DataAnaysisRegion", "DataAnaysisView", parameters);
-            InitializeDataTaskAsync();
+            //InitializeDataTaskAsync();
         }
 
 
