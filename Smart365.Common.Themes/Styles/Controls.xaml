@@ -12,6 +12,7 @@
         <ResourceDictionary Source="pack://application:,,,/Smart365.Common.Themes;component/Styles/Controls.ComboBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Smart365.Common.Themes;component/Styles/Controls.ListBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Smart365.Common.Themes;component/Styles/Controls.TabControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Smart365.Common.Themes;component/Styles/Controls.TreeView.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
    

@@ -48,5 +48,7 @@ namespace Smart365Operations.Client
                 Application.Current.Shutdown(1);
             }
         }
+
+        public static Dictionary<ShellInfo, Shell> ShellTable;
     }
 }

@@ -42,12 +42,15 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
         private void _monitoringDataService_DataUpdated(object sender, MonitoringDataEventArgs e)
         {
-
-            var action = new Action(() =>
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 _uiManager.UpdateData(e.Key, e.Value);
-            });
-            action.BeginInvoke(null, null);
+            }));
+            //var action = new Action(() =>
+            //{
+            //    _uiManager.UpdateData(e.Key, e.Value);
+            //});
+            //action.BeginInvoke(null, null);
         }
 
         public Task SetWiringDiagramUITaskAsync(string s) => Task.Run(() =>

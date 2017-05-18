@@ -15,13 +15,19 @@
             <TextBlock Text="{Binding customerName}" />
         </HierarchicalDataTemplate>
         <HierarchicalDataTemplate DataType="{x:Type model:AreaDTO}" ItemsSource="{Binding switchingRoomList}">
-            <Button Content="{Binding areaName}" />
+            <TextBlock Text="{Binding areaName}" />
         </HierarchicalDataTemplate>
         <HierarchicalDataTemplate DataType="{x:Type model:SwitchingRoomDTO}" ItemsSource="{Binding equipmentList}">
-            <Button Content="{Binding roomName}" />
+            <TextBlock Text="{Binding roomName}" />
         </HierarchicalDataTemplate>
         <DataTemplate DataType="{x:Type model:EquipmentDTO}">
-            <Button Content="{Binding equipmentName}" Command="{Binding DataContext.SelectEquipmentCommand,Source={x:Reference equipmentTreeView}}" CommandParameter="{Binding }"/>
+            <TextBlock Text="{Binding equipmentName}"  >
+                 <i:Interaction.Triggers>
+                     <i:EventTrigger EventName="MouseDown">
+                         <i:InvokeCommandAction Command="{Binding DataContext.SelectEquipmentCommand,Source={x:Reference equipmentTreeView}}" CommandParameter="{Binding }" />
+                     </i:EventTrigger>
+                 </i:Interaction.Triggers>
+            </TextBlock>
         </DataTemplate>
     </UserControl.Resources>
     <i:Interaction.Triggers>
@@ -29,8 +35,29 @@
             <i:InvokeCommandAction Command="{Binding InitializeCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="42"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="1">
+            <ContentControl  VerticalAlignment="Top" DockPanel.Dock="Top" prism:RegionManager.RegionName="AnalysisSettingRegion" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             Background="{DynamicResource color1D2024}"/>
+            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="DataChartRegion" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        </DockPanel>
+        <Expander x:Name="listexpand2" Header="                           " HorizontalAlignment="Left" Width="280" Style="{DynamicResource expandsublistright2}" ExpandDirection="Right" Grid.RowSpan="2">
+            <TreeView x:Name="equipmentTreeView" Style="{DynamicResource treeview_nav}" ItemsSource="{Binding EquipmentTableList}" ItemContainerStyle="{DynamicResource treeviewitem_nav}" Background="{x:Null}" >
+
+            </TreeView>
+        </Expander>
+        <Border BorderThickness="0,0,0,2" BorderBrush="Black" Background="{DynamicResource blackgray24282C}" Margin="52,0,0,0" >
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="label6" Content="{Binding SelectedEquipment.equipmentName}" Style="{DynamicResource titletxt_label}" VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+    <!--<Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -44,5 +71,5 @@
             <ContentControl  Grid.Row="0" prism:RegionManager.RegionName="AnalysisSettingRegion" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
             <ContentControl Grid.Row="1" prism:RegionManager.RegionName="DataChartRegion" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
         </Grid>
-    </Grid>
+    </Grid>-->
 </UserControl>

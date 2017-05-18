@@ -170,7 +170,7 @@
                                 <Image x:Name="image11" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_yclgz.png" Height="32" Margin="0,10,0,0"/>
                                 <StackPanel DockPanel.Dock="Right">
                                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="已处理故障" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="4次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
@@ -179,7 +179,7 @@
                                 <Image x:Name="image12" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_wclgz.png" Height="32" Margin="0,10,0,0"/>
                                 <StackPanel DockPanel.Dock="Right">
                                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="未处理故障" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="1次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
@@ -197,7 +197,7 @@
                                 <Image x:Name="image14" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_rjgj.png" Height="32" Margin="0,10,0,0"/>
                                 <StackPanel DockPanel.Dock="Right">
                                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="二级告警" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="1次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
@@ -206,7 +206,7 @@
                                 <Image x:Name="image15" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_sjgj.png" Height="32" Margin="0,10,0,0"/>
                                 <StackPanel DockPanel.Dock="Right">
                                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="三级告警" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
@@ -215,7 +215,7 @@
                                 <Image x:Name="image16" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_txycgj.png" Height="32" Margin="0,10,0,0"/>
                                 <StackPanel DockPanel.Dock="Right">
                                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="通讯异常告警" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="6次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
@@ -246,7 +246,7 @@
                                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <StackPanel DockPanel.Dock="Right">
                                             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="巡检周期" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
-                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="3个月" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="0个月" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
                                         </StackPanel>
                                     </DockPanel>
                                 </Border>
@@ -254,7 +254,7 @@
                                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <StackPanel DockPanel.Dock="Right">
                                             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="本月巡检次数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
-                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
                                         </StackPanel>
                                     </DockPanel>
                                 </Border>
@@ -262,7 +262,7 @@
                                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <StackPanel DockPanel.Dock="Right">
                                             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="应巡检次数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
-                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
                                         </StackPanel>
                                     </DockPanel>
                                 </Border>
@@ -270,7 +270,7 @@
                                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <StackPanel DockPanel.Dock="Right">
                                             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="已完成巡检次数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
-                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
                                         </StackPanel>
                                     </DockPanel>
                                 </Border>
@@ -278,7 +278,7 @@
                                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <StackPanel DockPanel.Dock="Right">
                                             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="未完成巡检次数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" TextAlignment="Center"/>
-                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="2次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
+                                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10" TextAlignment="Center"/>
                                         </StackPanel>
                                     </DockPanel>
                                 </Border>
@@ -294,12 +294,13 @@
                     </Border>
                     <Border BorderThickness="0" BorderBrush="Black" Grid.Column="1">
                         <DockPanel>
-                            <StackPanel Orientation="Horizontal" Height="{DynamicResource titleheight}" VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource color24282C}">
+                            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource color24282C}">
                                 <Label x:Name="label5" Content="试验统计" Style="{DynamicResource titletxt_label}" VerticalContentAlignment="Center"/>
                             </StackPanel>
                             <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="上次试验时间" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
-                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="2017/03/04  16:24:30" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="------" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" 
+                                           Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
                                 <Button x:Name="button_Copy" Content="详情" HorizontalAlignment="Center" MinWidth="72" Style="{DynamicResource btn_def}" VerticalAlignment="Center" Margin="20 10 10 10"/>
                             </StackPanel>
                         </DockPanel>
@@ -319,7 +320,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="设备用电量" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <ComboBox ItemsSource="{Binding DeviceList}" Style="{DynamicResource comboBoxStyle}" DisplayMemberPath="equipmentName" SelectedItem="{Binding SelectedDevice}" Margin="0,0,30,0"/>
+                        <ComboBox ItemsSource="{Binding DeviceList}"  DisplayMemberPath="equipmentName" SelectedItem="{Binding SelectedDevice}" Margin="0,0,30,0"/><!--Style="{DynamicResource comboBoxStyle}"-->
                         <DatePicker Width="120" Margin="20,0,20,0" VerticalAlignment="Center" SelectedDate="{Binding SelectedDate}" SelectedDateFormat="Long"/>
                     </StackPanel>
                     <lvc:CartesianChart Grid.Row="2" Series="{Binding DevicePowerSeriesCollection}" Height="auto">

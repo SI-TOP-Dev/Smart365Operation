@@ -29,7 +29,7 @@ namespace Smart365Operation.Modules.Monitoring.Services
         {
             _bus = RabbitHutch.CreateBus("host=114.215.94.141;username=Test;password=123456").Advanced;
             _exchange = _bus.ExchangeDeclare("DEFAULT_EXCHANGE", ExchangeType.Topic, passive: true);
-            _queue = _bus.QueueDeclare();
+            _queue = _bus.QueueDeclare("Smart365Client_Queue");
             _bus.Bind(_exchange, _queue, "#");
             _bus.Consume(_queue, (body, properties, info) => Task.Factory.StartNew(() =>
             {

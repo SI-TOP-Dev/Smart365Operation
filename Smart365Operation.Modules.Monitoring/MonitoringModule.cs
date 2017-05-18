@@ -30,7 +30,10 @@ namespace Smart365Operation.Modules.Monitoring
             _container.RegisterType(typeof(object), typeof(CustomerDetail), "CustomerDetail");
             _container.RegisterType(typeof(object), typeof(WiringDiagramView), "WiringDiagramView");
             _container.RegisterType(typeof(object), typeof(Monitoring), "Monitoring");
-           
+            foreach (var item in _container.Registrations)
+            {
+                var str = item.Name;
+            }
             // _container.RegisterTypeForNavigation<Monitoring>();
             // this._regionManager.RegisterViewWithRegion("MainRegion", () => this._container.Resolve<MonitoringView>());
 

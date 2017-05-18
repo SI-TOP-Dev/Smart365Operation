@@ -28,7 +28,7 @@
             <TabItem Header="实&#xA;时&#xA;监&#xA;测" Margin="0" Style="{DynamicResource navtabitem_ssjc}" Width="50" FontSize="18" IsSelected="True">
                 <ContentControl prism:RegionManager.RegionName="WiringDiagramRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             </TabItem>                                                                                                         
-            <TabItem Header="视&#xA;频&#xA;监&#xA;控" Margin="0" Style="{DynamicResource navtabitem_spjk}" Width="50" FontSize="18">
+            <TabItem Header="视&#xA;频&#xA;监&#xA;控" Visibility="Collapsed" Margin="0" Style="{DynamicResource navtabitem_spjk}" Width="50" FontSize="18">
                 <ContentControl prism:RegionManager.RegionName="VideoMonitoringRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             </TabItem>                                                                                                         
             <TabItem Header="数&#xA;据&#xA;分&#xA;析" Margin="0" Style="{DynamicResource navtabitem_sjfx}" Width="50" FontSize="18" >

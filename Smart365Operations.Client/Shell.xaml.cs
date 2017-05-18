@@ -26,7 +26,18 @@ namespace Smart365Operations.Client
         public Shell()
         {
             InitializeComponent();
+            this.Closed += Shell_Closed;
            // DataContext = viewModel;
         }
+
+        private void Shell_Closed(object sender, EventArgs e)
+        {
+            if (Info != null)
+            {
+                App.ShellTable.Remove(Info);
+            }
+        }
+
+        public ShellInfo Info { get; set; }
     }
 }

@@ -3,7 +3,8 @@
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:local="clr-namespace:Smart365.Common.Themes.Styles">
+                    xmlns:local="clr-namespace:Smart365.Common.Themes.Styles"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <Storyboard x:Key="btn_max_act">
         <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="topbarshow">
@@ -49,17 +50,18 @@
                         <DockPanel x:Name="rightarea" LastChildFill="False" HorizontalAlignment="Right" >
                             <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">
-                                    <Label x:Name="date" Content="2017 2 20 星期日" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
-                                    <Label x:Name="time" Content="10：24：30" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                                    <!--<Label x:Name="date" Content="{Binding Source={x:Static sys:DateTime.Now},StringFormat=yyyy-MM-dd}"
+                                           FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                                    <Label x:Name="time" Content="{Binding Source={x:Static sys:DateTime.Now},StringFormat='{}{0:hh:mm:ss}'}" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>-->
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                                     <Border Height="50" Width="50" Margin="5" Background="#FF202427" >
                                         <Image x:Name="image1" Source="/Smart365.Common.Themes;component/Resources/Images/user.png" Stretch="None" Width="12"/>
                                     </Border>
-                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    <!--<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
                                         <Label x:Name="date1" Content="Admin" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
                                         <Label x:Name="time1" Content="管理员" Padding="5,0" Foreground="{DynamicResource fontcolordef}" FontSize="18"/>
-                                    </StackPanel>
+                                    </StackPanel>-->
                                 </StackPanel>
                                 <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
                                 <Button x:Name="btn_win" Content="" Height="60" Style="{DynamicResource btn_win_max}" Background="{x:Null}" Width="60"/>
@@ -78,17 +80,17 @@
                     <DockPanel x:Name="rightarea1" LastChildFill="False" HorizontalAlignment="Right" >
                         <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">
-                                <Label x:Name="date2" Content="2017 2 20 星期日" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
-                                <Label x:Name="time2" Content="10：24：30" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                                <!--<Label x:Name="date2" Content="{Binding Source={x:Static sys:DateTime.Now},StringFormat=yyyy-MM-dd}" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                                <Label x:Name="time2" Content="{Binding Source={x:Static sys:DateTime.Now},StringFormat='{}{0:hh:mm:ss}'}" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>-->
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="20,0">
                                 <Border Height="50" Width="50" Margin="{DynamicResource margin5}" Background="#FF202427" >
                                     <Image x:Name="image3" Source="/Smart365.Common.Themes;component/Resources/Images/user.png" Stretch="None" Width="12"/>
                                 </Border>
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <!--<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
                                     <Label x:Name="date3" Content="Admin" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
                                     <Label x:Name="time3" Content="管理员" Padding="5,0" Foreground="{DynamicResource fontcolordef}" FontSize="18"/>
-                                </StackPanel>
+                                </StackPanel>-->
                             </StackPanel>
                             <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
                             <Button x:Name="btn_win_min" Content="" Height="60" Style="{DynamicResource btn_win_min}" Background="{x:Null}" Width="60"/>
@@ -134,8 +136,8 @@
                 <DockPanel x:Name="rightarea" LastChildFill="False" HorizontalAlignment="Right" >
                     <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
-                            <Label x:Name="date" Content="2017 2 20 星期日" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
-                            <Label x:Name="time" Content="10：24：30" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                            <!--<TextBlock x:Name="date" Text="{Binding Source={x:Static sys:DateTime.Now},StringFormat=yyyy-MM-dd,Mode=OneWay}" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
+                            <TextBlock x:Name="time" Text="{Binding Source={x:Static sys:DateTime.Now},StringFormat='{}{0:hh:mm:ss}', Mode=OneWay}" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>-->
                         </StackPanel>
                         <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
                         <Button x:Name="button" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"/>

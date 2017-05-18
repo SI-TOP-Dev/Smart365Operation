@@ -36,7 +36,7 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                 .Y(m => m.Value);
 
             SeriesCollection = new SeriesCollection(_dateConfig);
-         
+
             _eventAggregator.GetEvent<HistoryDataUpdatedEvent>().Subscribe(UpdateHistoryDataSeriesCollection);
             _eventAggregator.GetEvent<SelectedEquipmentChangedEvent>().Subscribe(ResetHistoryDataSeriesCollection);
         }
@@ -85,8 +85,19 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                     default:
                         break;
                 }
-                XFormatter = value => new System.DateTime((long)(value * TimeSpan.FromHours(1).Ticks)).ToString(dateFormat);
+
                 YFormatter = value => $"{value} {unit}";
+                XFormatter = value =>
+                {
+                    if (value > 0)
+                    {
+                        var resultValue = new System.DateTime((long)(value * TimeSpan.FromHours(1).Ticks)).ToString(dateFormat);
+                        return resultValue;
+                    }
+                    else
+                        return "0";
+                };
+
                 var colors = CartesianChart.Colors;
                 int index = 0;
                 foreach (var item in SeriesCollection.Chart.View.ActualSeries)
@@ -168,7 +179,7 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 
 
         public DelegateCommand<object> CheckCommand => new DelegateCommand<object>(CheckVisible, CanCheckVisible);
- 
+
         private void CheckVisible(object obj)
         {
             string title = obj as string;

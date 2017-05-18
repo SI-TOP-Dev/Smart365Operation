@@ -31,13 +31,7 @@
             <Button Content="{Binding CameraName}" 
                     Command="{Binding DataContext.PlayVideoCommand,Source={x:Reference videoMonitoringView}}"
                     CommandParameter="{Binding}"/>
-            <!--<TextBlock Text="{Binding CameraName}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding PlayVideoCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBlock>-->
+         
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
@@ -51,8 +45,6 @@
         </Grid.RowDefinitions>
         <TreeView ItemsSource="{Binding CustomerList}" Margin="0" Grid.Row="0" Grid.RowSpan="2" Padding="1" />
         <ContentControl Name="videoSurveillanceView" Grid.Row="1" Grid.Column="1" mvvm:RegionManager.RegionName="VideoSurveillanceRegion" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <!--<views:VideoSurveillanceView Grid.Row="1" Grid.Column="1" DataContext="{Binding VideoSurveillance}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>-->
-        <!--</Viewbox>-->
-
+        
     </Grid>
 </UserControl>
