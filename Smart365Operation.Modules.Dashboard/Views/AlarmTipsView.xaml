@@ -18,9 +18,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <TextBlock>
-                        <ContentPresenter />
-                        </TextBlock>
+                        <DockPanel Margin="10,0">
+                            <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="{Binding Content}" TextWrapping="Wrap"/>
+                        </DockPanel>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -32,10 +32,106 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <materialDesign:PopupBox Style="{DynamicResource MaterialDesignMultiFloatingActionPopupBox}"
+        <materialDesign:PopupBox Style="{DynamicResource MaterialDesignMultiFloatingActionPopupBox}" Background="{DynamicResource TBarColor24282C}" Margin="0" Padding="0"
                                  PlacementMode="LeftAndAlignBottomEdges" IsPopupOpen="{Binding IsShow,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                  HorizontalAlignment="Right" VerticalAlignment="Bottom" StaysOpen="True">
-            <Grid Width="400" Height="200">
+            <Grid x:Name="popwin" Background="{DynamicResource TBarColor24282C}" MinWidth="340" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="7*"/>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="Black" MinHeight="30" d:LayoutOverrides="VerticalAlignment" Background="{DynamicResource blackgray24282C}" BorderThickness="0,0,0,2">
+                    <DockPanel LastChildFill="False">
+                        <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center">
+                            <Button x:Name="button1" Content="Button" Height="24" Style="{DynamicResource btn_winclose}" Width="24" Margin="0,0,2,0"/>
+                        </StackPanel>
+                        <TextBlock x:Name="textBlock6_Copy" TextWrapping="Wrap" Text="告警列表" HorizontalAlignment="Left" Style="{DynamicResource title20}" FontSize="16" Margin="10,0,0,0"/>
+                    </DockPanel>
+                </Border>
+                <DockPanel Grid.Row="1">
+                    <Border Padding="0,10" BorderThickness="0,0,0,2" DockPanel.Dock="Top">
+                            <DockPanel Margin="10,0">
+                                <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
+                                <Label Content="{Binding CurrentAlarmInfo.Time}" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
+                                </DockPanel>
+                            <Button Style="{StaticResource LinkButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"
+                                    Content="{Binding CurrentAlarmInfo.Content}"
+                                    Command="{Binding LocateAlarmCommand}"
+                                    CommandParameter="{Binding CurrentAlarmInfo}"/>
+                        </DockPanel>
+                    </Border>
+                    <ScrollViewer Grid.Row="1"  Margin="10" VerticalScrollBarVisibility="Auto">
+                        <ListBox ItemsSource="{Binding AlarmList}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
+                                        <DockPanel Margin="10,0">
+                                            <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
+                                                <Label Content="{Binding Time}" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
+                                                <Button Style="{DynamicResource MaterialDesignFlatButton}"  VerticalAlignment="Center"
+                                                        Command="{Binding DataContext.DeleteAlarmCommand,RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                        CommandParameter="{Binding}">
+                                                    <materialDesign:PackIcon Kind="Delete" />
+                                                </Button>
+                                            </DockPanel>
+                                            <Button Content="{Binding Content}" Style="{StaticResource LinkButton}" FontSize="12" VerticalAlignment="Center" DockPanel.Dock="Bottom" Margin="5"
+                                                    Command="{Binding DataContext.LocateAlarmCommand,RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                    CommandParameter="{Binding}"/>
+                                            <!--<TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>-->
+                                        </DockPanel>
+                                    </Border>
+                                    <!--<StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Time}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                        <Button Content="{Binding Content}" Style="{StaticResource LinkButton}" FontSize="12" VerticalAlignment="Center" Margin="0,0,10,0"
+                                        Command="{Binding DataContext.LocateAlarmCommand,RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}"/>
+                                        <Button Style="{DynamicResource MaterialDesignFlatButton}"  VerticalAlignment="Center"
+                                        Command="{Binding DataContext.DeleteAlarmCommand,RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}">
+                                            <materialDesign:PackIcon Kind="Delete" />
+                                        </Button>
+                                    </StackPanel>-->
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                    <!--<ScrollViewer DockPanel.Dock="Bottom" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
+                                <DockPanel Margin="10,0">
+                                    <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
+                                        <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
+                                        <Button x:Name="button_Copy5" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
+                                    </DockPanel>
+                                    <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
+                                </DockPanel>
+                            </Border>
+                            <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
+                                <DockPanel Margin="10,0">
+                                    <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
+                                        <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
+                                        <Button x:Name="button_Copy6" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
+                                    </DockPanel>
+                                    <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
+                                </DockPanel>
+                            </Border>
+                            <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
+                                <DockPanel Margin="10,0">
+                                    <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
+                                        <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
+                                        <Button x:Name="button_Copy7" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
+                                    </DockPanel>
+                                    <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
+                                </DockPanel>
+                            </Border>
+                        </StackPanel>
+
+                    </ScrollViewer>-->
+
+                </DockPanel>
+
+            </Grid>
+            <!--<Grid Width="400" Height="200">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
@@ -63,7 +159,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </ScrollViewer>
-            </Grid>
+            </Grid>-->
         </materialDesign:PopupBox>
     </Grid>
 </UserControl>

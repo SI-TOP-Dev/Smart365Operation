@@ -44,7 +44,15 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         {
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
-                _uiManager.UpdateData(e.Key, e.Value);
+                try
+                {
+                    _uiManager.UpdateData(e.Key, e.Value);
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+               
             }));
             //var action = new Action(() =>
             //{

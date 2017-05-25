@@ -93,6 +93,9 @@
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SiTop.WiringDiagram.ComponentControls">
+      <HintPath>..\..\..\Smart365Operations\Smart365Operations.Client\bin\Debug\SiTop.WiringDiagram.ComponentControls.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -109,9 +112,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="WpfControlLibrary1">
-      <HintPath>C:\Users\Hardborn\Desktop\WpfControlLibrary1.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MonitoringModule.cs" />
@@ -171,6 +171,9 @@
     <Resource Include="Resources\Images\image_default.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)Smart365Operation.Modules.Monitoring.dll" "$(SolutionDir)Smart365Operations.Client\bin\$(ConfigurationName)\" /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

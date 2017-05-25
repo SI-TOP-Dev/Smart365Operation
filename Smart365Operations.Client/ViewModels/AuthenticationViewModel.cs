@@ -57,6 +57,21 @@ namespace Smart365Operations.Client.ViewModels
 
         private DelegateCommand<object> _loginCommand;
         public DelegateCommand<object> LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand<object>(Login, view => CanLogin()));
+        public DelegateCommand<object> CloseWindowCommand => new DelegateCommand<object>(CloseWindow, CanCloseWindow);
+
+        private bool CanCloseWindow(object obj)
+        {
+            return true;
+        }
+
+        private void CloseWindow(object obj)
+        {
+            var window = obj as System.Windows.Window;
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
 
         private bool CanLogin()
         {

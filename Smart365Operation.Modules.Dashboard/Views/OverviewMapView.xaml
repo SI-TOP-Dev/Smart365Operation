@@ -1237,7 +1237,7 @@
                 </DockPanel>
             </ScrollViewer>
         </Expander>
-        <ToggleButton x:Name="btn_alarm" Content="ToggleButton" Style="{DynamicResource togglebtn_alarm}" Margin="0,42,0,0" Width="40" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <!--<ToggleButton x:Name="btn_alarm" Content="ToggleButton" Style="{DynamicResource togglebtn_alarm}" Margin="0,42,0,0" Width="40" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Checked">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource pop_win_open}"/>
@@ -1246,8 +1246,8 @@
                     <ei:ControlStoryboardAction Storyboard="{StaticResource pop_win_close}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </ToggleButton>
-        <Grid x:Name="popwin" Background="{DynamicResource TBarColor24282C}" MinWidth="340" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="400" RenderTransformOrigin="0.5,0.5">
+        </ToggleButton>-->
+        <!--<Grid x:Name="popwin" Background="{DynamicResource TBarColor24282C}" MinWidth="340" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="400" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -1268,52 +1268,8 @@
                     <TextBlock x:Name="textBlock6_Copy" TextWrapping="Wrap" Text="告警列表" HorizontalAlignment="Left" Style="{DynamicResource title20}" FontSize="16" Margin="10,0,0,0"/>
                 </DockPanel>
             </Border>
-            <DockPanel Grid.Row="1">
-                <Border Padding="0,10" BorderThickness="0,0,0,2" DockPanel.Dock="Top">
-                    <DockPanel Margin="10,0">
-                        <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
-                            <Label Content="2017/04/28   20：30：20" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
-                        </DockPanel>
-                        <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
-                    </DockPanel>
-                </Border>
-                <ScrollViewer DockPanel.Dock="Bottom" VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                       
-                        <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
-                            <DockPanel Margin="10,0">
-                                <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
-                                    <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
-                                    <Button x:Name="button_Copy5" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
-                                </DockPanel>
-                                <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
-                            </DockPanel>
-                        </Border>
-                        <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
-                            <DockPanel Margin="10,0">
-                                <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
-                                    <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
-                                    <Button x:Name="button_Copy6" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
-                                </DockPanel>
-                                <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
-                            </DockPanel>
-                        </Border>
-                        <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
-                            <DockPanel Margin="10,0">
-                                <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
-                                    <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
-                                    <Button x:Name="button_Copy7" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
-                                </DockPanel>
-                                <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
-                            </DockPanel>
-                        </Border>
-                    </StackPanel>
-
-                </ScrollViewer>
-
-            </DockPanel>
-
-        </Grid>
+          
+        </Grid>-->
     </Grid>
    
 </UserControl>

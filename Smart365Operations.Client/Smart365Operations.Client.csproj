@@ -112,6 +112,10 @@
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SiTop.WiringDiagram.ComponentControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Smart365Operations\Smart365Operations.Client\bin\Debug\SiTop.WiringDiagram.ComponentControls.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -130,16 +134,13 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WpfControlLibrary1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Smart365Operation.Modules.Monitoring\ReferenceLibrary\WpfControlLibrary1.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AggregateModuleCatalog.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\CustomerEquipmentService.cs" />
     <Compile Include="Services\CustomerService.cs" />
@@ -209,17 +210,9 @@
       <Project>{8fc49da2-5236-4826-b5e5-c1d927277fa3}</Project>
       <Name>Dashboard</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Smart365Operation.Modules.DataAnalysis\Smart365Operation.Modules.DataAnalysis.csproj">
-      <Project>{9613273A-BB8E-4F55-B95A-8AD1F60BB22C}</Project>
-      <Name>Smart365Operation.Modules.DataAnalysis</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Smart365Operation.Modules.Log4NetLogger\Smart365Operation.Modules.Log4NetLogger.csproj">
       <Project>{53efca7a-300c-4ca1-87d4-27ead00e0674}</Project>
       <Name>Smart365Operation.Modules.Log4NetLogger</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Smart365Operation.Modules.Monitoring\Smart365Operation.Modules.Monitoring.csproj">
-      <Project>{8526b949-1a13-4ebd-8fb2-96935766ed5e}</Project>
-      <Name>Smart365Operation.Modules.Monitoring</Name>
     </ProjectReference>
     <ProjectReference Include="..\Smart365Operation.Modules.VideoMonitoring\Smart365Operation.Modules.VideoMonitoring.csproj">
       <Project>{cb0e2352-8154-4ec3-8be4-ab7f358bcc27}</Project>

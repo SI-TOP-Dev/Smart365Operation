@@ -55,9 +55,9 @@
                                     <Label x:Name="time" Content="{Binding Source={x:Static sys:DateTime.Now},StringFormat='{}{0:hh:mm:ss}'}" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>-->
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                                    <Border Height="50" Width="50" Margin="5" Background="#FF202427" >
+                                    <!--<Border Height="50" Width="50" Margin="5" Background="#FF202427" >
                                         <Image x:Name="image1" Source="/Smart365.Common.Themes;component/Resources/Images/user.png" Stretch="None" Width="12"/>
-                                    </Border>
+                                    </Border>-->
                                     <!--<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
                                         <Label x:Name="date1" Content="Admin" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
                                         <Label x:Name="time1" Content="管理员" Padding="5,0" Foreground="{DynamicResource fontcolordef}" FontSize="18"/>
@@ -65,10 +65,11 @@
                                 </StackPanel>
                                 <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
                                 <Button x:Name="btn_win" Content="" Height="60" Style="{DynamicResource btn_win_max}" Background="{x:Null}" Width="60"/>
-                                <Button x:Name="btn_power" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"/>
+                                <Button x:Name="btn_power" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"
+                                        Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
                             </StackPanel>
                         </DockPanel>
-                        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="综合信息展示" VerticalAlignment="Center" Style="{DynamicResource page_top_title}"/>
+                        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{TemplateBinding Title}" VerticalAlignment="Center" Style="{DynamicResource page_top_title}"/>
                     </Grid>
                 </Border>
                 <ContentPresenter DockPanel.Dock="Bottom"/>
@@ -84,9 +85,9 @@
                                 <Label x:Name="time2" Content="{Binding Source={x:Static sys:DateTime.Now},StringFormat='{}{0:hh:mm:ss}'}" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>-->
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="20,0">
-                                <Border Height="50" Width="50" Margin="{DynamicResource margin5}" Background="#FF202427" >
+                                <!--<Border Height="50" Width="50" Margin="{DynamicResource margin5}" Background="#FF202427" >
                                     <Image x:Name="image3" Source="/Smart365.Common.Themes;component/Resources/Images/user.png" Stretch="None" Width="12"/>
-                                </Border>
+                                </Border>-->
                                 <!--<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
                                     <Label x:Name="date3" Content="Admin" FontSize="18" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>
                                     <Label x:Name="time3" Content="管理员" Padding="5,0" Foreground="{DynamicResource fontcolordef}" FontSize="18"/>
@@ -94,10 +95,11 @@
                             </StackPanel>
                             <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
                             <Button x:Name="btn_win_min" Content="" Height="60" Style="{DynamicResource btn_win_min}" Background="{x:Null}" Width="60"/>
-                            <Button x:Name="btn_power1" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"/>
+                            <Button x:Name="btn_power1" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60" 
+                                    Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
                         </StackPanel>
                     </DockPanel>
-                    <TextBlock x:Name="textBlock1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="综合信息展示" VerticalAlignment="Center" Style="{DynamicResource page_top_title}"/>
+                    <TextBlock x:Name="textBlock1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{TemplateBinding Title}" VerticalAlignment="Center" Style="{DynamicResource page_top_title}"/>
                 </Grid>
             </Border>
         </Grid>
@@ -140,7 +142,8 @@
                             <TextBlock x:Name="time" Text="{Binding Source={x:Static sys:DateTime.Now},StringFormat='{}{0:hh:mm:ss}', Mode=OneWay}" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>-->
                         </StackPanel>
                         <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
-                        <Button x:Name="button" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"/>
+                        <Button x:Name="button" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"
+                                Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
                     </StackPanel>
                 </DockPanel>
             </Grid>

@@ -13,8 +13,6 @@ using Prism.Modularity;
 using Prism.Mvvm;
 using Smart365Operation.Modules.Dashboard;
 using Smart365Operation.Modules.Log4NetLogger;
-using Smart365Operation.Modules.Monitoring;
-using Smart365Operation.Modules.Monitoring.Services;
 using Smart365Operation.Modules.VideoMonitoring;
 using Smart365Operation.Modules.VideoMonitoring.Services;
 using Smart365Operation.Modules.VideoMonitoring.ViewModels;
@@ -26,7 +24,6 @@ using System.Reflection;
 using Prism.Regions;
 using Smart365Operations.Common.Infrastructure;
 using Smart365Operations.Common.Infrastructure.Prism;
-using Smart365Operation.Modules.DataAnalysis;
 
 namespace Smart365Operations.Client
 {
@@ -63,21 +60,26 @@ namespace Smart365Operations.Client
             Shell view = this.Container.TryResolve<Shell>();
             return view;
         }
-        //protected override void InitializeShell()
-        //{
-        //    base.InitializeShell();
 
-        //    App.Current.MainWindow = (Window)this.Shell;
-        //    App.Current.MainWindow.Show();
-        //}
+        protected override IModuleCatalog CreateModuleCatalog()
+        {
+            return new AggregateModuleCatalog();
+        }
 
         protected override void ConfigureModuleCatalog()
         {
-            ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-            moduleCatalog.AddModule(typeof(MonitoringModule));
-           // moduleCatalog.AddModule(typeof(VideoMonitoringModule));
-            moduleCatalog.AddModule(typeof(DataAnaysisModule));
-            moduleCatalog.AddModule(typeof(DashboardModule));
+            Type DashboardModuleType = typeof(DashboardModule);
+            ModuleCatalog.AddModule(new ModuleInfo(DashboardModuleType.Name, DashboardModuleType.AssemblyQualifiedName));
+           
+
+            ConfigurationModuleCatalog configurationCatalog = new ConfigurationModuleCatalog();
+            ((AggregateModuleCatalog)ModuleCatalog).AddCatalog(configurationCatalog);
+
+           // ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
+           // moduleCatalog.AddModule(typeof(MonitoringModule));
+           //// moduleCatalog.AddModule(typeof(VideoMonitoringModule));
+           // moduleCatalog.AddModule(typeof(DataAnaysisModule));
+           //// moduleCatalog.AddModule(typeof(DashboardModule));
 
         }
 
@@ -92,10 +94,6 @@ namespace Smart365Operations.Client
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            //ViewModelLocationProvider.SetDefaultViewModelFactory((type) =>
-            //{
-            //    return Container.Resolve(type);
-            //});
 
             Container.RegisterType<IShellService, ShellService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
@@ -103,7 +101,6 @@ namespace Smart365Operations.Client
             Container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
             //Container.RegisterType<ICameraService, CameraService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ICustomerEquipmentService, CustomerEquipmentService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IMonitoringDataService, MonitoringDataService>(new ContainerControlledLifetimeManager());
          
         }
 

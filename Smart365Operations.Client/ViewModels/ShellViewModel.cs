@@ -32,6 +32,21 @@ namespace Smart365Operations.Client
         public DelegateCommand<string> NavigateCommand => new DelegateCommand<string>(Navigate);
         public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
         public DelegateCommand CloseShellCommand => new DelegateCommand(CloseShell, CanCloseShell);
+        public DelegateCommand<object> CloseWindowCommand => new DelegateCommand<object>(CloseWindow, CanCloseWindow);
+
+        private bool CanCloseWindow(object obj)
+        {
+            return true;
+        }
+
+        private void CloseWindow(object obj)
+        {
+            var window = obj as System.Windows.Window;
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
 
         private bool CanCloseShell()
         {
