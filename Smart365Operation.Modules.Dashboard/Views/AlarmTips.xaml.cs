@@ -18,9 +18,9 @@ namespace Smart365Operation.Modules.Dashboard.Views
     /// <summary>
     /// AlarmTipsView.xaml 的交互逻辑
     /// </summary>
-    public partial class AlarmTipsView : UserControl
+    public partial class AlarmTips : UserControl
     {
-        public AlarmTipsView()
+        public AlarmTips()
         {
             InitializeComponent();
         }

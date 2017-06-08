@@ -74,13 +74,13 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                 switch (timeType)
                 {
                     case TimeType.Day:
-                        dateFormat = "yyyy-MM-dd HH:mm";
+                        dateFormat = "HH:mm";
                         break;
                     case TimeType.Month:
-                        dateFormat = "yyyy-MM-dd";
+                        dateFormat = "d日 HH:mm";
                         break;
                     case TimeType.Year:
-                        dateFormat = "yyyy-MM";
+                        dateFormat = "MM月-d日 HH:mm";
                         break;
                     default:
                         break;
@@ -100,6 +100,7 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 
                 var colors = CartesianChart.Colors;
                 int index = 0;
+                List<SeriesInfo> seriesList = new List<SeriesInfo>();
                 foreach (var item in SeriesCollection.Chart.View.ActualSeries)
                 {
                     var seriesItem = (item as Series);
@@ -107,19 +108,22 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                     {
 
                         var color = colors.ElementAt(index++);
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        
+                        seriesList.Add(new SeriesInfo()
                         {
-                            SeriesList.Add(new SeriesInfo()
-                            {
-                                Title = seriesItem.Title,
-                                Fill = new SolidColorBrush(color),// == null ? (seriesItem as IFondeable).PointForeround : seriesItem.Fill,
-                                Stroke = seriesItem.Stroke,
-                                StrokeThickness = seriesItem.StrokeThickness
-                            });
-                        }));
+                            Title = seriesItem.Title,
+                            Fill = new SolidColorBrush(color),// == null ? (seriesItem as IFondeable).PointForeround : seriesItem.Fill,
+                            Stroke = seriesItem.Stroke,
+                            StrokeThickness = seriesItem.StrokeThickness
+                        });
+
 
                     }
                 }
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    SeriesList.AddRange(seriesList);
+                }));
             }
             DataTypeName = dataTypeName;
         }

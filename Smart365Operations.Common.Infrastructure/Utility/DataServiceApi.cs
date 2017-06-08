@@ -13,7 +13,7 @@ namespace Smart365Operations.Common.Infrastructure.Utility
 {
     public class DataServiceApi
     {
-        public const string BaseUrl = "http://114.215.94.141:8060/365ElectricGuard";// "http://114.215.94.141:8060/365ElectricGuard"; // "http://192.168.8.250:8088/365ElectricGuard";
+        public const string BaseUrl = "http://www.sitech365.com";// "http://114.215.94.141:8060/365ElectricGuard"; // "http://192.168.8.250:8088/365ElectricGuard";
 
         private static CookieContainer _cookieContainer = new CookieContainer();
         private static readonly Dictionary<int, string> ResultTable = new Dictionary<int, string>

@@ -53,15 +53,15 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-             
-                <lvc:CartesianChart Grid.Column="1" Grid.Row="1" Series="{Binding SeriesCollection}" 
+
+        <lvc:CartesianChart Grid.Column="1" Grid.Row="1" Series="{Binding SeriesCollection}" DisableAnimations="True"
                             VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <lvc:CartesianChart.Resources>
                         <Style TargetType="lvc:LineSeries">
                             <Setter Property="StrokeThickness" Value="2"></Setter>
                             <!--<Setter Property="Stroke" Value="#FF00c0fe"></Setter>
                     <Setter Property="Fill" Value="#6600C0FE"></Setter>-->
-                            <Setter Property="PointGeometrySize" Value="5"></Setter>
+                            <Setter Property="PointGeometrySize" Value="0"></Setter>
                             <Setter Property="LineSmoothness" Value="0"></Setter>
                         </Style>
                         <Style TargetType="lvc:Axis">
@@ -75,7 +75,7 @@
                                 <Trigger Property="AxisOrientation" Value="x">
                                     <!--<Setter Property="IsMerged" Value="False"></Setter>
                                         <Setter Property="MaxValue" Value="10"></Setter>-->
-                                    <Setter Property="LabelsRotation" Value="-135"></Setter>
+                                    <Setter Property="LabelsRotation" Value="0"></Setter>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>

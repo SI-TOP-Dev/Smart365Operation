@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smart365Operations.Client"
         xmlns:mvvm="http://prismlibrary.com/"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:videoMonitoring="clr-namespace:Smart365Operation.Modules.VideoMonitoring;assembly=Smart365Operation.Modules.VideoMonitoring"
@@ -13,6 +14,7 @@
         Title=""
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource MainWindowStyle}"  WindowState="Maximized"
+        md:DialogServiceViews.IsRegistered="True"
         mvvm:ViewModelLocator.AutoWireViewModel="True">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -36,68 +38,14 @@
     </i:Interaction.Triggers>
 
     <DockPanel>
-        <!--<materialDesign:ColorZone Padding="10" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                      Mode="PrimaryMid" DockPanel.Dock="Top">
-            <DockPanel>
-                <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
-                                  Visibility="{Binding IsMainShell,Converter={StaticResource BooleanToVisibilityConverter}}"
-                                  Name="MainMenuToggleButton" />
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">365电力智能运维</TextBlock>
-            </DockPanel>
-        </materialDesign:ColorZone>-->
+       
         <Grid Background="{DynamicResource WinBgcolor111314}">
             <ContentControl mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.MainRegion}"
                             VerticalContentAlignment="Stretch"
                             HorizontalContentAlignment="Stretch" />
             <ContentControl mvvm:RegionManager.RegionName="AlarmRegion"
-                            VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="60" Margin="0,0,40,20"/>
+                            VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="60" RenderTransformOrigin="0.5 0"/>
         </Grid>
     </DockPanel>
 
-
-    <!--<materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MainMenuToggleButton, Path=IsChecked}">
-        <materialDesign:DrawerHost.LeftDrawerContent>
-            <DockPanel MinWidth="212">
-                <ToggleButton Name="MenuCloseToggleButton"
-                              Style="{StaticResource MaterialDesignHamburgerToggleButton}"
-                              DockPanel.Dock="Top"
-                              HorizontalAlignment="Right" Margin="16"
-                              IsChecked="{Binding Source={x:Reference MainMenuToggleButton}, Path=IsChecked, Mode=TwoWay}" />
-                <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="-1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                   
-                    <Button  HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Content="实时监测" Command="{Binding OpenShellCommand}" CommandParameter="Monitoring"/>
-                    <Button  HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Content="视频监测" Command="{Binding OpenShellCommand}" CommandParameter="VideoMonitoringView"/>
-                    <Button  HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Content="数据分析" Command="{Binding OpenShellCommand}" CommandParameter="DataAnaysisView"/>
-                </ListBox>
-            </DockPanel>
-        </materialDesign:DrawerHost.LeftDrawerContent>
-
-        <DockPanel>
-            <materialDesign:ColorZone Padding="10" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                      Mode="PrimaryMid" DockPanel.Dock="Top">
-                <DockPanel>
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
-                                  Visibility="{Binding IsMainShell,Converter={StaticResource BooleanToVisibilityConverter}}"
-                                  Name="MainMenuToggleButton" />
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">365电力智能运维</TextBlock>
-                </DockPanel>
-            </materialDesign:ColorZone>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <ContentControl Grid.Column="0"
-                                mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.SubRegion}" />
-                <ContentControl Grid.Column="1"
-                                mvvm:RegionManager.RegionName="{x:Static infrastructure:KnownRegionNames.MainRegion}"
-                                VerticalContentAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch" />
-                <ContentControl Grid.Column="1" 
-                                mvvm:RegionManager.RegionName="AlarmRegion"
-                                VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="60" Margin="0,0,40,20"/>
-            </Grid>
-        </DockPanel>
-
-    </materialDesign:DrawerHost>-->
 </Window>

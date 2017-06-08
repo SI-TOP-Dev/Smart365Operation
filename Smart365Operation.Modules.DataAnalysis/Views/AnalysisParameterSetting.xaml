@@ -18,17 +18,17 @@
     </i:Interaction.Triggers>
 
     <Border VerticalAlignment="Top" DockPanel.Dock="Top" Background="{DynamicResource color1D2024}">
-        <StackPanel Orientation="Horizontal" Margin="60,0,0,0">
+        <StackPanel Orientation="Horizontal" Margin="60,0,120,0" HorizontalAlignment="Right">
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="参数类型：" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" VerticalAlignment="Center"/>
             <ComboBox x:Name="comboBox" ItemsSource="{Binding ParameterTypes}" SelectedItem="{Binding SelectedParameterType}" DisplayMemberPath="typeName"  VerticalAlignment="Center">
             </ComboBox>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="时间：" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10" VerticalAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="时间：" Style="{DynamicResource txtcontent_textblock}" Margin="40 10 10 10" VerticalAlignment="Center"/>
             <ComboBox x:Name="comboBox_Copy" ItemsSource="{Binding Source={utility:EnumBindingSource {x:Type models:TimeType}}}" SelectedItem="{Binding SelectedTimeType}" VerticalAlignment="Center" Width="100">
               
             </ComboBox>
-            <DatePicker MinWidth="200" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" BorderBrush="{x:Null}" 
+            <DatePicker MinWidth="160" HorizontalContentAlignment="Stretch" VerticalAlignment="Center"  Margin="20,0"
                         SelectedDate="{Binding SelectedDate}" SelectedDateFormat="Long"/>
-            <Button x:Name="button_Copy1" Content="查询" HorizontalAlignment="Center" MinWidth="72" Style="{DynamicResource btn_def}" VerticalAlignment="Center" Margin="20 10 10 10"
+            <Button x:Name="button_Copy1" Content="查询" HorizontalAlignment="Center" MinWidth="72" Style="{DynamicResource btn_def}" VerticalAlignment="Center" Margin="50 10 10 10"
                     Command="{Binding QueryDataCommand}"/>
         </StackPanel>
     </Border>

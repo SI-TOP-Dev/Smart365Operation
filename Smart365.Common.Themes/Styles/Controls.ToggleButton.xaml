@@ -157,4 +157,38 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="AlarmToggleButton" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border1" Padding="{TemplateBinding Padding}" Background="{DynamicResource TBarColor24282C}" BorderThickness="0,0,0,2" BorderBrush="#FF212426">
+                        <Grid Background="Transparent" SnapsToDevicePixels="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" Width="auto" VerticalAlignment="Center"/>
+                            <Border x:Name="border" Grid.Column="0" HorizontalAlignment="Stretch" Width="Auto" Height="40" ClipToBounds="True" VerticalAlignment="Top" Background="{DynamicResource WinBgcolor111314}">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image x:Name="image" Source="/Smart365.Common.Themes;component/Resources/Images/listbtn.png" Stretch="None" Margin="0,-480,0,0"/>
+                                    <!--<TextBlock Text="{TemplateBinding Content}" VerticalAlignment="Center" />-->
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Margin" TargetName="image" Value="0,-520,0,0"/>
+                            <Setter Property="Background" TargetName="border1" Value="{DynamicResource WinBgcolor111314}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true"/>
+                        <Trigger Property="IsPressed" Value="true"/>
+                        <Trigger Property="IsEnabled" Value="false"/>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Height" Value="42"/>
+    </Style>
 </ResourceDictionary>

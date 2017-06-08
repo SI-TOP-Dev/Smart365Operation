@@ -122,7 +122,7 @@
                                         </LinearGradientBrush>
                                     </Border.OpacityMask>
                                 </Border>
-                                <Label x:Name="tip_txt" Content="{Binding CustomerName}"  Grid.Column="1" Grid.RowSpan="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Grid.ColumnSpan="2" FontSize="13.333" FontWeight="Bold" Margin="5,0,1,0" d:LayoutOverrides="GridBox"/>
+                                <Label x:Name="tip_txt" Foreground="Black" Content="{Binding CustomerName}"  Grid.Column="1" Grid.RowSpan="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Grid.ColumnSpan="2" FontSize="13.333" FontWeight="Bold" Margin="5,0,1,0" d:LayoutOverrides="GridBox"/>
                             </Grid>
                         </Canvas>
                         <ControlTemplate.Triggers>

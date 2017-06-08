@@ -13,7 +13,7 @@ namespace Smart365Operations.Common.Infrastructure.Models
         public string ContactsPhone { get; set; }
         public string CompanyAddress { get; set; }
         public string IndustryType { get; set; }
-        public int OperatingCapacity { get; set; }
+        public double OperatingCapacity { get; set; }
         public int InstalledCapacity { get; set; }
         public int MeteringPoint { get; set; }
         public DateTime InitiationDate { get; set; }

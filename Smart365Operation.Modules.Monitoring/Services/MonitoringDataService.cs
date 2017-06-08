@@ -27,9 +27,10 @@ namespace Smart365Operation.Modules.Monitoring.Services
 
         private void InitializeBus()
         {
-            _bus = RabbitHutch.CreateBus("host=114.215.94.141;username=Test;password=123456").Advanced;
+            _bus = RabbitHutch.CreateBus("host=www.sitech365.com:5672;username=Test;password=123Li456").Advanced;
             _exchange = _bus.ExchangeDeclare("DEFAULT_EXCHANGE", ExchangeType.Topic, passive: true);
-            _queue = _bus.QueueDeclare("Smart365Client_Queue");
+            
+            _queue = _bus.QueueDeclare("Smart365Client_Queue",maxLength:1000);
             _bus.Bind(_exchange, _queue, "#");
             _bus.Consume(_queue, (body, properties, info) => Task.Factory.StartNew(() =>
             {

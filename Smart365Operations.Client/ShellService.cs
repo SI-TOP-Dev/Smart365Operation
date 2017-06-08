@@ -9,6 +9,7 @@ using Smart365Operations.Common.Infrastructure;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Prism;
 using Smart365Operations.Common.Infrastructure.Models;
+using System.Threading;
 
 namespace Smart365Operations.Client
 {
@@ -16,17 +17,56 @@ namespace Smart365Operations.Client
     {
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
+        private readonly ICustomerService _customerService;
 
-        public ShellService(IUnityContainer container, IRegionManager regionManager)
+        public ShellService(IUnityContainer container, IRegionManager regionManager, ICustomerService customerService)
         {
             _container = container;
             _regionManager = regionManager;
-
+            _customerService = customerService;
             App.ShellTable = new Dictionary<ShellInfo, Shell>(new ShellInfoEqualityComparer());
         }
         public void ShowShell(string uri, NavigationParameters parameters)
         {
-            var shellInfo = new ShellInfo(uri, parameters["Customer"] as Customer);
+            var principal = Thread.CurrentPrincipal as SystemPrincipal;
+            var agentId = principal.Identity.Id;
+            var customerList = _customerService.GetCustomersBy(agentId);
+           
+            ShellInfo shellInfo = null;
+            var customer = parameters["Customer"] as Customer;
+            if (customer != null)
+            {
+                if (customerList.Any(c => c.Id == customer.Id))
+                {
+                    shellInfo = new ShellInfo(uri, customer);
+                }
+                else
+                {
+                    return;
+                }
+                
+            }
+            else
+            {
+                string id = parameters["CustomerId"] as string;
+                if(!string.IsNullOrEmpty(id))
+                {
+                    if (customerList.Any(c => c.Id.ToString() == id))
+                    {
+                        shellInfo = new ShellInfo(uri, id);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+            
+            if(shellInfo == null)
+            {
+                return;
+            }
+
             if (App.ShellTable.ContainsKey(shellInfo))
             {
                 var shell = App.ShellTable[shellInfo];
@@ -61,8 +101,16 @@ namespace Smart365Operations.Client
         {
             Uri = uri;
             Customer = customer;
+            Id = Customer.Id.ToString();
+        }
+        public ShellInfo(string uri, string id)
+        {
+            Uri = uri;
+            Customer = null;
+            Id = id;
         }
         public string Uri { get; set; }
+        public string Id { get; set; }
         public Customer Customer { get; set; }
     }
 
@@ -74,7 +122,7 @@ namespace Smart365Operations.Client
                 return true;
             else if (info1 == null | info2 == null)
                 return false;
-            else if (info1.Uri == info2.Uri && info1.Customer.Id == info2.Customer.Id)
+            else if (info1.Uri == info2.Uri && info1.Id == info2.Id)
                 return true;
             else
                 return false;
@@ -82,7 +130,7 @@ namespace Smart365Operations.Client
 
         public int GetHashCode(ShellInfo info)
         {
-            string hCode = info.Uri + info.Customer.Id;
+            string hCode = info.Uri + info.Id;
             return hCode.GetHashCode();
         }
     }

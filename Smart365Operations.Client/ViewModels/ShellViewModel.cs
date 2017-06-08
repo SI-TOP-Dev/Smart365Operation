@@ -9,6 +9,7 @@ using Prism.Regions;
 using Smart365Operations.Common.Infrastructure;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Prism;
+using MvvmDialogs;
 
 namespace Smart365Operations.Client
 {
@@ -16,7 +17,7 @@ namespace Smart365Operations.Client
     {
         private readonly IShellService _shellService;
 
-        public ShellViewModel(IShellService shellService)
+        public ShellViewModel(IShellService shellService, IDialogService dialogService)
         {
             _shellService = shellService;
         }
@@ -33,6 +34,21 @@ namespace Smart365Operations.Client
         public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
         public DelegateCommand CloseShellCommand => new DelegateCommand(CloseShell, CanCloseShell);
         public DelegateCommand<object> CloseWindowCommand => new DelegateCommand<object>(CloseWindow, CanCloseWindow);
+ public DelegateCommand<object> MinWindowCommand => new DelegateCommand<object>(MinWindow, CanMinWindow);
+
+        private bool CanMinWindow(object arg)
+        {
+            return true;
+        }
+
+        private void MinWindow(object obj)
+        {
+            var window = obj as System.Windows.Window;
+            if (window != null)
+            {
+                window.WindowState = System.Windows.WindowState.Minimized;
+            }
+        }
 
         private bool CanCloseWindow(object obj)
         {

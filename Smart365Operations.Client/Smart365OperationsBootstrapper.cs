@@ -50,6 +50,7 @@ namespace Smart365Operations.Client
         }
 
         private readonly Log4NetLogger _logger = new Log4NetLogger();
+        private readonly IDialogService dialogService = new DialogService();
         protected override ILoggerFacade CreateLogger()
         {
             return _logger;
@@ -95,13 +96,14 @@ namespace Smart365Operations.Client
         {
             base.ConfigureContainer();
 
-            Container.RegisterType<IShellService, ShellService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IAuthenticationService, AuthenticationService>();
-            Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
+            //Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IDialogService>(this.dialogService);
+            Container.RegisterType<IAuthenticationService, AuthenticationService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
             //Container.RegisterType<ICameraService, CameraService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ICustomerEquipmentService, CustomerEquipmentService>(new ContainerControlledLifetimeManager());
-         
+            Container.RegisterType<IShellService, ShellService>(new ContainerControlledLifetimeManager());
+           
         }
 
         protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()

@@ -130,7 +130,7 @@
                                         <CircleEase EasingMode="EaseOut"/>
                                     </EasingDoubleKeyFrame.EasingFunction>
                                 </EasingDoubleKeyFrame>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-320">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-500">
                                     <EasingDoubleKeyFrame.EasingFunction>
                                         <CircleEase EasingMode="EaseOut"/>
                                     </EasingDoubleKeyFrame.EasingFunction>
@@ -153,12 +153,13 @@
                                     <ScaleTransform/>
                                     <SkewTransform/>
                                     <RotateTransform/>
-                                    <TranslateTransform X="-320"/>
+                                    <TranslateTransform X="-500"/>
                                 </TransformGroup>
                             </Border.RenderTransform>
-                            <ContentPresenter x:Name="ExpandSite" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" FlowDirection="LeftToRight"/>
+                            <ContentPresenter x:Name="ExpandSite" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Visibility="Visible"  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" FlowDirection="LeftToRight"/><!--Visibility="Collapsed"-->
                         </Border>
-                        <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{DynamicResource expanderdownheaderchart_style}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40"/>
+                        <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                      IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{DynamicResource expanderdownheaderchart_style}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsExpanded" Value="true">
@@ -266,4 +267,6 @@
         </Setter>
         <Setter Property="ExpandDirection" Value="Left"/>
     </Style>
+
+   
 </ResourceDictionary>

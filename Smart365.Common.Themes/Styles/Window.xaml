@@ -6,6 +6,7 @@
                     xmlns:local="clr-namespace:Smart365.Common.Themes.Styles"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+   
     <Storyboard x:Key="btn_max_act">
         <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="topbarshow">
             <EasingThicknessKeyFrame KeyTime="0:0:0.2" Value="0,-64,0,0"/>
@@ -64,6 +65,8 @@
                                     </StackPanel>-->
                                 </StackPanel>
                                 <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
+                                <Button Content="" Height="60" Style="{DynamicResource btn_min}" Background="{x:Null}" Width="60"
+                                        Command="{Binding MinWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
                                 <Button x:Name="btn_win" Content="" Height="60" Style="{DynamicResource btn_win_max}" Background="{x:Null}" Width="60"/>
                                 <Button x:Name="btn_power" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"
                                         Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -94,6 +97,8 @@
                                 </StackPanel>-->
                             </StackPanel>
                             <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
+                            <Button Content="" Height="60" Style="{DynamicResource btn_min}" Background="{x:Null}" Width="60"
+                                    Command="{Binding MinWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
                             <Button x:Name="btn_win_min" Content="" Height="60" Style="{DynamicResource btn_win_min}" Background="{x:Null}" Width="60"/>
                             <Button x:Name="btn_power1" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60" 
                                     Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -123,7 +128,6 @@
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="Background" Value="{x:Null}"/>
-        <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
         <Setter Property="Icon" Value="/Smart365.Common.Themes;component/Resources/Images/smart365.ico"/>
@@ -142,6 +146,8 @@
                             <TextBlock x:Name="time" Text="{Binding Source={x:Static sys:DateTime.Now},StringFormat='{}{0:hh:mm:ss}', Mode=OneWay}" FontSize="24" Padding="5,0" Foreground="{DynamicResource fontcolordef}"/>-->
                         </StackPanel>
                         <Border BorderBrush="#FF545D66" BorderThickness="0,0,1,0" VerticalAlignment="Center" Height="40" Margin="20,0"/>
+                        <!--<Button x:Name="btn_min" Content="" Height="60" Style="{DynamicResource btn_min}" Background="{x:Null}" Width="60"
+                                Command="{Binding MinWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>-->
                         <Button x:Name="button" Content="" Height="60" Style="{DynamicResource btn_power}" Background="{x:Null}" Width="60"
                                 Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
                     </StackPanel>

@@ -200,5 +200,8 @@
     <Resource Include="Resources\Images\yd_chart.png" />
     <Resource Include="Resources\Images\ywsoft_logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ico_mix.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

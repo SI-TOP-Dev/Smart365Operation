@@ -24,9 +24,10 @@ namespace Smart365Operation.Modules.Dashboard
         }
         public void Initialize()
         {
-            this._container.RegisterType<IDataStatisticsService, DataStatisticsService>();
-            this._container.RegisterType(typeof(object), typeof(OverviewMapView), "OverviewMapView");
-            _container.RegisterType(typeof(object), typeof(AlarmTipsView), "AlarmTipsView");
+            _container.RegisterType<IDataStatisticsService, DataStatisticsService>();
+            _container.RegisterType(typeof(object), typeof(OverviewMapView), "OverviewMapView");
+            _container.RegisterType(typeof(object), typeof(AlarmTips), "AlarmTips");
+            _container.RegisterType(typeof(object), typeof(AlarmDialog), "AlarmDialog");
             //this._regionManager.RegisterViewWithRegion("MainRegion", () => this._container.Resolve<OverviewMapView>());
 
         }

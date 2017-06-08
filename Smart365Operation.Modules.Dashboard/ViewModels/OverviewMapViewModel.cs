@@ -33,7 +33,7 @@ namespace Smart365Operation.Modules.Dashboard
             _monitoringDataService = monitoringDataService;
         }
 
-        private DataStatisticsViewModel _statisticsViewModel;
+        private DataStatisticsViewModel _statisticsViewModel;// = new DataStatisticsViewModel();
         public DataStatisticsViewModel StatisticsViewModel
         {
             get { return _statisticsViewModel; }
@@ -61,13 +61,39 @@ namespace Smart365Operation.Modules.Dashboard
             }
         }
 
+
+        private bool _isInitialShow = false;
+        public bool IsInitialShow
+        {
+            get { return _isInitialShow; }
+            set
+            {
+                SetProperty(ref _isInitialShow, value);
+            }
+        }
+
         public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
+        public DelegateCommand ExpandedCommand => new DelegateCommand(OnExpand);
+ public DelegateCommand MouseDownCommand => new DelegateCommand(OnMouseDown);
+
+        private void OnMouseDown()
+        {
+            IsInitialShow = true;
+        }
+
+        private void OnExpand()
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                StatisticsViewModel = new DataStatisticsViewModel(_dataStatisticsService);
+            }));
+        }
 
         private void Initialize(object obj)
         {
 
             InitializeDataTaskAsync(obj);
-            RegionManager.RequestNavigate("AlarmRegion", "AlarmTipsView");
+            RegionManager.RequestNavigate("AlarmRegion", "AlarmTips");
         }
 
         private Task InitializeDataTaskAsync(object obj) => Task.Run(() => InitializeData(obj));
@@ -99,10 +125,18 @@ namespace Smart365Operation.Modules.Dashboard
                }));
 
             }
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+
+            var action = new Action(() =>
             {
-                StatisticsViewModel = new DataStatisticsViewModel(_dataStatisticsService);
-            }));
+                Thread.Sleep(1000);
+                IsInitialShow = true;
+            });
+            action.BeginInvoke(null,null);
+            //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            //{
+            //    IsInitialShow = false;
+            //}));
+            
         }
 
         public IRegionManager RegionManager { get; set; }

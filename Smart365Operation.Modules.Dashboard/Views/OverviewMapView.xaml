@@ -977,7 +977,7 @@
 
     <Grid x:Name="maincontent" >
         <map:MapControl x:Name="Map"/>
-        <Expander x:Name="listexpand" Header="" HorizontalAlignment="Left" Width="270" Style="{DynamicResource expanderlist_right}" ExpandDirection="Right" FontSize="18">
+        <Expander x:Name="listexpand" Header="" HorizontalAlignment="Left" Width="270" Style="{DynamicResource expanderlist_right}" IsExpanded="True" ExpandDirection="Right" FontSize="18">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="42"/>
@@ -990,25 +990,70 @@
                          Style="{DynamicResource expandlist}"
                          ItemContainerStyle ="{DynamicResource expandlistitem}" 
                          FontSize="16">
-                   
+
                 </ListBox>
             </Grid>
         </Expander>
-        <Border BorderBrush="Black" BorderThickness="0,0,0,2" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="230" Margin="40,0,0,0" Background="#33000000">
-            <DockPanel>
-                <Button x:Name="button" Content="Button" Width="40" DockPanel.Dock="Right" Style="{DynamicResource btn_search}"/>
-                <TextBox x:Name="textBox" TextWrapping="Wrap" VerticalContentAlignment="Center" Padding="10,0,0,0"/>
-            </DockPanel>
-        </Border>
-        <Expander x:Name="chartexpand" Header="" HorizontalAlignment="Right" Width="320" Style="{DynamicResource expanderchart_right}" ExpandDirection="Left" FlowDirection="RightToLeft">
-            <DockPanel Background="{DynamicResource TBarColor24282C}">
+        <Expander x:Name="chartexpand" Header="" HorizontalAlignment="Right" Width="500" Style="{DynamicResource expanderchart_right}" IsExpanded="{Binding IsInitialShow,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ExpandDirection="Left" FlowDirection="RightToLeft">
+                        <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Expanded">
+                    <i:InvokeCommandAction Command="{Binding ExpandedCommand}"/>
+                </i:EventTrigger>
+              
+            </i:Interaction.Triggers>
+            <DockPanel Background="{DynamicResource TBarColor24282C}" Width="500" FlowDirection="RightToLeft">
                 <Border BorderThickness="0,0,0,2" BorderBrush="Black" Height="42" VerticalAlignment="Top" DockPanel.Dock="Top">
                     <DockPanel>
                         <Image x:Name="image5" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/bluearrow.png" Stretch="None" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
                         <TextBlock x:Name="textBlock2" TextWrapping="Wrap" Text="系统数据" HorizontalAlignment="Right" DockPanel.Dock="Right" Style="{DynamicResource title20}" FontSize="16"/>
                     </DockPanel>
                 </Border>
-                <Grid Width="318">
+                <Grid Width="500">
+                    <Grid.Resources>
+                        <Style TargetType="lvc:ColumnSeries">
+                            <Setter Property="StrokeThickness" Value="1"></Setter>
+                            <Setter Property="Stroke" Value="#FF199b81"></Setter>
+                            <Setter Property="Fill" Value="#FF199b81"></Setter>
+                            <Setter Property="MaxColumnWidth" Value="20"></Setter>
+                        </Style>
+                        <Style TargetType="lvc:Axis">
+                            <Setter Property="FontSize" Value="12"></Setter>
+                            <Setter Property="Foreground" Value="#FFadc0cc"></Setter>
+                            <Style.Triggers>
+                                <Trigger Property="AxisOrientation" Value="y">
+                                    <Setter Property="IsMerged" Value="False"></Setter>
+                                    <Setter Property="MaxValue" Value="6"></Setter>
+                                </Trigger>
+                                <Trigger Property="AxisOrientation" Value="x">
+                                    <!--<Setter Property="IsMerged" Value="False"></Setter>
+                                        <Setter Property="MaxValue" Value="10"></Setter>-->
+                                    <Setter Property="LabelsRotation" Value="-45"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="lvc:Separator">
+                            <Setter Property="StrokeThickness" Value="1"></Setter>
+                            <Setter Property="Stroke" Value="#FF14443b"></Setter>
+                            <Style.Triggers>
+                                <Trigger Property="AxisOrientation" Value="y">
+                                    <Setter Property="IsEnabled" Value="True"></Setter>
+                                    <Setter Property="Step" Value="1"></Setter>
+                                </Trigger>
+                                <Trigger Property="AxisOrientation" Value="x">
+                                    <Setter Property="IsEnabled" Value="True"></Setter>
+                                    <Setter Property="Step" Value="1"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="lvc:DefaultLegend">
+                            <Setter Property="Foreground" Value="{DynamicResource fontcolordef}"/>
+                        </Style>
+                        <Style TargetType="lvc:PieSeries">
+                            <Setter Property="StrokeThickness" Value="0"></Setter>
+                            <Setter Property="Foreground" Value="#000"></Setter>
+                        </Style>
+                     
+                    </Grid.Resources>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition/>
@@ -1020,50 +1065,11 @@
                     <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource color212426}" d:LayoutOverrides="Width" Background="{DynamicResource color1D2024}" >
                         <DockPanel LastChildFill="False">
                             <Rectangle Fill="{DynamicResource lightgreen1BBC9B}" Width="4" Height="18" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="0,3,12,3" StrokeThickness="0"/>
-                            <TextBlock x:Name="textBlock3" TextWrapping="Wrap" Text="客户分类统计图"  DockPanel.Dock="Right" Margin="0,0,7,0" VerticalAlignment="Center" Style="{DynamicResource title18}" FontSize="16"/>
+                            <TextBlock x:Name="textBlock3" TextWrapping="Wrap" Text="每月新增客户数"  DockPanel.Dock="Right" Margin="0,0,7,0" VerticalAlignment="Center" Style="{DynamicResource title18}" FontSize="16"/>
                         </DockPanel>
                     </Border>
-                    <lvc:CartesianChart Series="{Binding StatisticsViewModel.CustomerIncrementsInfoSeriesCollection}" LegendLocation="Bottom" Margin="15" Grid.Row="1">
-                        <lvc:CartesianChart.Resources>
-                            <Style TargetType="lvc:ColumnSeries">
-                                <Setter Property="StrokeThickness" Value="1"></Setter>
-                                <Setter Property="Stroke" Value="#FF199b81"></Setter>
-                                <Setter Property="Fill" Value="#FF199b81"></Setter>
-                                <Setter Property="MaxColumnWidth" Value="20"></Setter>
-                            </Style>
-                            <Style TargetType="lvc:Axis">
-                                <Setter Property="FontSize" Value="12"></Setter>
-                                <Setter Property="Foreground" Value="#FFadc0cc"></Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="AxisOrientation" Value="y">
-                                        <Setter Property="IsMerged" Value="False"></Setter>
-                                        <Setter Property="MaxValue" Value="5"></Setter>
-                                    </Trigger>
-                                    <Trigger Property="AxisOrientation" Value="x">
-                                        <!--<Setter Property="IsMerged" Value="False"></Setter>
-                                        <Setter Property="MaxValue" Value="10"></Setter>-->
-                                        <Setter Property="LabelsRotation" Value="-45"></Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                            <Style TargetType="lvc:Separator">
-                                <Setter Property="StrokeThickness" Value="1"></Setter>
-                                <Setter Property="Stroke" Value="#FF14443b"></Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="AxisOrientation" Value="y">
-                                        <Setter Property="IsEnabled" Value="True"></Setter>
-                                        <Setter Property="Step" Value="1"></Setter>
-                                    </Trigger>
-                                    <Trigger Property="AxisOrientation" Value="x">
-                                        <Setter Property="IsEnabled" Value="True"></Setter>
-                                        <Setter Property="Step" Value="1"></Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                            <Style TargetType="lvc:DefaultLegend">
-                                <Setter Property="Foreground" Value="{DynamicResource fontcolordef}"/>
-                            </Style>
-                        </lvc:CartesianChart.Resources>
+                    <lvc:CartesianChart Series="{Binding StatisticsViewModel.CustomerIncrementsInfoSeriesCollection}" LegendLocation="Bottom" Margin="15" Grid.Row="1" DisableAnimations="True">
+                     
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Labels="{Binding StatisticsViewModel.CustomerIncrementsLabels}"/>
                         </lvc:CartesianChart.AxisX>
@@ -1074,30 +1080,21 @@
                     <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource color212426}" Margin="0,6,0,1" d:LayoutOverrides="Width" Grid.Row="2" Background="{DynamicResource color1D2024}" >
                         <DockPanel LastChildFill="False">
                             <Rectangle Fill="{DynamicResource lightgreen1BBC9B}" Width="4" Height="18" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="0,3,12,3" StrokeThickness="0"/>
-                            <TextBlock x:Name="textBlock4" TextWrapping="Wrap" Text="每月新增客户数" DockPanel.Dock="Right" Margin="0,0,7,0" VerticalAlignment="Center" Style="{DynamicResource title18}" FontSize="16"/>
+                            <TextBlock x:Name="textBlock4" TextWrapping="Wrap" Text="客户分类统计图" DockPanel.Dock="Right" Margin="0,0,7,0" VerticalAlignment="Center" Style="{DynamicResource title18}" FontSize="16"/>
                         </DockPanel>
                     </Border>
-                    <lvc:PieChart Series="{Binding StatisticsViewModel.CustomerIndustryCategorySeriesCollection}" Grid.Row="3"  LegendLocation="Bottom" Width="200" Height="200" Margin="15">
-                        <lvc:PieChart.Resources>
-                            <Style TargetType="lvc:PieSeries">
-                                <Setter Property="StrokeThickness" Value="0"></Setter>
-                                <Setter Property="Foreground" Value="#000"></Setter>
-                            </Style>
-                            <Style TargetType="lvc:DefaultLegend">
-                                <Setter Property="Foreground" Value="{DynamicResource fontcolordef}"/>
-                            </Style>
-                        </lvc:PieChart.Resources>
+                    <lvc:PieChart  Grid.Row="3" Series="{Binding StatisticsViewModel.CustomerIndustryCategorySeriesCollection,UpdateSourceTrigger=PropertyChanged}"  LegendLocation="Bottom" Margin="15" DisableAnimations="True">
+                        <!--Series="{Binding StatisticsViewModel.CustomerIndustryCategorySeriesCollection}"-->
                       
                     </lvc:PieChart>
-                    <!--<Image x:Name="image6_Copy" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/chart2.png" Grid.Row="3" d:LayoutOverrides="Height" Margin="15"/>-->
                     <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource color212426}" d:LayoutOverrides="Width" Grid.Row="4" Background="{DynamicResource color1D2024}" >
                         <DockPanel LastChildFill="False">
                             <Rectangle Fill="{DynamicResource lightgreen1BBC9B}" Width="4" Height="18" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="0,3,12,3" StrokeThickness="0"/>
                             <TextBlock x:Name="textBlock5" TextWrapping="Wrap" Text="报警统计图" DockPanel.Dock="Right" Margin="0,0,7,0" VerticalAlignment="Center" Style="{DynamicResource title18}" FontSize="16"/>
                         </DockPanel>
                     </Border>
-                    <lvc:CartesianChart Series="{Binding StatisticsViewModel.AlarmStatisticsSeriesCollection}" LegendLocation="Bottom" Width="300" Height="200" Grid.Row="5" Margin="15">
-                        <lvc:CartesianChart.Resources>
+                    <lvc:CartesianChart Series="{Binding StatisticsViewModel.AlarmStatisticsSeriesCollection}" LegendLocation="Bottom" Grid.Row="5" Margin="15">
+                        <!--<lvc:CartesianChart.Resources>
                             <Style TargetType="lvc:ColumnSeries">
                                 <Setter Property="StrokeThickness" Value="1"></Setter>
                                 <Setter Property="Stroke" Value="#FF199b81"></Setter>
@@ -1110,11 +1107,9 @@
                                 <Style.Triggers>
                                     <Trigger Property="AxisOrientation" Value="y">
                                         <Setter Property="IsMerged" Value="False"></Setter>
-                                        <Setter Property="MaxValue" Value="5"></Setter>
+                                        <Setter Property="MaxValue" Value="6"></Setter>
                                     </Trigger>
                                     <Trigger Property="AxisOrientation" Value="x">
-                                        <!--<Setter Property="IsMerged" Value="False"></Setter>
-                                        <Setter Property="MaxValue" Value="10"></Setter>-->
                                         <Setter Property="LabelsRotation" Value="-45"></Setter>
                                     </Trigger>
                                 </Style.Triggers>
@@ -1136,140 +1131,19 @@
                             <Style TargetType="lvc:DefaultLegend">
                                 <Setter Property="Foreground" Value="{DynamicResource fontcolordef}"/>
                             </Style>
-                        </lvc:CartesianChart.Resources>
+                        </lvc:CartesianChart.Resources>-->
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Labels="{Binding StatisticsViewModel.AlarmStatisticsLabels}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis LabelFormatter="{Binding StatisticsViewModel.AlarmStatisticsFormatter}"></lvc:Axis>
                         </lvc:CartesianChart.AxisY>
-                      
+
                     </lvc:CartesianChart>
-                    <!--<Image x:Name="image6_Copy1" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/chart3.png" Grid.Row="5" d:LayoutOverrides="Width, Height" Margin="15"/>-->
                 </Grid>
             </DockPanel>
         </Expander>
-        <Expander x:Name="chartexpand_alarm" Header="" HorizontalAlignment="Right" Width="320" Style="{DynamicResource ExpanderAlarm_right}" ExpandDirection="Left" FlowDirection="RightToLeft" Visibility="Collapsed">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Expanded" SourceName="chartexpand_alarm" SourceObject="{Binding ElementName=chartexpand_alarm}">
-                    <ei:ChangePropertyAction TargetName="chartexpand" TargetObject="{Binding ElementName=chartexpand}" PropertyName="IsExpanded" Value="False"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <ScrollViewer FlowDirection="LeftToRight" VerticalScrollBarVisibility="Auto">
-                <DockPanel Background="{DynamicResource TBarColor24282C}" FlowDirection="LeftToRight">
-                    <Border BorderThickness="0,0,0,2" BorderBrush="Black" Height="42" VerticalAlignment="Top" DockPanel.Dock="Top">
-                        <DockPanel>
-                            <Image x:Name="image6" Source="Resources/Images/bluearrow.png" Stretch="None" HorizontalAlignment="Left"/>
-                            <TextBlock x:Name="textBlock6" TextWrapping="Wrap" Text="告警列表" HorizontalAlignment="Left" Style="{DynamicResource title20}" FontSize="16"/>
-                        </DockPanel>
-                    </Border>
-                    <StackPanel DockPanel.Dock="Bottom">
-                        <StackPanel.Resources>
-                            <Style TargetType="{x:Type lvc:LineSeries}">
-                                <Setter Property="StrokeThickness" Value="2"/>
-                                <Setter Property="Stroke" Value="#FF00c0fe"/>
-                                <Setter Property="Fill" Value="#6600C0FE"/>
-                                <Setter Property="PointGeometrySize" Value="8"/>
-                                <Setter Property="LineSmoothness" Value="1"/>
-                            </Style>
-                            <Style TargetType="{x:Type lvc:Axis}">
-                                <Setter Property="ShowLabels" Value="True"/>
-                                <Setter Property="IsEnabled" Value="False"/>
-                                <Style.Triggers>
-                                    <Trigger Property="AxisOrientation" Value="y">
-                                        <Setter Property="IsMerged" Value="False"/>
-                                        <Setter Property="MaxValue" Value="100"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                            <Style TargetType="{x:Type lvc:Separator}">
-                                <Setter Property="StrokeThickness" Value="1"/>
-                                <Setter Property="Stroke" Value="#FF14443b"/>
-                                <Style.Triggers>
-                                    <Trigger Property="AxisOrientation" Value="y">
-                                        <Setter Property="IsEnabled" Value="True"/>
-                                        <Setter Property="Step" Value="20"/>
-                                    </Trigger>
-                                    <Trigger Property="AxisOrientation" Value="x">
-                                        <Setter Property="IsEnabled" Value="True"/>
-                                        <Setter Property="Step" Value="1"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </StackPanel.Resources>
-                        <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
-                            <DockPanel Margin="10,0">
-                                <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
-                                    <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
-                                    <Button x:Name="button_Copy" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
-                                </DockPanel>
-                                <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
-                            </DockPanel>
-                        </Border>
-                        <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
-                            <DockPanel Margin="10,0">
-                                <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
-                                    <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
-                                    <Button x:Name="button_Copy1" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
-                                </DockPanel>
-                                <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
-                            </DockPanel>
-                        </Border>
-                        <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
-                            <DockPanel Margin="10,0">
-                                <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
-                                    <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
-                                    <Button x:Name="button_Copy2" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
-                                </DockPanel>
-                                <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
-                            </DockPanel>
-                        </Border>
-                        <Border Background="{DynamicResource color1D2024}" Padding="0,10" BorderThickness="0,0,0,2">
-                            <DockPanel Margin="10,0">
-                                <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
-                                    <Label Content="2017/04/28" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
-                                    <Button x:Name="button_Copy3" Content="删除" HorizontalAlignment="Right" Style="{DynamicResource btn_small}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
-                                </DockPanel>
-                                <TextBlock Foreground="{DynamicResource fontcolordef}" DockPanel.Dock="Bottom" Margin="5" Text="配电机房变压器DC02超负荷报警" TextWrapping="Wrap"/>
-                            </DockPanel>
-                        </Border>
-                    </StackPanel>
-                </DockPanel>
-            </ScrollViewer>
-        </Expander>
-        <!--<ToggleButton x:Name="btn_alarm" Content="ToggleButton" Style="{DynamicResource togglebtn_alarm}" Margin="0,42,0,0" Width="40" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Checked">
-                    <ei:ControlStoryboardAction Storyboard="{StaticResource pop_win_open}"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="Unchecked">
-                    <ei:ControlStoryboardAction Storyboard="{StaticResource pop_win_close}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ToggleButton>-->
-        <!--<Grid x:Name="popwin" Background="{DynamicResource TBarColor24282C}" MinWidth="340" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="400" RenderTransformOrigin="0.5,0.5">
-            <Grid.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform Y="400"/>
-                </TransformGroup>
-            </Grid.RenderTransform>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="7*"/>
-            </Grid.RowDefinitions>
-            <Border BorderBrush="Black" MinHeight="30" d:LayoutOverrides="VerticalAlignment" Background="{DynamicResource blackgray24282C}" BorderThickness="0,0,0,2">
-                <DockPanel LastChildFill="False">
-                    <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center">
-                        <Button x:Name="button1" Content="Button" Height="24" Style="{DynamicResource btn_winclose}" Width="24" Margin="0,0,2,0"/>
-                    </StackPanel>
-                    <TextBlock x:Name="textBlock6_Copy" TextWrapping="Wrap" Text="告警列表" HorizontalAlignment="Left" Style="{DynamicResource title20}" FontSize="16" Margin="10,0,0,0"/>
-                </DockPanel>
-            </Border>
-          
-        </Grid>-->
+
     </Grid>
-   
+
 </UserControl>

@@ -22,19 +22,19 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 {
     public class CustomerDetailViewModel : BindableBase, INavigationAware
     {
-     
+
         private readonly IMonitoringSummaryService _monitoringSummaryService;
         private readonly ICustomerEquipmentService _customerEquipmentService;
-       
 
-        public CustomerDetailViewModel(ICustomerEquipmentService customerEquipmentService,  IMonitoringSummaryService monitoringSummaryService)
+
+        public CustomerDetailViewModel(ICustomerEquipmentService customerEquipmentService, IMonitoringSummaryService monitoringSummaryService)
         {
-           
+
             _monitoringSummaryService = monitoringSummaryService;
             _customerEquipmentService = customerEquipmentService;
         }
 
-     
+
 
         private Customer _currentCustomer;
         public Customer CurrentCustomer
@@ -78,7 +78,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             }
         }
 
-      
+
 
         private AlarmSummaryDTO _alarmSummaryInfo;
         public AlarmSummaryDTO AlarmSummaryInfo
@@ -157,6 +157,13 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             set { SetProperty(ref _devicePowerYFormatter, value); }
         }
 
+         private double _transformerCapacity;
+        public double TransformerCapacity
+        {
+            get { return _transformerCapacity; }
+            set { SetProperty(ref _transformerCapacity, value); }
+        }
+
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             var customer = navigationContext.Parameters["Customer"] as Customer;
@@ -166,8 +173,8 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                 {
                     CurrentCustomer = customer;
                     var customerId = CurrentCustomer.Id.ToString();
-                   
 
+                    GetTransformerCapacityTaskAsync(customerId);
                     GetDefaultDevicePowerInfoTaskAsync(customerId);
                     GetAlarmSummaryInfoTaskAsync(customerId);
                     GetPowerSummaryInfoTaskAsync(customerId);
@@ -178,6 +185,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                     if (CurrentCustomer.Id != customer.Id)
                     {
                         var customerId = CurrentCustomer.Id.ToString();
+                        GetTransformerCapacityTaskAsync(customerId);
                         GetDefaultDevicePowerInfoTaskAsync(customerId);
                         GetAlarmSummaryInfoTaskAsync(customerId);
                         GetPowerSummaryInfoTaskAsync(customerId);
@@ -187,6 +195,15 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
             }
         }
+
+        public Task GetTransformerCapacityTaskAsync(string customerId) => Task.Run(() =>
+        {
+            var capacity = _monitoringSummaryService.GetTransformerCapacity(customerId);
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                TransformerCapacity = capacity.value;
+            }));
+        });
 
         public Task GetDefaultDevicePowerInfoTaskAsync(string customerId) => Task.Run(() =>
         {
@@ -293,9 +310,9 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             return _monitoringSummaryService.GetAlarmSummary(customerId);
         }
 
-      
 
-       
+
+
 
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

@@ -8,12 +8,19 @@ using LiveCharts.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
 using Smart365Operation.Modules.Dashboard.Interfaces;
+using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Smart365Operation.Modules.Dashboard
 {
     public class DataStatisticsViewModel : BindableBase
     {
         private readonly IDataStatisticsService _dataStatisticsService;
+
+        public DataStatisticsViewModel()
+        {
+
+        }
 
         public DataStatisticsViewModel(IDataStatisticsService dataStatisticsService)
         {
@@ -23,9 +30,10 @@ namespace Smart365Operation.Modules.Dashboard
 
         private void Initialize()
         {
+            GetAlarmStatisticsInfo();
             GetCustomerIncrementsInfo();
             GetCustomerIndustryCategoryInfo();
-            GetAlarmStatisticsInfo();
+           
         }
 
 
@@ -37,15 +45,15 @@ namespace Smart365Operation.Modules.Dashboard
             get { return _customerIncrementsInfoSeriesCollection; }
             set { SetProperty(ref _customerIncrementsInfoSeriesCollection, value); }
         }
-        private List<string> _customerIncrementsLabels = new List<string>();
-        public List<string> CustomerIncrementsLabels
+        private ObservableCollection<string> _customerIncrementsLabels = new ObservableCollection<string>();
+        public ObservableCollection<string> CustomerIncrementsLabels
         {
             get { return _customerIncrementsLabels; }
             set { SetProperty(ref _customerIncrementsLabels, value); }
         }
 
-        private Func<int, string> _customerIncrementsFormatter;
-        public Func<int, string> CustomerIncrementsFormatter
+        private Func<double, string> _customerIncrementsFormatter;
+        public Func<double, string> CustomerIncrementsFormatter
         {
             get { return _customerIncrementsFormatter; }
             set { SetProperty(ref _customerIncrementsFormatter, value); }
@@ -77,11 +85,15 @@ namespace Smart365Operation.Modules.Dashboard
                 DataLabels = true
             };
 
-            CustomerIncrementsInfoSeriesCollection.Add(oldCustomersColumnSeries);
-            CustomerIncrementsInfoSeriesCollection.Add(addCustomersColumnSeries);
-            CustomerIncrementsLabels = new List<string>(labels);
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                CustomerIncrementsInfoSeriesCollection.Add(oldCustomersColumnSeries);
+                CustomerIncrementsInfoSeriesCollection.Add(addCustomersColumnSeries);
+                CustomerIncrementsLabels = new ObservableCollection<string>(labels);
 
-            CustomerIncrementsFormatter = value => value.ToString()+"家";
+                CustomerIncrementsFormatter = value => value.ToString() + "家";
+            }));
+
         }
 
         #endregion
@@ -98,6 +110,7 @@ namespace Smart365Operation.Modules.Dashboard
         private void GetCustomerIndustryCategoryInfo()
         {
             var customerIndustryCategoryInfo = _dataStatisticsService.GetCustomerIndustryCategoryInfo();
+            List<PieSeries> pieSeriesList = new List<PieSeries>();
             foreach (var customerIndustryCategoryDto in customerIndustryCategoryInfo)
             {
                 var industryCategoryInfo = new PieSeries
@@ -107,8 +120,12 @@ namespace Smart365Operation.Modules.Dashboard
                     LabelPoint = chartPoint => string.Format("{0}家 ({1:P})", chartPoint.Y, chartPoint.Participation),
                     DataLabels = true
                 };
-                CustomerIndustryCategorySeriesCollection.Add(industryCategoryInfo);
+                pieSeriesList.Add(industryCategoryInfo);
             }
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                CustomerIndustryCategorySeriesCollection.AddRange(pieSeriesList);
+            }));
         }
 
         #endregion
@@ -121,15 +138,15 @@ namespace Smart365Operation.Modules.Dashboard
             get { return _alarmStatisticsSeriesCollection; }
             set { SetProperty(ref _alarmStatisticsSeriesCollection, value); }
         }
-        private List<string> _alarmStatisticsLabels = new List<string>();
-        public List<string> AlarmStatisticsLabels
+        private ObservableCollection<string> _alarmStatisticsLabels = new ObservableCollection<string>();
+        public ObservableCollection<string> AlarmStatisticsLabels
         {
             get { return _alarmStatisticsLabels; }
             set { SetProperty(ref _alarmStatisticsLabels, value); }
         }
 
-        private Func<int, string> _alarmStatisticsFormatter;
-        public Func<int, string> AlarmStatisticsFormatter
+        private Func<double, string> _alarmStatisticsFormatter;
+        public Func<double, string> AlarmStatisticsFormatter
         {
             get { return _alarmStatisticsFormatter; }
             set { SetProperty(ref _alarmStatisticsFormatter, value); }
@@ -161,11 +178,15 @@ namespace Smart365Operation.Modules.Dashboard
                 DataLabels = true
             };
 
-            AlarmStatisticsSeriesCollection.Add(alarmCountColumnSeries);
-            AlarmStatisticsSeriesCollection.Add(untreatedCountColumnSeries);
-            AlarmStatisticsLabels = new List<string>(labels);
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                AlarmStatisticsSeriesCollection.Add(alarmCountColumnSeries);
+                AlarmStatisticsSeriesCollection.Add(untreatedCountColumnSeries);
+                AlarmStatisticsLabels = new ObservableCollection<string>(labels);
 
-            AlarmStatisticsFormatter = value => value.ToString() + "次";
+                AlarmStatisticsFormatter = value => value.ToString() + "次";
+            }));
+
         }
 
         #endregion

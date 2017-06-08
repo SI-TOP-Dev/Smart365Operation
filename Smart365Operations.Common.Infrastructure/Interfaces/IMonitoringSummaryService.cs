@@ -13,5 +13,9 @@ namespace Smart365Operations.Common.Infrastructure.Interfaces
         AlarmSummaryDTO GetAlarmSummary(string customerId);
         IList<TopPowerDTO> GetTopPowerSummary(string customerId, DateTime dateTime);
         IList<DevicePowerInfoDTO> GetDevicePowerInfo(string deviceId, DateTime dateTime);
+        /// <summary>
+        /// 变压器运行容量
+        /// </summary>
+        TransformerCapacityDTO GetTransformerCapacity(string customerId);
     }
 }

@@ -45,5 +45,13 @@ namespace Smart365Operation.Modules.Monitoring.Services
             return devicePowerInfoList;
 
         }
+
+        public TransformerCapacityDTO GetTransformerCapacity(string customerId)
+        {
+            DataServiceApi httpServiceApi = new DataServiceApi(); 
+             var request = new RestRequest($"data/customer/apparent.json?customerId={customerId}", Method.GET);
+            var capacity = httpServiceApi.Execute<TransformerCapacityDTO>(request);
+            return capacity;
+        }
     }
 }

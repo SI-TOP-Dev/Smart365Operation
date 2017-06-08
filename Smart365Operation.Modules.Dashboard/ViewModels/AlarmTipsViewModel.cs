@@ -12,6 +12,9 @@ using Smart365Operations.Common.Infrastructure;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
 using Smart365Operations.Common.Infrastructure.Prism;
+using MvvmDialogs;
+using Prism.Events;
+using Smart365Operation.Modules.Dashboard.Events;
 
 namespace Smart365Operation.Modules.Dashboard.ViewModels
 {
@@ -20,14 +23,24 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         private readonly IShellService _shellService;
         private readonly IRegionManager _regionManager;
         private readonly IMonitoringDataService _monitoringDataService;
+        private readonly IDialogService _dialogService;
+        private readonly IEventAggregator _eventAggregator;
+        private static bool _isCreateAlarmDialog = true;
 
-        public AlarmTipsViewModel(IShellService shellService, IRegionManager regionManager, IMonitoringDataService monitoringDataService)
+        public AlarmTipsViewModel(IEventAggregator eventAggregator, IShellService shellService, IRegionManager regionManager, IDialogService dialogService, IMonitoringDataService monitoringDataService)
         {
             _shellService = shellService;
             _regionManager = regionManager;
+            _dialogService = dialogService;
             _monitoringDataService = monitoringDataService;
             _monitoringDataService.AlarmDataUpdated += _monitoringDataService_AlarmDataUpdated;
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<AlarmDialogClosedEvent>().Subscribe(arg => HandleAlarmDialogClosed(arg));
+        }
 
+        private void HandleAlarmDialogClosed(AlarmDialogClosedEventArg arg)
+        {
+            _isCreateAlarmDialog = true;
         }
 
         private void _monitoringDataService_AlarmDataUpdated(object sender, AlarmDataEventArgs e)
@@ -43,8 +56,23 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
                         AlarmList.Add(alarmInfo);
                         CurrentAlarmInfo = alarmInfo;
                         IsShow = true;
+                        NotifiyAlarm();
                     }));
                 }
+            }
+        }
+
+        private void NotifiyAlarm()
+        {
+            if (_isCreateAlarmDialog)
+            {
+                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator, AlarmList.ToList(), CurrentAlarmInfo);
+                _dialogService.Show(this, alarmDialogViewModel);
+                _isCreateAlarmDialog = false;
+            }
+            else
+            {
+                _eventAggregator.GetEvent<AlarmUpdatedEvent>().Publish(new AlarmUpdatedEventArg(CurrentAlarmInfo));
             }
         }
 
@@ -54,9 +82,30 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
 
         public DelegateCommand<object> LocateAlarmCommand => new DelegateCommand<object>(LocateAlarm, CanLocateAlarm);
 
+        public DelegateCommand OpenAlarmDialogCommand => new DelegateCommand(OpenAlarmDialog, CanOpenAlarmDialog);
+
+        private bool CanOpenAlarmDialog()
+        {
+            return true;
+        }
+
+        private void OpenAlarmDialog()
+        {
+            if (_isCreateAlarmDialog)
+            {
+                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator, AlarmList.ToList(), CurrentAlarmInfo);
+                _dialogService.Show(this, alarmDialogViewModel);
+                _isCreateAlarmDialog = false;
+            }
+        }
+
         private void LocateAlarm(object obj)
         {
             var info = obj as AlarmInfo;
+            if (info == null)
+            {
+                return;
+            }
             var parameters = new NavigationParameters();
             parameters.Add("CustomerId", info.CustomerId.ToString());
             _shellService.ShowShell("Monitoring", parameters);
