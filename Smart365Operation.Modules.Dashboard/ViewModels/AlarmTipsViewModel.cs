@@ -15,6 +15,7 @@ using Smart365Operations.Common.Infrastructure.Prism;
 using MvvmDialogs;
 using Prism.Events;
 using Smart365Operation.Modules.Dashboard.Events;
+using System.Runtime.InteropServices;
 
 namespace Smart365Operation.Modules.Dashboard.ViewModels
 {
@@ -26,6 +27,25 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         private readonly IDialogService _dialogService;
         private readonly IEventAggregator _eventAggregator;
         private static bool _isCreateAlarmDialog = true;
+        private System.Media.SoundPlayer _soundPlayer;
+        private readonly string Alarm_Sound_FilePath = @"C:\Users\Hardborn\Desktop\Warning.wav";
+
+        //[System.Runtime.InteropServices.DllImport("winmm.DLL", EntryPoint = "PlaySound", SetLastError = true, CharSet = CharSet.Unicode, ThrowOnUnmappableChar = true)]
+        //private static extern bool PlaySound(string szSound, System.IntPtr hMod, PlaySoundFlags flags);
+
+        //[System.Flags]
+        //public enum PlaySoundFlags : int
+        //{
+        //    SND_SYNC = 0x0000,
+        //    SND_ASYNC = 0x0001,
+        //    SND_NODEFAULT = 0x0002,
+        //    SND_LOOP = 0x0008,
+        //    SND_NOSTOP = 0x0010,
+        //    SND_NOWAIT = 0x00002000,
+        //    SND_FILENAME = 0x00020000,
+        //    SND_RESOURCE = 0x00040004
+        //}
+
 
         public AlarmTipsViewModel(IEventAggregator eventAggregator, IShellService shellService, IRegionManager regionManager, IDialogService dialogService, IMonitoringDataService monitoringDataService)
         {
@@ -36,6 +56,29 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
             _monitoringDataService.AlarmDataUpdated += _monitoringDataService_AlarmDataUpdated;
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<AlarmDialogClosedEvent>().Subscribe(arg => HandleAlarmDialogClosed(arg));
+            AlarmList.CollectionChanged += AlarmList_CollectionChanged;
+        }
+
+        private void AlarmList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            {
+                var self = sender as ObservableCollection<AlarmInfo>;
+                if (self == null)
+                    return;
+                if (self.Count == 0)
+                {
+                    CurrentAlarmInfo = null;
+                    if (_soundPlayer != null)
+                    {
+                        _soundPlayer.Stop();
+                    }
+                }
+                else
+                {
+                    CurrentAlarmInfo = self[0];
+                }
+            }
         }
 
         private void HandleAlarmDialogClosed(AlarmDialogClosedEventArg arg)
@@ -51,6 +94,14 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
                 var alarmInfo = JsonConvert.DeserializeObject<AlarmInfo>(alarmStr);
                 if (alarmInfo != null)
                 {
+                    var action = new Action(() =>
+                   {
+                       _soundPlayer = new System.Media.SoundPlayer();
+                       _soundPlayer.SoundLocation = Alarm_Sound_FilePath;
+                       _soundPlayer.PlayLooping();
+                   });
+                    action.BeginInvoke(null, null);
+                    
                     System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         AlarmList.Add(alarmInfo);
@@ -66,7 +117,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         {
             if (_isCreateAlarmDialog)
             {
-                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator, AlarmList.ToList(), CurrentAlarmInfo);
+                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator,_shellService, AlarmList, CurrentAlarmInfo);
                 _dialogService.Show(this, alarmDialogViewModel);
                 _isCreateAlarmDialog = false;
             }
@@ -93,7 +144,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         {
             if (_isCreateAlarmDialog)
             {
-                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator, AlarmList.ToList(), CurrentAlarmInfo);
+                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator,_shellService, AlarmList, CurrentAlarmInfo);
                 _dialogService.Show(this, alarmDialogViewModel);
                 _isCreateAlarmDialog = false;
             }

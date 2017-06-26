@@ -40,55 +40,121 @@ namespace Smart365Operations.Common.Infrastructure.Utility
         }
 
 
+        public bool Execute(RestRequest request)
+        {
+            var result = false;
+            try
+            {
+                var client = new RestClient
+                {
+                    BaseUrl = new System.Uri(BaseUrl),
+                    CookieContainer = _cookieContainer
+                };
+                var response = client.Execute(request);
+
+                if (response.ErrorException != null)
+                {
+                    const string message = "Error retrieving response.  Check inner details for more info.";
+                    var twilioException = new ApplicationException(message, response.ErrorException);
+                    throw twilioException;
+                }
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var cookie = response.Cookies.FirstOrDefault();
+                    if (cookie != null)
+                    {
+                        CookieContainer cookiecon = new CookieContainer();
+                        cookiecon.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+                        SetCookieContainer(cookiecon);
+                    }
+                }
+
+
+                var resultObject = JsonConvert.DeserializeObject(response.Content) as JObject;
+                if (resultObject != null)
+                {
+                    var responseCode = resultObject.Property("errorCode").Value.Value<int>();
+                    if (!ResultTable.ContainsKey(responseCode))
+                    {
+
+                    }
+                    if (responseCode != 0)
+                    {
+                        result = false;
+                    }
+                    else
+                    {
+                        result = true;
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return result;
+            }
+        }
+
 
         public T Execute<T>(RestRequest request) where T : new()
         {
-            var client = new RestClient
-            {
-                BaseUrl = new System.Uri(BaseUrl),
-                CookieContainer = _cookieContainer
-            };
-            var response = client.Execute(request);
-
-            if (response.ErrorException != null)
-            {
-                const string message = "Error retrieving response.  Check inner details for more info.";
-                var twilioException = new ApplicationException(message, response.ErrorException);
-                throw twilioException;
-            }
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                var cookie = response.Cookies.FirstOrDefault();
-                if (cookie != null)
-                {
-                    CookieContainer cookiecon = new CookieContainer();
-                    cookiecon.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
-                    SetCookieContainer(cookiecon);
-                }
-            }
-
             T result = default(T);
-            var resultObject = JsonConvert.DeserializeObject(response.Content) as JObject;
-            if (resultObject != null)
+            try
             {
-                var responseCode = resultObject.Property("errorCode").Value.Value<int>();
-                if (!ResultTable.ContainsKey(responseCode))
+                var client = new RestClient
                 {
-                    
-                }
-                if (responseCode != 0)
-                {
-                    throw new ApplicationException($"错误：{resultObject.Property("message").Value.Value<string>()}");
-                }
-                else
-                {
-                    var responseData = resultObject.Property("data").Value;
-                    result = responseData.ToObject<T>();
-                }
-            }
+                    BaseUrl = new System.Uri(BaseUrl),
+                    CookieContainer = _cookieContainer
+                };
+                var response = client.Execute(request);
 
-            return result;
+                if (response.ErrorException != null)
+                {
+                    const string message = "Error retrieving response.  Check inner details for more info.";
+                    var twilioException = new ApplicationException(message, response.ErrorException);
+                    throw twilioException;
+                }
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var cookie = response.Cookies.FirstOrDefault();
+                    if (cookie != null)
+                    {
+                        CookieContainer cookiecon = new CookieContainer();
+                        cookiecon.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+                        SetCookieContainer(cookiecon);
+                    }
+                }
+
+                
+                var resultObject = JsonConvert.DeserializeObject(response.Content) as JObject;
+                if (resultObject != null)
+                {
+                    var responseCode = resultObject.Property("errorCode").Value.Value<int>();
+                    if (!ResultTable.ContainsKey(responseCode))
+                    {
+
+                    }
+                    if (responseCode != 0)
+                    {
+                        throw new ApplicationException($"错误：{resultObject.Property("message").Value.Value<string>()}");
+                    }
+                    else
+                    {
+                        var responseData = resultObject.Property("data").Value;
+                        result = responseData.ToObject<T>();
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return result;
+            }
+           
         }
 
         public byte[] Download(RestRequest request)

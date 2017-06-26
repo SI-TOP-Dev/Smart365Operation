@@ -8,6 +8,7 @@ namespace Smart365Operations.Common.Infrastructure.Models
 {
     public class AlarmInfo
     {
+        public int AlarmId { get; set; }
         public string Content { get; set; }
         public int CustomerId { get; set; }
         public int EquipmentId { get; set; }

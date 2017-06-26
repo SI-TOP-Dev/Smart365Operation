@@ -9,126 +9,74 @@
              xmlns:models="clr-namespace:Smart365Operations.Common.Infrastructure.Models;assembly=Smart365Operations.Common.Infrastructure"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:scichart="http://schemas.abtsoftware.co.uk/scichart"
+             xmlns:Converters="clr-namespace:Smart365Operation.Modules.DataAnalysis.Converters"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" >
-  
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="88*"/>
-                    <RowDefinition Height="5*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40*"/>
-                    <ColumnDefinition Width="1237*"/>
-                    <ColumnDefinition Width="40*"/>
-                </Grid.ColumnDefinitions>
-                <ItemsControl Grid.Column="1" ItemsSource="{Binding SeriesList}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.IsSharedSizeScope="True">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate >
-                            <Grid Margin="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Title"/>
-                                </Grid.ColumnDefinitions>
-                                <CheckBox Name="visibleCheckBox" IsChecked="True" 
-                                          Command="{Binding DataContext.CheckCommand,RelativeSource={RelativeSource AncestorType=ItemsControl} }" 
-                                          CommandParameter="{Binding Title}" />
-                                <Rectangle Grid.Column="1" Stroke="{Binding Stroke}" Fill="{Binding Fill}" Width="15" Height="15"/>
-                                <TextBlock Grid.Column="2" Style="{DynamicResource txtcontent_textblock}" Margin="4 0" Text="{Binding Title}" VerticalAlignment="Center" />
-                            </Grid>
-                            <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=visibleCheckBox,Path=IsChecked}" Value="False">
-                                    <Setter Property="Opacity" Value="0.4"/>
-                                </DataTrigger>
-                            </DataTemplate.Triggers>
-                        </DataTemplate>
+    <UserControl.Resources>
+        <Style x:Key="MajorGridLineStyle" TargetType="Line">
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="X2" Value="0"/>
+            <Setter Property="Y2" Value="0"/>
+        </Style>
+        <Style x:Key="MinorGridLineStyle" TargetType="Line">
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="X2" Value="0"/>
+            <Setter Property="Y2" Value="0"/>
+        </Style>
+        <Style x:Key="MajorTickLineStyle" TargetType="Line">
+            <Setter Property="Stroke" Value="Blue"/>
+            <Setter Property="X2" Value="10"/>
+        </Style>
+        <Style x:Key="MinorTickLineStyle" TargetType="Line">
+            <Setter Property="Stroke" Value="Green"/>
+            <Setter Property="X2" Value="3"/>
+        </Style>
+        <Style x:Key="sliceStyle" TargetType="scichart:VerticalLineAnnotation">
+            <Setter Property="ShowLabel" Value="True"/>
+            <Setter Property="Stroke" Value="#427EF6"/>
+            <Setter Property="IsEditable" Value="True"/>
+            <Setter Property="LabelPlacement" Value="Axis"/>
+        </Style>
+        <!--  Converter used by feedback panel below SciChartSurface  -->
+        <Converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
 
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
+        <!-- Template for the RolloverModifier tooltip to display SeriesInfo collection (result of hit test)  -->
+        <!-- See the members for SeriesInfo to see what you can bind to -->
+        <ControlTemplate x:Key="RolloverLabelTemplate" TargetType="scichart:TemplatableControl">
+            <Border Background="#77FFFFFF"
+                    BorderBrush="{Binding SeriesColor,
+                                          Converter={StaticResource ColorToBrushConverter}}"
+                    BorderThickness="2"
+                    CornerRadius="5">
+                <StackPanel Margin="5">
+                    <TextBlock FontSize="12"
+                               FontWeight="Bold"
+                               Foreground="{Binding SeriesColor,
+                                                    Converter={StaticResource ColorToBrushConverter}}"
+                               Text="{Binding SeriesName}" />
+                    <TextBlock FontSize="11"
+                               Foreground="{Binding SeriesColor,
+                                                    Converter={StaticResource ColorToBrushConverter}}"
+                               Text="{Binding Value}" />
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
 
-        <lvc:CartesianChart Grid.Column="1" Grid.Row="1" Series="{Binding SeriesCollection}" DisableAnimations="True"
-                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <lvc:CartesianChart.Resources>
-                        <Style TargetType="lvc:LineSeries">
-                            <Setter Property="StrokeThickness" Value="2"></Setter>
-                            <!--<Setter Property="Stroke" Value="#FF00c0fe"></Setter>
-                    <Setter Property="Fill" Value="#6600C0FE"></Setter>-->
-                            <Setter Property="PointGeometrySize" Value="0"></Setter>
-                            <Setter Property="LineSmoothness" Value="0"></Setter>
-                        </Style>
-                        <Style TargetType="lvc:Axis">
-                            <Setter Property="ShowLabels" Value="True"></Setter>
-                            <Setter Property="IsEnabled" Value="False"></Setter>
-                            <Style.Triggers>
-                                <Trigger Property="AxisOrientation" Value="y">
-                                    <Setter Property="IsMerged" Value="False"></Setter>
-                                    <!--<Setter Property="MaxValue" Value="100"></Setter>-->
-                                </Trigger>
-                                <Trigger Property="AxisOrientation" Value="x">
-                                    <!--<Setter Property="IsMerged" Value="False"></Setter>
-                                        <Setter Property="MaxValue" Value="10"></Setter>-->
-                                    <Setter Property="LabelsRotation" Value="0"></Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                        <Style TargetType="lvc:Separator">
-                            <Setter Property="StrokeThickness" Value="1"></Setter>
-                            <Setter Property="Stroke" Value="#FF14443b"></Setter>
-                            <Style.Triggers>
-                                <Trigger Property="AxisOrientation" Value="y">
-                                    <Setter Property="IsEnabled" Value="True"></Setter>
-                                    <!--<Setter Property="Step" Value="20"></Setter>-->
-                                </Trigger>
-                                <Trigger Property="AxisOrientation" Value="x">
-                                    <Setter Property="IsEnabled" Value="True"></Setter>
-                                    <!--<Setter Property="Step" Value="1"></Setter>-->
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </lvc:CartesianChart.Resources>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="时间" Margin="0,10,0,0" LabelFormatter="{Binding XFormatter}"/>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="{Binding DataTypeName}"  Margin="0,0,0,10" LabelFormatter="{Binding YFormatter}" />
-                    </lvc:CartesianChart.AxisY>
-                </lvc:CartesianChart>
-            </Grid>
-   
-        <!--<Expander x:Name="listexpand2" Header="                           " HorizontalAlignment="Left" Width="280" Style="{DynamicResource expandsublistright2}" ExpandDirection="Right" Grid.RowSpan="2">
-            <TreeView x:Name="treeView1" Style="{DynamicResource treeview_nav}" ItemContainerStyle="{DynamicResource treeviewitem_nav}" Background="{x:Null}" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition">
-                --><!--<TreeViewItem Header="北胶辊科技" Style="{DynamicResource treeviewitem_nav}" ItemContainerStyle="{DynamicResource treeviewitem_nav}" IsExpanded="True">
-                    <TreeViewItem Header="老厂区" Style="{DynamicResource treeviewitem_nav}" IsExpanded="True">
-                        <TreeViewItem Header="配电室" Style="{DynamicResource treeviewitem_nav}" IsExpanded="True">
-                            <TreeViewItem Header="环境监测" Style="{DynamicResource treeviewitem_nav}"/>
-                            <TreeViewItem Header="低压进线柜" Style="{DynamicResource treeviewitem_nav}"/>
-                            <TreeViewItem Header="3路出线柜" Style="{DynamicResource treeviewitem_nav}"/>
-                            <TreeViewItem Header="2路出线柜" Style="{DynamicResource treeviewitem_nav}"/>
-                            <TreeViewItem Header="1路出线柜" Style="{DynamicResource treeviewitem_nav}"/>
-                            <TreeViewItem Header="5路出线柜" Style="{DynamicResource treeviewitem_nav}"/>
-                        </TreeViewItem>
-                    </TreeViewItem>
-                </TreeViewItem>--><!--
-            </TreeView>
-        </Expander>-->
-        
- 
-    <!--<Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+    </UserControl.Resources>
+    <Grid >
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="88*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding SeriesList}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Grid.IsSharedSizeScope="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="1237*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>-->
+        <!--<ItemsControl Grid.Column="1" ItemsSource="{Binding SeriesList}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.IsSharedSizeScope="True">
             <ItemsControl.ItemTemplate>
                 <DataTemplate >
                     <Grid Margin="2">
@@ -137,10 +85,11 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Title"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox Name="visibleCheckBox" IsChecked="True"  Command="{Binding DataContext.CheckCommand,RelativeSource={RelativeSource AncestorType=ItemsControl} }" CommandParameter="{Binding Title}" />
-                        <Rectangle Grid.Column="1" Stroke="{Binding Stroke}" Fill="{Binding Fill}" 
-                               Width="15" Height="15"/>
-                        <TextBlock Grid.Column="2" Margin="4 0" Text="{Binding Title}" Foreground="Black" VerticalAlignment="Center" />
+                        <CheckBox Name="visibleCheckBox" IsChecked="True" 
+                                          Command="{Binding DataContext.CheckCommand,RelativeSource={RelativeSource AncestorType=ItemsControl} }" 
+                                          CommandParameter="{Binding Title}" />
+                        <Rectangle Grid.Column="1" Stroke="{Binding Stroke}" Fill="{Binding Fill}" Width="15" Height="15"/>
+                        <TextBlock Grid.Column="2" Style="{DynamicResource txtcontent_textblock}" Margin="4 0" Text="{Binding Title}" VerticalAlignment="Center" />
                     </Grid>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding ElementName=visibleCheckBox,Path=IsChecked}" Value="False">
@@ -148,22 +97,23 @@
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
-                
+
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-        </ItemsControl>
-        <lvc:CartesianChart Grid.Row="2" Series="{Binding SeriesCollection}" 
+        </ItemsControl>-->
+
+        <!--<lvc:CartesianChart Grid.Column="1" Grid.Row="1" Series="{Binding SeriesCollection}" DisableAnimations="True" Visibility="Collapsed"
                             VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <lvc:CartesianChart.Resources>
                 <Style TargetType="lvc:LineSeries">
                     <Setter Property="StrokeThickness" Value="2"></Setter>
                     --><!--<Setter Property="Stroke" Value="#FF00c0fe"></Setter>
                     <Setter Property="Fill" Value="#6600C0FE"></Setter>--><!--
-                    <Setter Property="PointGeometrySize" Value="5"></Setter>
+                    <Setter Property="PointGeometrySize" Value="0"></Setter>
                     <Setter Property="LineSmoothness" Value="0"></Setter>
                 </Style>
                 <Style TargetType="lvc:Axis">
@@ -177,7 +127,7 @@
                         <Trigger Property="AxisOrientation" Value="x">
                             --><!--<Setter Property="IsMerged" Value="False"></Setter>
                                         <Setter Property="MaxValue" Value="10"></Setter>--><!--
-                            <Setter Property="LabelsRotation" Value="-135"></Setter>
+                            <Setter Property="LabelsRotation" Value="0"></Setter>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -202,6 +152,50 @@
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="{Binding DataTypeName}"  Margin="0,0,0,10" LabelFormatter="{Binding YFormatter}" />
             </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-    </Grid>-->
+        </lvc:CartesianChart>-->
+        <scichart:SciStockChart x:Name="priceChart" Padding="50" BorderThickness="0"
+                                scichart:RenderSurfaceBase.RenderSurfaceType="Abt.Controls.SciChart.Rendering.HighQualityRasterizer.HighQualityRenderSurface"
+                                scichart:ThemeManager.Theme="BlackSteel" SeriesSource="{Binding SeriesViewModels}"><!--BlackSteel-->
+<!--Background="#111314"-->
+            <!-- Override any properties of the built-in CategoryDateTimeAxis -->
+            <!--<scichart:SciStockChart.XAxisStyle>
+                <Style TargetType="scichart:CategoryDateTimeAxis">
+                    <Setter Property="BarTimeFrame" Value="{Binding BarTimeFrame, Mode=OneWay}"/>
+                    --><!--<Setter Property="DrawMinorGridLines" Value="False"/>
+                    <Setter Property="DrawMajorBands" Value="True"/>--><!--
+                    <Setter Property="VisibleRange" Value="{Binding XVisibleRange, Mode=TwoWay}"/>
+                    --><!--<Setter Property="DrawMinorGridLines" Value="False"/>--><!--
+                    <Setter Property="GrowBy" Value="0, 0.1"/>
+                </Style>
+            </scichart:SciStockChart.XAxisStyle>-->
+            <scichart:SciChartSurface.XAxis>
+                <scichart:DateTimeAxis TextFormatting="yyyy-MM-dd" SubDayTextFormatting="HH:mm" 
+                                       MajorGridLineStyle="{StaticResource MajorGridLineStyle}"
+         MinorGridLineStyle="{StaticResource MinorGridLineStyle}"/>
+            </scichart:SciChartSurface.XAxis>
+            <scichart:SciChartSurface.YAxis>
+                <scichart:NumericAxis AutoRange="Always" GrowBy="0.1,0.1" 
+                                      MajorGridLineStyle="{StaticResource MajorGridLineStyle}"
+         MinorGridLineStyle="{StaticResource MinorGridLineStyle}"/>
+            </scichart:SciChartSurface.YAxis>
+            <!-- Override any properties of the built-in NumericAxis -->
+            <scichart:SciStockChart.YAxisStyle>
+                <Style TargetType="scichart:NumericAxis">
+                    <Setter Property="AutoRange" Value="Always"/>
+                </Style>
+            </scichart:SciStockChart.YAxisStyle>
+            <scichart:SciChartSurface.ChartModifier>
+                <scichart:ModifierGroup>
+                    <scichart:RolloverModifier x:Name="rolloverModifier" DrawVerticalLine="True" SourceMode="AllSeries" ShowTooltipOn="MouseHover" TooltipLabelTemplate="{StaticResource RolloverLabelTemplate}"/>
+                    <scichart:CursorModifier ReceiveHandledEvents="True"/>
+                    <scichart:LegendModifier ShowLegend="True" Orientation="Horizontal" LegendPlacement="Top" Margin="0,0,0,5"/>
+                    <scichart:RubberBandXyZoomModifier/>
+                    <scichart:ZoomExtentsModifier />
+                    <scichart:MouseWheelZoomModifier />
+                </scichart:ModifierGroup>
+            </scichart:SciChartSurface.ChartModifier>
+        </scichart:SciStockChart>
+    </Grid>
+
+
 </UserControl>

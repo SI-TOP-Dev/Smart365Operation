@@ -132,11 +132,15 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                 default:
                     break;
             }
-           
-            var dataList = _historyDataService.GetHistoryDataList(CurrentEquipment.equipmentId.ToString(),
-                _selectedParameterType.typeId.ToString(), SelectedTimeType, SelectedDate.ToString(selectedDateFormat));
-            _eventAggregator.GetEvent<HistoryDataUpdatedEvent>().Publish(new HistoryDataUpdatedEventArg(dataList,SelectedTimeType,SelectedParameterType.typeName));
 
+            var action = new Action(() =>
+            {
+                var dataList = _historyDataService.GetHistoryDataList(CurrentEquipment.equipmentId.ToString(),
+                _selectedParameterType.typeId.ToString(), SelectedTimeType, SelectedDate.ToString(selectedDateFormat));
+                _eventAggregator.GetEvent<HistoryDataUpdatedEvent>().Publish(new HistoryDataUpdatedEventArg(dataList, SelectedTimeType, SelectedParameterType.typeName));
+            });
+            action.BeginInvoke(null, null);
+            
         }
 
         private bool CanQueryData()

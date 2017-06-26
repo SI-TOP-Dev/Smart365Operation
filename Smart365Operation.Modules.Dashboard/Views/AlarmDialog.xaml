@@ -46,7 +46,7 @@
             </DockPanel>
         </Border>
         <DockPanel Grid.Row="1">
-            <Border BorderThickness="0,0,0,2" DockPanel.Dock="Top">
+            <!--<Border BorderThickness="0,0,0,2" DockPanel.Dock="Top">
                 <DockPanel Margin="10,0">
                     <DockPanel VerticalAlignment="Top" DockPanel.Dock="Top" >
                         <Label Content="{Binding CurrentAlarmInfo.Time}" Foreground="{DynamicResource lightgreen1BBC9B}" Padding="5,5,5,0"/>
@@ -56,7 +56,7 @@
                                     Command="{Binding LocateAlarmCommand}"
                                     CommandParameter="{Binding CurrentAlarmInfo}"/>
                 </DockPanel>
-            </Border>
+            </Border>-->
             <ScrollViewer Grid.Row="1"  Margin="10" VerticalScrollBarVisibility="Auto">
                 <ListBox ItemsSource="{Binding AlarmList}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                   

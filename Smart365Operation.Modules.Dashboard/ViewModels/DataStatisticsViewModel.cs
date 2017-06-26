@@ -154,6 +154,10 @@ namespace Smart365Operation.Modules.Dashboard
         private void GetAlarmStatisticsInfo()
         {
             var alarmStatisticsInfo = _dataStatisticsService.GetAlarmStatisticsInfo();
+            if (alarmStatisticsInfo == null)
+            {
+                return;
+            }
             List<int> alarmCountList = new List<int>();
             List<int> untreatedCountList = new List<int>();
             List<string> labels = new List<string>();
