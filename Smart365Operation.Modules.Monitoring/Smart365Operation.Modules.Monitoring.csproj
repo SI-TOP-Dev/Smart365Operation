@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Abt.Controls.SciChart.Wpf, Version=3.61.0.7847, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Smart365Operation.Modules.DataAnalysis\Lib\Abt.Controls.SciChart.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Com.Shengzuo.RuntimeCore, Version=1.0.0.5, Culture=neutral, PublicKeyToken=b11b946795d4fe52, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ReferenceLibrary\Com.Shengzuo.RuntimeCore.dll</HintPath>

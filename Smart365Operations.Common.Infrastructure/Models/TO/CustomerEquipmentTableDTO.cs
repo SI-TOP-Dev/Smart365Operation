@@ -37,6 +37,8 @@ namespace Smart365Operations.Common.Infrastructure.Models.TO
         public string equipmentName { get; set; }
         public int equipmentType { get; set; }
         public int isCount { get; set; }
+        public int isApparent { get; set; }
+        public int isPowerFactor { get; set; }
     }
 
 }

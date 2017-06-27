@@ -24,5 +24,6 @@ namespace Smart365Operation.Modules.DataAnalysis.Views
         {
             InitializeComponent();
         }
+
     }
 }

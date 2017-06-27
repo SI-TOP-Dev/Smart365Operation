@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Converters\PowerFactorDeviceFilterConverter.cs" />
     <Compile Include="Converters\UriToImageSourceConverter.cs" />
     <Compile Include="Interfaces\AlarmDataEventArgs.cs" />
     <Compile Include="Interfaces\ICustomerEquipmentService.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Models\TO\HistoryDataDTO.cs" />
     <Compile Include="Models\TO\LoginInfoDTO.cs" />
     <Compile Include="Models\TO\DeviceParameterInfoDTO.cs" />
+    <Compile Include="Models\TO\PowerFactorDTO.cs" />
     <Compile Include="Models\TO\PowerSummaryDTO.cs" />
     <Compile Include="Models\TO\TopPowerDTO.cs" />
     <Compile Include="Models\TO\TransformerCapacityDTO.cs" />

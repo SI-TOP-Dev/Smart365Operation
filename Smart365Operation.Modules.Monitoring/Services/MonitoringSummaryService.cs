@@ -53,5 +53,13 @@ namespace Smart365Operation.Modules.Monitoring.Services
             var capacity = httpServiceApi.Execute<TransformerCapacityDTO>(request);
             return capacity;
         }
+
+        public IList<PowerFactorDTO> GetPowerFactorInfo(string deviceId, DateTime dateTime)
+        {
+            DataServiceApi httpServiceApi = new DataServiceApi();
+            var request = new RestRequest($"data/load/powerfactor/list.json?equipmentId={deviceId}&time={dateTime.ToString("yyyy-MM-dd")}", Method.GET);
+            var capacity = httpServiceApi.Execute<List<PowerFactorDTO>>(request);
+            return capacity;
+        }
     }
 }

@@ -17,5 +17,7 @@ namespace Smart365Operations.Common.Infrastructure.Interfaces
         /// 变压器运行容量
         /// </summary>
         TransformerCapacityDTO GetTransformerCapacity(string customerId);
+
+        IList<PowerFactorDTO> GetPowerFactorInfo(string deviceId, DateTime dateTime);
     }
 }

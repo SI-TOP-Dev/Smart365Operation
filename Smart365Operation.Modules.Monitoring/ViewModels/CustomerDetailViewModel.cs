@@ -17,6 +17,9 @@ using LiveCharts.Wpf;
 using Smart365Operations.Common.Infrastructure.Models.TO;
 using System.Windows.Controls;
 using LiveCharts.Configurations;
+using Abt.Controls.SciChart;
+using Abt.Controls.SciChart.Model.DataSeries;
+using Abt.Controls.SciChart.Visuals.RenderableSeries;
 
 namespace Smart365Operation.Modules.Monitoring.ViewModels
 {
@@ -50,34 +53,60 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             set { SetProperty(ref _deviceList, value); }
         }
 
-        private EquipmentDTO _selectedDevice;
-        public EquipmentDTO SelectedDevice
+        private EquipmentDTO _selectedPowerDevice;
+        public EquipmentDTO SelectedPowerDevice
         {
-            get { return _selectedDevice; }
+            get { return _selectedPowerDevice; }
             set
             {
-                if (value != _selectedDevice)
+                if (value != _selectedPowerDevice)
                 {
-                    GetDevicePowerInfoTaskAsync(value.equipmentId.ToString(), SelectedDate);
+                    GetDevicePowerInfoTaskAsync(value.equipmentId.ToString(), SelectedPowerDate);
                 }
-                SetProperty(ref _selectedDevice, value);
+                SetProperty(ref _selectedPowerDevice, value);
             }
         }
 
-        private DateTime _selectedDate = DateTime.Now;
-        public DateTime SelectedDate
+        private EquipmentDTO _selectedPowerFactorDevice;
+        public EquipmentDTO SelectedPowerFactorDevice
         {
-            get { return _selectedDate; }
+            get { return _selectedPowerFactorDevice; }
             set
             {
-                if (value.Year != _selectedDate.Year || value.Month != _selectedDate.Month)
+                if (value != _selectedPowerFactorDevice)
                 {
-                    GetDevicePowerInfoTaskAsync(SelectedDevice.equipmentId.ToString(), value);
+                    GetDevicePowerFactorTaskAsync(value.equipmentId.ToString(), SelectedPowerFactorDate);
                 }
-                SetProperty(ref _selectedDate, value);
+                SetProperty(ref _selectedPowerFactorDevice, value);
             }
         }
 
+        private DateTime _selectedPowerDate = DateTime.Now;
+        public DateTime SelectedPowerDate
+        {
+            get { return _selectedPowerDate; }
+            set
+            {
+                if (value != _selectedPowerDate)
+                {
+                    GetDevicePowerInfoTaskAsync(SelectedPowerDevice.equipmentId.ToString(), value);
+                }
+                SetProperty(ref _selectedPowerDate, value);
+            }
+        }
+        private DateTime _selectedPowerFactorDate = DateTime.Now;
+        public DateTime SelectedPowerFactorDate
+        {
+            get { return _selectedPowerFactorDate; }
+            set
+            {
+                if (value != _selectedPowerFactorDate)
+                {
+                    GetDevicePowerFactorTaskAsync(SelectedPowerFactorDevice.equipmentId.ToString(), value);
+                }
+                SetProperty(ref _selectedPowerFactorDate, value);
+            }
+        }
 
 
         private AlarmSummaryDTO _alarmSummaryInfo;
@@ -157,7 +186,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             set { SetProperty(ref _devicePowerYFormatter, value); }
         }
 
-         private double _transformerCapacity;
+        private double _transformerCapacity;
         public double TransformerCapacity
         {
             get { return _transformerCapacity; }
@@ -178,7 +207,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                     GetDefaultDevicePowerInfoTaskAsync(customerId);
                     GetAlarmSummaryInfoTaskAsync(customerId);
                     GetPowerSummaryInfoTaskAsync(customerId);
-                    GetTopPowerSummaryInfoListTaskAsync(customerId);
+                    // GetTopPowerSummaryInfoListTaskAsync(customerId);
                 }
                 else
                 {
@@ -189,7 +218,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                         GetDefaultDevicePowerInfoTaskAsync(customerId);
                         GetAlarmSummaryInfoTaskAsync(customerId);
                         GetPowerSummaryInfoTaskAsync(customerId);
-                        GetTopPowerSummaryInfoListTaskAsync(customerId);
+                        //GetTopPowerSummaryInfoListTaskAsync(customerId);
                     }
                 }
 
@@ -199,6 +228,10 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         public Task GetTransformerCapacityTaskAsync(string customerId) => Task.Run(() =>
         {
             var capacity = _monitoringSummaryService.GetTransformerCapacity(customerId);
+            if (capacity == null)
+            {
+                return;
+            }
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 TransformerCapacity = capacity.value;
@@ -212,6 +245,10 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         private void GetDefaultDevicePowerInfo(string customerId)
         {
             var deviceSummaryList = _customerEquipmentService.GetCustomerEquipmentTable(customerId);
+            if (deviceSummaryList == null)
+            {
+                return;
+            }
             List<EquipmentDTO> deviceList = new List<EquipmentDTO>();
             deviceSummaryList.areaList.ForEach(a => a.switchingRoomList.ForEach(r =>
             {
@@ -222,11 +259,43 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 DeviceList.Clear();
-                DeviceList.AddRange(deviceList);
-                SelectedDevice = DeviceList.Count != 0 ? DeviceList[0] : null;
+                DeviceList = new ObservableCollection<EquipmentDTO>(deviceList);
+                SelectedPowerDevice = DeviceList.Count != 0 ? DeviceList[0] : null;
+                SelectedPowerFactorDevice = DeviceList.Count != 0 ? DeviceList[0] : null;
             }));
-            if (SelectedDevice != null)
-                GetDevicePowerInfoTaskAsync(SelectedDevice.equipmentId.ToString(), DateTime.Now);
+            if (SelectedPowerDevice != null)
+            {
+                GetDevicePowerInfoTaskAsync(SelectedPowerDevice.equipmentId.ToString(), DateTime.Now);
+            }
+            if (SelectedPowerFactorDevice != null)
+            {
+                GetDevicePowerFactorTaskAsync(SelectedPowerFactorDevice.equipmentId.ToString(), DateTime.Now);
+            }
+        }
+
+        public Task GetDevicePowerFactorTaskAsync(string deviceId, DateTime dateTime) => Task.Run(() =>
+        {
+            GetDevicePowerFactor(deviceId, dateTime);
+        });
+
+        private void GetDevicePowerFactor(string deviceId, DateTime dateTime)
+        {
+            var devicePowerFactorList = _monitoringSummaryService.GetPowerFactorInfo(deviceId, dateTime);
+            if (devicePowerFactorList == null || devicePowerFactorList.Count == 0)
+            {
+                return;
+            }
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                DevicePowerFactorSeries.Clear();
+
+                var ds0 = new XyDataSeries<DateTime, double>();
+
+                DevicePowerFactorSeries.Add(new ChartSeriesViewModel(ds0, new FastLineRenderableSeries() { StrokeThickness = 2 }));
+                List<PowerFactorDTO> data = devicePowerFactorList.OrderBy(d => d.time).ToList();
+                ds0.Append(data.Select(x => x.time), data.Select(y => double.Parse(y.value)));
+                PowerFactorLowerThreshold = double.Parse(devicePowerFactorList[0].downLimit);
+            }));
         }
 
         public Task GetDevicePowerInfoTaskAsync(string deviceId, DateTime dateTime) => Task.Run(() =>
@@ -236,38 +305,21 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
         private void GetDevicePowerInfo(string deviceId, DateTime dateTime)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                if (DevicePowerSeriesCollection == null)
-                {
-                    var _dateConfig = Mappers.Xy<DateModel>()
-                    .X(m => (long)m.DateTime.Ticks / TimeSpan.FromDays(1).Ticks)
-                    .Y(m => m.Value);
-                    DevicePowerSeriesCollection = new SeriesCollection(_dateConfig);
-                }
-                else
-                {
-                    DevicePowerSeriesCollection?.Clear();
-                }
-            }));
             var devicePowerInfoList = _monitoringSummaryService.GetDevicePowerInfo(deviceId, dateTime);
-            if (devicePowerInfoList.Count == 0)
+            if (devicePowerInfoList == null || devicePowerInfoList.Count == 0)
             {
                 return;
             }
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                var lineSeries = new LineSeries();
-                lineSeries.Title = "电量";
-                lineSeries.Values = new ChartValues<DateModel>();
+                DevicePowerSeries.Clear();
 
-                foreach (var devicePowerItem in devicePowerInfoList)
-                {
-                    lineSeries.Values.Add(new DateModel() { Value = devicePowerItem.value, DateTime = devicePowerItem.time });
-                }
-                DevicePowerSeriesCollection.Add(lineSeries);
-                DevicePowerXFormatter = value => new System.DateTime((long)(value * TimeSpan.FromDays(1).Ticks)).ToString("yyyy-MM-dd");
-                DevicePowerYFormatter = value => $"{value} kWh";
+                var ds0 = new XyDataSeries<DateTime, double>();
+
+                DevicePowerSeries.Add(new ChartSeriesViewModel(ds0, new FastLineRenderableSeries() { StrokeThickness = 2 }));
+                List<DevicePowerInfoDTO> data = devicePowerInfoList.OrderBy(d => d.time).ToList();
+                ds0.Append(data.Select(x => x.time), data.Select(y => y.value));
+               
             }));
         }
 
@@ -277,6 +329,10 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         {
             var topPowerSummaryList = _monitoringSummaryService.GetTopPowerSummary(customerId,
                     DateTime.Now);
+            if (topPowerSummaryList == null)
+            {
+                return;
+            }
             List<string> labels = new List<string>();
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
           {
@@ -311,8 +367,35 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         }
 
 
+        private ObservableCollection<IChartSeriesViewModel> _devicePowerSeries = new ObservableCollection<IChartSeriesViewModel>();
+        public ObservableCollection<IChartSeriesViewModel> DevicePowerSeries
+        {
+            get { return _devicePowerSeries; }
+            set
+            {
+                SetProperty(ref _devicePowerSeries, value);
+            }
+        }
 
+        private ObservableCollection<IChartSeriesViewModel> _devicePowerFactorSeries = new ObservableCollection<IChartSeriesViewModel>();
+        public ObservableCollection<IChartSeriesViewModel> DevicePowerFactorSeries
+        {
+            get { return _devicePowerFactorSeries; }
+            set
+            {
+                SetProperty(ref _devicePowerFactorSeries, value);
+            }
+        }
 
+         private double _powerFactorLowerThreshold = 0.0;
+        public double PowerFactorLowerThreshold
+        {
+            get { return _powerFactorLowerThreshold; }
+            set
+            {
+                SetProperty(ref _powerFactorLowerThreshold, value);
+            }
+        }
 
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

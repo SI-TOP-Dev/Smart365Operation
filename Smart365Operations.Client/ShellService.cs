@@ -10,6 +10,7 @@ using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Prism;
 using Smart365Operations.Common.Infrastructure.Models;
 using System.Threading;
+using System.Windows;
 
 namespace Smart365Operations.Client
 {
@@ -31,7 +32,7 @@ namespace Smart365Operations.Client
             var principal = Thread.CurrentPrincipal as SystemPrincipal;
             var agentId = principal.Identity.Id;
             var customerList = _customerService.GetCustomersBy(agentId);
-           
+
             ShellInfo shellInfo = null;
             var customer = parameters["Customer"] as Customer;
             if (customer != null)
@@ -44,12 +45,12 @@ namespace Smart365Operations.Client
                 {
                     return;
                 }
-                
+
             }
             else
             {
                 string id = parameters["CustomerId"] as string;
-                if(!string.IsNullOrEmpty(id))
+                if (!string.IsNullOrEmpty(id))
                 {
                     if (customerList.Any(c => c.Id.ToString() == id))
                     {
@@ -61,8 +62,8 @@ namespace Smart365Operations.Client
                     }
                 }
             }
-            
-            if(shellInfo == null)
+
+            if (shellInfo == null)
             {
                 return;
             }
@@ -70,7 +71,15 @@ namespace Smart365Operations.Client
             if (App.ShellTable.ContainsKey(shellInfo))
             {
                 var shell = App.ShellTable[shellInfo];
-                shell.Activate();
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    shell.WindowState = WindowState.Maximized;
+                    if (!shell.Activate())
+                    {
+                        System.Diagnostics.Debug.WriteLine("窗口激活失败");
+                    }
+                    shell.Focus();
+                }));
             }
             else
             {

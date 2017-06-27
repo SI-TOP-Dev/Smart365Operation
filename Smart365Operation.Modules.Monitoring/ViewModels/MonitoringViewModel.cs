@@ -107,7 +107,17 @@ namespace Smart365Operation.Modules.Monitoring
             var parameter = navigationContext.Parameters.FirstOrDefault(p => p.Key == "CustomerId");
             if (parameter.Value != null)
             {
-                SelectedCustomer = new Customer() { Id = int.Parse(parameter.Value.ToString()) };
+                if(CustomerList.Count == 0)
+                {
+                    var principal = Thread.CurrentPrincipal as SystemPrincipal;
+                    var agentId = principal.Identity.Id;
+                    var customers = _customerService.GetCustomersBy(agentId);
+                    SelectedCustomer = customers.FirstOrDefault(c => c.Id == int.Parse(parameter.Value.ToString()));
+                }
+                else
+                {
+                    SelectedCustomer = CustomerList.FirstOrDefault(c => c.Id == int.Parse(parameter.Value.ToString()));
+                }
             }
             else
             {

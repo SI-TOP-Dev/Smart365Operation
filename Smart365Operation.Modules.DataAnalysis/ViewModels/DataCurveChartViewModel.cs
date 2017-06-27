@@ -65,10 +65,12 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                     foreach (var historyData in dataList)
                     {
                         var ds0 = new XyDataSeries<DateTime, double>() {  SeriesName = historyData.pointName };
+                        
                         SeriesViewModels.Add(new ChartSeriesViewModel(ds0, new FastLineRenderableSeries() {  SeriesColor= colors[index++], StrokeThickness = 2 }));
                         List<DatavalueDTO> data = historyData.dataValue.OrderBy(d => d.time).ToList();
                         ds0.Append(data.Select(x => x.time), data.Select(y => double.Parse(y.value)));
                     }
+                    ViewportManager.ZoomExtents();
                 }
                
             }));
@@ -237,6 +239,16 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
             set
             {
                 SetProperty(ref _seriesViewModels, value);
+            }
+        }
+
+        private IViewportManager _viewportManager = new DefaultViewportManager();
+        public IViewportManager ViewportManager
+        {
+            get { return _viewportManager; }
+            set
+            {
+                SetProperty(ref _viewportManager, value);
             }
         }
     }
