@@ -990,7 +990,11 @@
                          Style="{DynamicResource expandlist}"
                          ItemContainerStyle ="{DynamicResource expandlistitem}" 
                          FontSize="16">
-
+                    <!--<i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding SelectCustomerCommand}"  />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>-->
                 </ListBox>
             </Grid>
         </Expander>
@@ -1020,15 +1024,15 @@
                             <Setter Property="FontSize" Value="12"></Setter>
                             <Setter Property="Foreground" Value="#FFadc0cc"></Setter>
                             <Style.Triggers>
-                                <Trigger Property="AxisOrientation" Value="y">
+                                <!--<Trigger Property="AxisOrientation" Value="y">
                                     <Setter Property="IsMerged" Value="False"></Setter>
                                     <Setter Property="MaxValue" Value="6"></Setter>
-                                </Trigger>
-                                <Trigger Property="AxisOrientation" Value="x">
-                                    <!--<Setter Property="IsMerged" Value="False"></Setter>
-                                        <Setter Property="MaxValue" Value="10"></Setter>-->
+                                </Trigger>-->
+                                <!--<Trigger Property="AxisOrientation" Value="x">
+                                    <Setter Property="IsMerged" Value="False"></Setter>
+                                        <Setter Property="MaxValue" Value="10"></Setter>
                                     <Setter Property="LabelsRotation" Value="-45"></Setter>
-                                </Trigger>
+                                </Trigger>-->
                             </Style.Triggers>
                         </Style>
                         <Style TargetType="lvc:Separator">
@@ -1037,11 +1041,11 @@
                             <Style.Triggers>
                                 <Trigger Property="AxisOrientation" Value="y">
                                     <Setter Property="IsEnabled" Value="True"></Setter>
-                                    <Setter Property="Step" Value="1"></Setter>
+                                    <!--<Setter Property="Step" Value="1"></Setter>-->
                                 </Trigger>
                                 <Trigger Property="AxisOrientation" Value="x">
                                     <Setter Property="IsEnabled" Value="True"></Setter>
-                                    <Setter Property="Step" Value="1"></Setter>
+                                    <!--<Setter Property="Step" Value="1"></Setter>-->
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -1071,7 +1075,7 @@
                     <lvc:CartesianChart Series="{Binding StatisticsViewModel.CustomerIncrementsInfoSeriesCollection}" LegendLocation="Bottom" Margin="15" Grid.Row="1" DisableAnimations="True">
                      
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Labels="{Binding StatisticsViewModel.CustomerIncrementsLabels}"/>
+                            <lvc:Axis Labels="{Binding StatisticsViewModel.CustomerIncrementsLabels}" MaxValue="{Binding StatisticsViewModel.MaxCustormerNumber}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis LabelFormatter="{Binding StatisticsViewModel.CustomerIncrementsFormatter}"></lvc:Axis>
@@ -1090,7 +1094,7 @@
                     <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource color212426}" d:LayoutOverrides="Width" Grid.Row="4" Background="{DynamicResource color1D2024}" >
                         <DockPanel LastChildFill="False">
                             <Rectangle Fill="{DynamicResource lightgreen1BBC9B}" Width="4" Height="18" VerticalAlignment="Center" DockPanel.Dock="Right" Margin="0,3,12,3" StrokeThickness="0"/>
-                            <TextBlock x:Name="textBlock5" TextWrapping="Wrap" Text="报警统计图" DockPanel.Dock="Right" Margin="0,0,7,0" VerticalAlignment="Center" Style="{DynamicResource title18}" FontSize="16"/>
+                            <TextBlock x:Name="textBlock5" TextWrapping="Wrap" Text="故障统计图" DockPanel.Dock="Right" Margin="0,0,7,0" VerticalAlignment="Center" Style="{DynamicResource title18}" FontSize="16"/>
                         </DockPanel>
                     </Border>
                     <lvc:CartesianChart Series="{Binding StatisticsViewModel.AlarmStatisticsSeriesCollection}" LegendLocation="Bottom" Grid.Row="5" Margin="15">

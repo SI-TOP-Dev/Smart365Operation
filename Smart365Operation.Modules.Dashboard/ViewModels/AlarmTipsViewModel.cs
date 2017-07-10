@@ -16,6 +16,7 @@ using MvvmDialogs;
 using Prism.Events;
 using Smart365Operation.Modules.Dashboard.Events;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace Smart365Operation.Modules.Dashboard.ViewModels
 {
@@ -28,7 +29,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private static bool _isCreateAlarmDialog = true;
         private System.Media.SoundPlayer _soundPlayer;
-        private readonly string Alarm_Sound_FilePath = @"C:\Users\Hardborn\Desktop\Warning.wav";
+        private readonly string Alarm_Sound_FilePath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Warning.wav");//@"C:\Users\Hardborn\Desktop\Warning.wav";
 
         //[System.Runtime.InteropServices.DllImport("winmm.DLL", EntryPoint = "PlaySound", SetLastError = true, CharSet = CharSet.Unicode, ThrowOnUnmappableChar = true)]
         //private static extern bool PlaySound(string szSound, System.IntPtr hMod, PlaySoundFlags flags);
@@ -104,6 +105,10 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
                     
                     System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     {
+                        if(AlarmList.Count > ALARM_LIST_MAX_COUNT)
+                        {
+                            AlarmList.RemoveAt(AlarmList.Count - 1);
+                        }
                         AlarmList.Add(alarmInfo);
                         CurrentAlarmInfo = alarmInfo;
                         IsShow = true;
@@ -194,6 +199,8 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         }
 
         private ObservableCollection<AlarmInfo> _alarmList = new ObservableCollection<AlarmInfo>();
+        private readonly int ALARM_LIST_MAX_COUNT = 100;
+
         public ObservableCollection<AlarmInfo> AlarmList
         {
             get { return _alarmList; }

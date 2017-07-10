@@ -53,10 +53,10 @@ namespace Smart365Operation.Modules.Dashboard
             get { return _selectedCustomer; }
             set
             {
-                if (value != null && _selectedCustomer != value)
-                {
-                    value.CustomerSelectedCommand.Execute();
-                }
+                //if (value != null)
+                //{
+                //    value.CustomerSelectedCommand.Execute();
+                //}
                 SetProperty(ref _selectedCustomer, value);
             }
         }
@@ -74,7 +74,8 @@ namespace Smart365Operation.Modules.Dashboard
 
         public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
         public DelegateCommand ExpandedCommand => new DelegateCommand(OnExpand);
- public DelegateCommand MouseDownCommand => new DelegateCommand(OnMouseDown);
+        public DelegateCommand MouseDownCommand => new DelegateCommand(OnMouseDown);
+
 
         private void OnMouseDown()
         {
@@ -131,12 +132,12 @@ namespace Smart365Operation.Modules.Dashboard
                 Thread.Sleep(1000);
                 IsInitialShow = true;
             });
-            action.BeginInvoke(null,null);
+            action.BeginInvoke(null, null);
             //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             //{
             //    IsInitialShow = false;
             //}));
-            
+
         }
 
         public IRegionManager RegionManager { get; set; }

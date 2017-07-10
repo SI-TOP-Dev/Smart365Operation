@@ -20,33 +20,53 @@ namespace Smart365Operations.Client
     /// </summary>
     public partial class App : Application
     {
+        private static System.Threading.Mutex mutex;
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            SystemPrincipal customPrincipal = new SystemPrincipal();
-            AppDomain.CurrentDomain.SetThreadPrincipal(customPrincipal);
-
-            base.OnStartup(e);
-
-            Smart365OperationsBootstrapper bootStrapper = new Smart365OperationsBootstrapper();
-            bootStrapper.Run();
-
-            ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
-            LoginScreen loginWindow = bootStrapper.Container.Resolve<LoginScreen>();
-            //AuthenticationViewModel viewModel =
-            //    new AuthenticationViewModel(bootStrapper.Container.Resolve<IAuthenticationService>());
-            //loginWindow.DataContext = viewModel;
-            bool? logonResult = loginWindow.ShowDialog();
-            var viewModel = loginWindow.ViewModel as AuthenticationViewModel;
-            if (logonResult.HasValue && viewModel != null && viewModel.IsAuthenticated)
+            bool can_execute = true;
+            try
             {
-                bootStrapper.Show();
-                Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                mutex = new System.Threading.Mutex(false, "SMART365CLIENT", out can_execute);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            if (can_execute)
+            {
+                SystemPrincipal customPrincipal = new SystemPrincipal();
+                AppDomain.CurrentDomain.SetThreadPrincipal(customPrincipal);
+
+                base.OnStartup(e);
+
+                Smart365OperationsBootstrapper bootStrapper = new Smart365OperationsBootstrapper();
+                bootStrapper.Run();
+
+                ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+                LoginScreen loginWindow = bootStrapper.Container.Resolve<LoginScreen>();
+                //AuthenticationViewModel viewModel =
+                //    new AuthenticationViewModel(bootStrapper.Container.Resolve<IAuthenticationService>());
+                //loginWindow.DataContext = viewModel;
+                bool? logonResult = loginWindow.ShowDialog();
+                var viewModel = loginWindow.ViewModel as AuthenticationViewModel;
+                if (logonResult.HasValue && viewModel != null && viewModel.IsAuthenticated)
+                {
+                    bootStrapper.Show(viewModel.DisplayName);
+                    Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                }
+                else
+                {
+                    Application.Current.Shutdown(1);
+                }
             }
             else
             {
+                System.Diagnostics.Debug.WriteLine("SMART365CLIENT already running!");
                 Application.Current.Shutdown(1);
             }
+
         }
 
         public static Dictionary<ShellInfo, Shell> ShellTable;

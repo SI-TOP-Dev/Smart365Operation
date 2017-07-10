@@ -34,6 +34,14 @@ namespace Smart365Operations.Client.ViewModels
             set { SetProperty(ref _userName, value); }
         }
 
+        private string _displayName;
+        public string DisplayName
+        {
+            get { return _displayName; }
+            set { SetProperty(ref _displayName, value); }
+        }
+     
+
         private string _password;
         public string Password
         {
@@ -96,7 +104,7 @@ namespace Smart365Operations.Client.ViewModels
 
                 //Authenticate the user
                 customPrincipal.Identity = new SystemIdentity(user.Id, user.Username, user.Email, user.Roles);
-
+                DisplayName = user.DisplayName;
                 _loginCommand.RaiseCanExecuteChanged();
                 IView loginView = view as IView;
                 loginView.Close();

@@ -74,6 +74,7 @@ namespace Smart365Operations.Client
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     shell.WindowState = WindowState.Maximized;
+                    shell.Title = customer?.Name;
                     if (!shell.Activate())
                     {
                         System.Diagnostics.Debug.WriteLine("窗口激活失败");
@@ -96,8 +97,9 @@ namespace Smart365Operations.Client
                 scopedRegion.RequestNavigate(KnownRegionNames.MainRegion, uri, parameters);
                 shell.Info = shellInfo;
                 App.ShellTable.Add(shellInfo, shell);
-
+                shell.Title = customer?.Name;
                 shell.Show();
+                shell.Focus();
             }
 
         }

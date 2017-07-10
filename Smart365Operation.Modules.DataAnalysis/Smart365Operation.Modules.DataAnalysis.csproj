@@ -93,6 +93,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartExtensions\CustomZoomExtentsModifier.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="DataAnaysisModule.cs" />
     <Compile Include="Events\HistoryDataUpdatedEvent.cs" />

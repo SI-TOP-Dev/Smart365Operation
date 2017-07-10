@@ -42,6 +42,12 @@
         </ThicknessAnimationUsingKeyFrames>
     </Storyboard>
 
+    <Style x:Key="page_top_title" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="微软雅黑 Arial"/>
+        <Setter Property="Foreground" Value="{DynamicResource fontcolordef}"/>
+        <Setter Property="FontSize" Value="24"/>
+    </Style>
+
     <ControlTemplate x:Key="MainWindowTemplateKey" TargetType="{x:Type Window}">
         <Grid ClipToBounds="True">
             <DockPanel>

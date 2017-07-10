@@ -50,7 +50,14 @@ namespace Smart365Operation.Modules.Monitoring.Services
         {
             if (AlarmDataUpdated != null)
             {
-                AlarmDataUpdated(this,new AlarmDataEventArgs(data));
+                Delegate[] delegList = AlarmDataUpdated.GetInvocationList();
+                //遍历委托列表
+                foreach (EventHandler<AlarmDataEventArgs> deleg in delegList)
+                {
+                    //异步调用委托
+                    deleg.BeginInvoke(this, new AlarmDataEventArgs(data), null, null);
+                }
+               // AlarmDataUpdated(this,new AlarmDataEventArgs(data));
             }
         }
         private void HandleMonitoringData(string key, object obj)

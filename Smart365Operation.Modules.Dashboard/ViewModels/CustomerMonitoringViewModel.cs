@@ -97,7 +97,18 @@ namespace Smart365Operation.Modules.Dashboard
         }
 
         public DelegateCommand CustomerSelectedCommand => new DelegateCommand(CustomerSelected, CanCustomerSelected);
+        public DelegateCommand<object> SelectCustomerCommand => new DelegateCommand<object>(SelectCustomer);
 
+        private void SelectCustomer(object obj)
+        {
+            CustomerMonitoringViewModel customerViewModel = obj as CustomerMonitoringViewModel;
+            if (customerViewModel != null)
+            {
+                var parameters = new NavigationParameters();
+                parameters.Add("Customer", customerViewModel._customer);
+                _shellService.ShowShell("Monitoring", parameters);
+            }
+        }
         private bool CanCustomerSelected()
         {
             return true;

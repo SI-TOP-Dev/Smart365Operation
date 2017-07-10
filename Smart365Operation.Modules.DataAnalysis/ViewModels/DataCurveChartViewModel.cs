@@ -21,6 +21,8 @@ using Smart365Operations.Common.Infrastructure.Models;
 using Abt.Controls.SciChart;
 using Abt.Controls.SciChart.Model.DataSeries;
 using Abt.Controls.SciChart.Visuals.RenderableSeries;
+using Abt.Controls.SciChart.Visuals.Axes;
+using Abt.Controls.SciChart.Visuals.PointMarkers;
 
 namespace Smart365Operation.Modules.DataAnalysis.ViewModels
 {
@@ -64,15 +66,34 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                     var colors = CartesianChart.Colors;
                     foreach (var historyData in dataList)
                     {
-                        var ds0 = new XyDataSeries<DateTime, double>() {  SeriesName = historyData.pointName };
-                        
-                        SeriesViewModels.Add(new ChartSeriesViewModel(ds0, new FastLineRenderableSeries() {  SeriesColor= colors[index++], StrokeThickness = 2 }));
+                        var ds0 = new XyDataSeries<DateTime, double>() { SeriesName = historyData.pointName };
+
+                        SeriesViewModels.Add(
+                            new ChartSeriesViewModel(ds0, 
+                                new FastLineRenderableSeries()
+                                {
+                                    SeriesColor = colors[index],
+                                    StrokeThickness = 2,
+                                    //PointMarker = new EllipsePointMarker()
+                                    //{
+                                    //    Fill = colors[index],
+                                    //    Stroke = colors[index],
+                                    //    StrokeThickness = 1,
+                                    //    Width = 3,
+                                    //    Height = 3,
+                                    //}
+                                }
+                                ));
+                        index++;
                         List<DatavalueDTO> data = historyData.dataValue.OrderBy(d => d.time).ToList();
                         ds0.Append(data.Select(x => x.time), data.Select(y => double.Parse(y.value)));
                     }
+
                     ViewportManager.ZoomExtents();
+                    YAxis.VisibleRange.GrowBy(0.4, 0.4);
+
                 }
-               
+
             }));
 
             //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
@@ -249,6 +270,15 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
             set
             {
                 SetProperty(ref _viewportManager, value);
+            }
+        }
+        private IAxis _yAxis = new NumericAxis() { AutoRange = AutoRange.Once, GrowBy = new DoubleRange(0.4, 0.4) };
+        public IAxis YAxis
+        {
+            get { return _yAxis; }
+            set
+            {
+                SetProperty(ref _yAxis, value);
             }
         }
     }

@@ -281,13 +281,15 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         private void GetDevicePowerFactor(string deviceId, DateTime dateTime)
         {
             var devicePowerFactorList = _monitoringSummaryService.GetPowerFactorInfo(deviceId, dateTime);
-            if (devicePowerFactorList == null || devicePowerFactorList.Count == 0)
-            {
-                return;
-            }
+          
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 DevicePowerFactorSeries.Clear();
+
+                if (devicePowerFactorList == null || devicePowerFactorList.Count == 0)
+                {
+                    return;
+                }
 
                 var ds0 = new XyDataSeries<DateTime, double>();
 
@@ -295,6 +297,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                 List<PowerFactorDTO> data = devicePowerFactorList.OrderBy(d => d.time).ToList();
                 ds0.Append(data.Select(x => x.time), data.Select(y => double.Parse(y.value)));
                 PowerFactorLowerThreshold = double.Parse(devicePowerFactorList[0].downLimit);
+                PowerFactorViewportManager.ZoomExtents();
             }));
         }
 
@@ -306,20 +309,22 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         private void GetDevicePowerInfo(string deviceId, DateTime dateTime)
         {
             var devicePowerInfoList = _monitoringSummaryService.GetDevicePowerInfo(deviceId, dateTime);
-            if (devicePowerInfoList == null || devicePowerInfoList.Count == 0)
-            {
-                return;
-            }
+           
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 DevicePowerSeries.Clear();
+
+                if (devicePowerInfoList == null || devicePowerInfoList.Count == 0)
+                {
+                    return;
+                }
 
                 var ds0 = new XyDataSeries<DateTime, double>();
 
                 DevicePowerSeries.Add(new ChartSeriesViewModel(ds0, new FastLineRenderableSeries() { StrokeThickness = 2 }));
                 List<DevicePowerInfoDTO> data = devicePowerInfoList.OrderBy(d => d.time).ToList();
                 ds0.Append(data.Select(x => x.time), data.Select(y => y.value));
-               
+                PowerViewportManager.ZoomExtents();
             }));
         }
 
@@ -387,7 +392,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             }
         }
 
-         private double _powerFactorLowerThreshold = 0.0;
+        private double _powerFactorLowerThreshold = 0.0;
         public double PowerFactorLowerThreshold
         {
             get { return _powerFactorLowerThreshold; }
@@ -397,6 +402,26 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             }
         }
 
+
+        private IViewportManager _powerViewportManager = new DefaultViewportManager();
+        public IViewportManager PowerViewportManager
+        {
+            get { return _powerViewportManager; }
+            set
+            {
+                SetProperty(ref _powerViewportManager, value);
+            }
+        }
+
+        private IViewportManager _powerFactorViewportManager = new DefaultViewportManager();
+        public IViewportManager PowerFactorViewportManager
+        {
+            get { return _powerFactorViewportManager; }
+            set
+            {
+                SetProperty(ref _powerFactorViewportManager, value);
+            }
+        }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {

@@ -10,6 +10,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:scichart="http://schemas.abtsoftware.co.uk/scichart"
+             xmlns:scichartExtensions="clr-namespace:Smart365Operation.Modules.DataAnalysis.ChartExtensions"
              xmlns:Converters="clr-namespace:Smart365Operation.Modules.DataAnalysis.Converters"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True"
@@ -60,10 +61,6 @@
                                Foreground="{Binding SeriesColor,
                                                     Converter={StaticResource ColorToBrushConverter}}"
                                Text="{Binding Value}" />
-                    <TextBlock FontSize="11"
-                               Foreground="{Binding SeriesColor,
-                                                    Converter={StaticResource ColorToBrushConverter}}"
-                               Text="{Binding FormattedYValue}" />
                 </StackPanel>
             </Border>
         </ControlTemplate>
@@ -71,7 +68,7 @@
     </UserControl.Resources>
     <Grid >
 
-        <scichart:SciStockChart x:Name="priceChart" Padding="50" BorderThickness="0" ViewportManager="{Binding ViewportManager}"
+        <scichart:SciStockChart x:Name="priceChart" Padding="50" BorderThickness="0" ViewportManager="{Binding ViewportManager}" YAxis="{Binding YAxis}"
                                 scichart:RenderSurfaceBase.RenderSurfaceType="Abt.Controls.SciChart.Rendering.HighQualityRasterizer.HighQualityRenderSurface"
                                 scichart:ThemeManager.Theme="BlackSteel" SeriesSource="{Binding SeriesViewModels}">
             <!--BlackSteel-->
@@ -81,19 +78,19 @@
                                        MajorGridLineStyle="{StaticResource MajorGridLineStyle}"
                                        MinorGridLineStyle="{StaticResource MinorGridLineStyle}"/>
             </scichart:SciChartSurface.XAxis>
-            <scichart:SciChartSurface.YAxis>
-                <scichart:NumericAxis AutoRange="Once" GrowBy="0.1,0.1"
+            <!--<scichart:SciChartSurface.YAxis>
+                <scichart:NumericAxis VisibleRange="0,2000"
                                       MajorGridLineStyle="{StaticResource MajorGridLineStyle}"
                                       MinorGridLineStyle="{StaticResource MinorGridLineStyle}"/>
-            </scichart:SciChartSurface.YAxis>
-          
+            </scichart:SciChartSurface.YAxis>-->
+           
             <scichart:SciChartSurface.ChartModifier>
                 <scichart:ModifierGroup>
                     <scichart:RolloverModifier x:Name="rolloverModifier" DrawVerticalLine="True" SourceMode="AllSeries" ShowTooltipOn="MouseHover" TooltipLabelTemplate="{StaticResource RolloverLabelTemplate}"/>
                     <scichart:CursorModifier ReceiveHandledEvents="True"/>
                     <scichart:LegendModifier ShowLegend="True" Orientation="Horizontal" LegendPlacement="Top" Margin="0,0,0,5"/>
                     <scichart:RubberBandXyZoomModifier ExecuteOn="MouseLeftButton"/>
-                    <scichart:ZoomExtentsModifier />
+                    <scichartExtensions:CustomZoomExtentsModifier />
                     <scichart:MouseWheelZoomModifier/>
                 </scichart:ModifierGroup>
             </scichart:SciChartSurface.ChartModifier>

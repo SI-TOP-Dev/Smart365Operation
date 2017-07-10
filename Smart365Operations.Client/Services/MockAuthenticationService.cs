@@ -62,7 +62,7 @@ namespace Smart365Operations.Client.Services
             if (userData == null)
                 throw new UnauthorizedAccessException("Access denied. Please provide some valid credentials(证书).");
 
-            return new User(userData.Id,userData.Username, userData.Email, userData.Roles);
+            return new User(userData.Id,userData.Username, "TestUser", userData.Email, userData.Roles);
         }
 
         private string CalculateHash(string clearTextPassword, string salt)

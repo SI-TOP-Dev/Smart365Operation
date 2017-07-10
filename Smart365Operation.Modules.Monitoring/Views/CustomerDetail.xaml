@@ -86,7 +86,7 @@
                                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Image x:Name="image7" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_jlds.png" Height="48"/>
                                         <StackPanel DockPanel.Dock="Right">
-                                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="计量点数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
+                                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="监测点数" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="20 10 10 10">
                                                 <TextBlock Text="{Binding CurrentCustomer.MeteringPoint}" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
                                                 <TextBlock Text="个" VerticalAlignment="Top" Style="{DynamicResource txt_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" HorizontalAlignment="Center"/>
@@ -325,15 +325,15 @@
                         <ComboBox ItemsSource="{Binding DeviceList}"  DisplayMemberPath="equipmentName" SelectedItem="{Binding SelectedPowerDevice}" Margin="0,0,30,0"/><!--Style="{DynamicResource comboBoxStyle}"-->
                         <DatePicker Width="160" Margin="20,0,20,0" VerticalAlignment="Center" SelectedDate="{Binding SelectedPowerDate}" SelectedDateFormat="Long"/>
                     </StackPanel>
-                    <scichart:SciStockChart Grid.Row="2" BorderThickness="0" Padding="20"
+                    <scichart:SciStockChart Grid.Row="2" BorderThickness="0" Padding="20" ViewportManager="{Binding PowerViewportManager}"
                                 scichart:RenderSurfaceBase.RenderSurfaceType="Abt.Controls.SciChart.Rendering.HighQualityRasterizer.HighQualityRenderSurface"
                                 scichart:ThemeManager.Theme="BlackSteel" SeriesSource="{Binding DevicePowerSeries}">
 
                         <scichart:SciChartSurface.XAxis>
-                            <scichart:DateTimeAxis AxisTitle="时间" AutoRange="Always" TextFormatting="yyyy-MM-dd" SubDayTextFormatting="HH:mm"/>
+                            <scichart:DateTimeAxis AxisTitle="时间" AutoRange="Once" TextFormatting="yyyy-MM-dd" SubDayTextFormatting="HH:mm"/>
                         </scichart:SciChartSurface.XAxis>
                         <scichart:SciChartSurface.YAxis>
-                            <scichart:NumericAxis AxisTitle="电量" AutoRange="Always" GrowBy="0.1,0.1"/>
+                            <scichart:NumericAxis AxisTitle="电量" AutoRange="Once" GrowBy="0.1,0.1"/>
                         </scichart:SciChartSurface.YAxis>
                      
                         <scichart:SciChartSurface.ChartModifier>
@@ -359,17 +359,17 @@
                         <!--Style="{DynamicResource comboBoxStyle}"-->
                         <DatePicker Width="160" Margin="20,0,20,0" VerticalAlignment="Center" SelectedDate="{Binding SelectedPowerFactorDate}" SelectedDateFormat="Long"/>
                     </StackPanel>
-                    <scichart:SciStockChart Grid.Row="2" BorderThickness="0" Padding="20"
+                    <scichart:SciStockChart Grid.Row="2" BorderThickness="0" Padding="20" ViewportManager="{Binding PowerFactorViewportManager}"
                                 scichart:RenderSurfaceBase.RenderSurfaceType="Abt.Controls.SciChart.Rendering.HighQualityRasterizer.HighQualityRenderSurface"
                                 scichart:ThemeManager.Theme="BlackSteel" SeriesSource="{Binding DevicePowerFactorSeries}">
 
                         <scichart:SciChartSurface.XAxis>
-                            <scichart:DateTimeAxis AxisTitle="时间" AutoRange="Always" TextFormatting="yyyy-MM-dd" SubDayTextFormatting="HH:mm"/>
+                            <scichart:DateTimeAxis AxisTitle="时间" AutoRange="Once" TextFormatting="yyyy-MM-dd" SubDayTextFormatting="HH:mm"/>
                         </scichart:SciChartSurface.XAxis>
                         <scichart:SciChartSurface.YAxis>
-                            <scichart:NumericAxis AxisTitle="因数" AutoRange="Always" GrowBy="0.1,0.1"/>
+                            <scichart:NumericAxis AxisTitle="因数" AutoRange="Once" GrowBy="0.1,0.1"/>
                         </scichart:SciChartSurface.YAxis>
-                        <!--<scichart:SciChartSurface.Annotations>
+                        <scichart:SciChartSurface.Annotations>
                             <scichart:HorizontalLineAnnotation HorizontalAlignment="Stretch"
                                                                IsEditable="False"
                                                                LabelPlacement="Axis"
@@ -379,7 +379,7 @@
                                                                Stroke="Red"
                                                                StrokeThickness="2"
                                                                Y1="{Binding PowerFactorLowerThreshold}" />
-                        </scichart:SciChartSurface.Annotations>-->
+                        </scichart:SciChartSurface.Annotations>
                         <scichart:SciChartSurface.ChartModifier>
                             <scichart:ModifierGroup>
                                 <!--<scichart:RolloverModifier x:Name="rolloverModifier" DrawVerticalLine="True" SourceMode="AllSeries" ShowTooltipOn="MouseHover" TooltipLabelTemplate="{StaticResource RolloverLabelTemplate}"/>-->

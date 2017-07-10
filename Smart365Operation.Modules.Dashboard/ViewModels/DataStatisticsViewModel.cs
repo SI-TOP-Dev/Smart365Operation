@@ -33,7 +33,7 @@ namespace Smart365Operation.Modules.Dashboard
             GetAlarmStatisticsInfo();
             GetCustomerIncrementsInfo();
             GetCustomerIndustryCategoryInfo();
-           
+
         }
 
 
@@ -58,13 +58,22 @@ namespace Smart365Operation.Modules.Dashboard
             get { return _customerIncrementsFormatter; }
             set { SetProperty(ref _customerIncrementsFormatter, value); }
         }
+        private double _maxCustormerNumber;
+        public double MaxCustormerNumber
+        {
+            get { return _maxCustormerNumber; }
+            set { SetProperty(ref _maxCustormerNumber, value); }
+        }
+
         private void GetCustomerIncrementsInfo()
         {
             var customerIncrementsInfo = _dataStatisticsService.GetCustomerIncrementsInfo();
             List<int> oldCustomers = new List<int>();
             List<int> addCustomers = new List<int>();
             List<string> labels = new List<string>();
-            foreach (var customerIncrementsDto in customerIncrementsInfo)
+            var maxItem = customerIncrementsInfo.Max(i => i.existing + i.increased);
+            var infoList = customerIncrementsInfo.OrderByDescending(i => DateTime.Parse(i.date));
+            foreach (var customerIncrementsDto in infoList)
             {
                 oldCustomers.Add(customerIncrementsDto.existing);
                 addCustomers.Add(customerIncrementsDto.increased);
@@ -90,7 +99,7 @@ namespace Smart365Operation.Modules.Dashboard
                 CustomerIncrementsInfoSeriesCollection.Add(oldCustomersColumnSeries);
                 CustomerIncrementsInfoSeriesCollection.Add(addCustomersColumnSeries);
                 CustomerIncrementsLabels = new ObservableCollection<string>(labels);
-
+                MaxCustormerNumber = maxItem;
                 CustomerIncrementsFormatter = value => value.ToString() + "家";
             }));
 
@@ -161,7 +170,8 @@ namespace Smart365Operation.Modules.Dashboard
             List<int> alarmCountList = new List<int>();
             List<int> untreatedCountList = new List<int>();
             List<string> labels = new List<string>();
-            foreach (var alarmStatisticsDto in alarmStatisticsInfo)
+            var infoList = alarmStatisticsInfo.OrderByDescending(i => DateTime.Parse(i.date));
+            foreach (var alarmStatisticsDto in infoList)
             {
                 alarmCountList.Add(alarmStatisticsDto.alarmCount);
                 untreatedCountList.Add(alarmStatisticsDto.untreatedCount);

@@ -84,11 +84,12 @@ namespace Smart365Operations.Client
 
         }
 
-        public void Show()
+        public void Show(string userName)
         {
             var regionManager = RegionManager.GetRegionManager(Shell);                                      
             RegionManagerAware.SetRegionManagerAware(Shell, regionManager);
             regionManager.RequestNavigate(KnownRegionNames.MainRegion, "OverviewMapView");
+            App.Current.MainWindow.Title = userName;
             App.Current.MainWindow.Show();
         }
 

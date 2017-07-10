@@ -8,10 +8,11 @@ namespace Smart365Operations.Common.Infrastructure.Models
 {
     public class User
     {
-        public User(string id,string username, string email, string[] roles)
+        public User(string id,string username, string displayName, string email, string[] roles)
         {
             Id = id;
             Username = username;
+            DisplayName = displayName;
             Email = email;
             Roles = roles;
         }
@@ -22,6 +23,8 @@ namespace Smart365Operations.Common.Infrastructure.Models
         }
 
         public string Id { get; set; }
+
+        public string DisplayName { get; set; }
 
         public string Email
         {

@@ -18,6 +18,7 @@
         mvvm:ViewModelLocator.AutoWireViewModel="True">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+       
         <Style x:Key="MenuButton" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
