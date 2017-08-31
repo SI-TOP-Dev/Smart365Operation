@@ -20,7 +20,7 @@ namespace Smart365Operation.Modules.Dashboard
         private readonly IRegionManager _regionManager;
         private readonly Customer _customer;
 
-        public CustomerMonitoringViewModel(IShellService shellService,IRegionManager regionManager, IMonitoringDataService monitoringDataService, Customer customer)
+        public CustomerMonitoringViewModel(IShellService shellService, IRegionManager regionManager, IMonitoringDataService monitoringDataService, Customer customer)
         {
             _shellService = shellService;
             _regionManager = regionManager;
@@ -29,6 +29,8 @@ namespace Smart365Operation.Modules.Dashboard
             _customer = customer;
             _customerId = customer.Id.ToString();
             _customerName = customer.Name;
+            _city = customer.City;
+            _agency = customer.Agency;
             _latitude = string.IsNullOrEmpty(customer.Latitude) ? 0d : double.Parse(customer.Latitude);
             _longitude = string.IsNullOrEmpty(customer.Longitude) ? 0d : double.Parse(customer.Longitude);
         }
@@ -65,6 +67,20 @@ namespace Smart365Operation.Modules.Dashboard
         {
             get { return _customerName; }
             set { SetProperty(ref _customerName, value); }
+        }
+
+        private string _city;
+        public string City
+        {
+            get { return _city; }
+            set { SetProperty(ref _city, value); }
+        }
+
+        private string _agency;
+        public string Agency
+        {
+            get { return _agency; }
+            set { SetProperty(ref _agency, value); }
         }
 
         private bool _hasAlarm = false;

@@ -27,40 +27,51 @@ namespace Smart365Operations.Client.Services
             else
             {
                 var httpServiceApi = new DataServiceApi();
-                var request = new RestRequest($"customer/list.json", Method.GET);
-                var customerDtoList = httpServiceApi.Execute<List<CustomerDTO>>(request);
+                var request = new RestRequest($"customer/list_by_region.json", Method.GET);
+                var customerInfoWrapper = httpServiceApi.Execute<CustomerInfoWrapper>(request);
                 
                 customerList = new List<Customer>();
-                foreach (var customerDto in customerDtoList)
+                foreach (var regionDto in customerInfoWrapper.root.subRegionList)
                 {
-                    Customer customer = new Customer()
+                    foreach (var subregionDto in regionDto.subRegionList)
                     {
-                        Id = customerDto.customerId,
-                        Name = customerDto.customerName,
-                        Latitude = customerDto.latitude,
-                        Longitude = customerDto.longitude,
-                        CompanyProfile = customerDto.customerIntroduce,
-                        Contacts = customerDto.customerLinkman,
-                        ContactsPhone = customerDto.customerPhone,
-                        CompanyAddress = customerDto.customerAddress,
-                        IndustryType = customerDto.customerType.typeName,
-                        ContractExpiresDate = customerDto.contractTime,
-                        InitiationDate = customerDto.inTime,
-                        MeteringPoint = customerDto.meteringPoint,
-                        InstalledCapacity = customerDto.installedCapacity,
-                        OperatingCapacity = customerDto.operatingCapacity,
-                        TransformerNumber = customerDto.transformerNumber,
-
-                    };
-                    if (string.IsNullOrEmpty(customerDto.customerPic))
-                    {
-                        customer.CustomerPic = "pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/image_default.png";
+                        foreach (var agentDto in subregionDto.agentList)
+                        {
+                            foreach (var customerDto in agentDto.customerList)
+                            {
+                                Customer customer = new Customer()
+                                {
+                                    Id = customerDto.customerId,
+                                    Name = customerDto.customerName,
+                                    Latitude = customerDto.latitude,
+                                    Longitude = customerDto.longitude,
+                                    CompanyProfile = customerDto.customerIntroduce,
+                                    Contacts = customerDto.customerLinkman,
+                                    ContactsPhone = customerDto.customerPhone,
+                                    CompanyAddress = customerDto.customerAddress,
+                                    IndustryType = string.Empty,
+                                    ContractExpiresDate = DateTime.Parse(customerDto.contractTime),
+                                    InitiationDate = DateTime.Parse(customerDto.inTime),
+                                    MeteringPoint = customerDto.meteringPoint,
+                                    InstalledCapacity = customerDto.installedCapacity,
+                                    OperatingCapacity = customerDto.operatingCapacity,
+                                    TransformerNumber = customerDto.transformerNumber,
+                                    Province = regionDto.regionName,
+                                    City = subregionDto.regionName,
+                                    Agency = agentDto.agentName
+                                };
+                                if (string.IsNullOrEmpty(customerDto.customerPic))
+                                {
+                                    customer.CustomerPic = "pack://application:,,,/Smart365Operation.Modules.Monitoring;component/Resources/Images/image_default.png";
+                                }
+                                else
+                                {
+                                    customer.CustomerPic = DataServiceApi.BaseUrl + "/" + customerDto.customerPic;
+                                }
+                                customerList.Add(customer);
+                            }
+                        }
                     }
-                    else
-                    {
-                        customer.CustomerPic = DataServiceApi.BaseUrl + "/" + customerDto.customerPic;
-                    }
-                    customerList.Add(customer);
                 }
                 localCacheStoreDic.Add(agentId, customerList);
             }

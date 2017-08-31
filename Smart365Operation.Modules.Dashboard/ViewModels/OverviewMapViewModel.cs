@@ -15,6 +15,7 @@ using Prism.Regions;
 using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models;
 using Smart365Operations.Common.Infrastructure.Prism;
+using System.Windows.Data;
 
 namespace Smart365Operation.Modules.Dashboard
 {
@@ -75,7 +76,28 @@ namespace Smart365Operation.Modules.Dashboard
         public DelegateCommand<object> InitializeCommand => new DelegateCommand<object>(Initialize);
         public DelegateCommand ExpandedCommand => new DelegateCommand(OnExpand);
         public DelegateCommand MouseDownCommand => new DelegateCommand(OnMouseDown);
+        public DelegateCommand RegionGroupingCommand => new DelegateCommand(RegionGrouping);
+        public DelegateCommand AgencyGroupingCommand => new DelegateCommand(AgencyGrouping);
 
+        private void AgencyGrouping()
+        {
+            CustomersView.GroupDescriptions.Clear();
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Agency");
+            if (!CustomersView.GroupDescriptions.Contains(groupDescription))
+            {
+                CustomersView.GroupDescriptions.Add(groupDescription);
+            }
+        }
+
+        private void RegionGrouping()
+        {
+            CustomersView.GroupDescriptions.Clear();
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("City");
+            if (!CustomersView.GroupDescriptions.Contains(groupDescription))
+            {
+                CustomersView.GroupDescriptions.Add(groupDescription);
+            }
+        }
 
         private void OnMouseDown()
         {
@@ -86,7 +108,10 @@ namespace Smart365Operation.Modules.Dashboard
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                StatisticsViewModel = new DataStatisticsViewModel(_dataStatisticsService);
+                if (StatisticsViewModel == null)
+                {
+                    StatisticsViewModel = new DataStatisticsViewModel(_dataStatisticsService);
+                }
             }));
         }
 
@@ -123,6 +148,9 @@ namespace Smart365Operation.Modules.Dashboard
 
                    CustomerMonitoringList.AddRange(customerMonitoringList);
                    map.Markers.AddRange(customerMapMarkerList);
+
+                   CustomersView = GetCustomerCollectionView(CustomerMonitoringList);
+                   CustomersView.Filter = OnFilterCustomer;
                }));
 
             }
@@ -138,6 +166,51 @@ namespace Smart365Operation.Modules.Dashboard
             //    IsInitialShow = false;
             //}));
 
+        }
+
+        private bool OnFilterCustomer(object item)
+        {
+            var customer = (CustomerMonitoringViewModel)item;
+            if (string.IsNullOrEmpty(CustomerKeyword))
+            {
+                return true;
+            }
+            else
+            {
+                return customer.CustomerName.Contains(CustomerKeyword);
+            }
+        }
+
+        public CollectionView GetCustomerCollectionView(ObservableCollection<CustomerMonitoringViewModel> customerList)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(customerList);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Agency");
+            view.GroupDescriptions.Add(groupDescription);
+            return view;
+        }
+
+
+        private CollectionView _customersView;
+        public CollectionView CustomersView
+        {
+            get { return _customersView; }
+            set
+            {
+                SetProperty(ref _customersView, value);
+                _customersView.Refresh();
+            }
+        }
+
+
+        private string _customerKeyword = string.Empty;
+        public string CustomerKeyword
+        {
+            get { return _customerKeyword; }
+            set
+            {
+                SetProperty(ref _customerKeyword, value);
+                _customersView.Refresh();
+            }
         }
 
         public IRegionManager RegionManager { get; set; }

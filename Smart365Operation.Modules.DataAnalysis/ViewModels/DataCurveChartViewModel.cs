@@ -31,6 +31,15 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
         private readonly Prism.Events.IEventAggregator _eventAggregator;
         private readonly IDeviceParameterInfoService _deviceParameterInfoService;
         private readonly CartesianMapper<DateModel> _dateConfig;
+        private List<Color> _colors = new List<Color>()
+        {
+            (Color)ColorConverter.ConvertFromString("#ffffff"),
+            (Color)ColorConverter.ConvertFromString("#f16464"),
+            (Color)ColorConverter.ConvertFromString("#ffdf06"),
+            (Color)ColorConverter.ConvertFromString("#739eff"),
+            (Color)ColorConverter.ConvertFromString("#4cc574"),
+            (Color)ColorConverter.ConvertFromString("#d862ff")
+        };
 
         public DataCurveChartViewModel(Prism.Events.IEventAggregator eventAggregator, IDeviceParameterInfoService deviceParameterInfoService)
         {
@@ -63,7 +72,7 @@ namespace Smart365Operation.Modules.DataAnalysis.ViewModels
                 if (dataList.Count > 0)
                 {
                     int index = 0;
-                    var colors = CartesianChart.Colors;
+                    var colors = _colors;
                     foreach (var historyData in dataList)
                     {
                         var ds0 = new XyDataSeries<DateTime, double>() { SeriesName = historyData.pointName };

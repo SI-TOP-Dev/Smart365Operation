@@ -13,18 +13,21 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Smart365Operation.Modules.Dashboard.ViewModels
 {
-    public class AlarmDialogViewModel:BindableBase
+    public class AlarmDialogViewModel : BindableBase
     {
         private readonly IShellService _shellService;
         private readonly IEventAggregator _eventAggregator;
-        public AlarmDialogViewModel(IEventAggregator eventAggregator, IShellService shellService, ObservableCollection<AlarmInfo> alarmList, AlarmInfo currentAlarm)
+        private readonly ICustomerService _customerService;
+        public AlarmDialogViewModel(IEventAggregator eventAggregator, IShellService shellService, ICustomerService customerService, ObservableCollection<AlarmInfo> alarmList, AlarmInfo currentAlarm)
         {
             _eventAggregator = eventAggregator;
             _shellService = shellService;
+            _customerService = customerService;
             AlarmList = alarmList;
             CurrentAlarmInfo = currentAlarm;
 
@@ -48,14 +51,42 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         public ObservableCollection<AlarmInfo> AlarmList
         {
             get { return _alarmList; }
-            set { SetProperty(ref _alarmList, value); }
+            set
+            {
+                SetProperty(ref _alarmList, value);
+                _alarmList.OrderByDescending(a => DateTime.Parse(a.Time));
+            }
         }
 
         public DelegateCommand<object> MinWindowCommand => new DelegateCommand<object>(MinWindow, CanMinWindow);
 
         public DelegateCommand<object> DeleteAlarmCommand => new DelegateCommand<object>(DeleteAlarm, CanDeleteAlarm);
+        public DelegateCommand DeleteAllAlarmCommand => new DelegateCommand(DeleteAllAlarm, CanDeleteAllAlarm);
+
 
         public DelegateCommand<object> LocateAlarmCommand => new DelegateCommand<object>(LocateAlarm, CanLocateAlarm);
+
+        private bool CanDeleteAllAlarm()
+        {
+            return true;
+        }
+
+        private void DeleteAllAlarm()
+        {
+            DataServiceApi httpServiceApi = new DataServiceApi();
+            var alarms = AlarmList.ToList();
+            foreach (var item in alarms)
+            {
+                var request = new RestRequest($"data/eliminate/alarm.json", Method.GET);
+                request.AddParameter("id", item.AlarmId);
+                bool result = httpServiceApi.Execute(request);
+                if (result)
+                {
+                    AlarmList.Remove(item);
+                }
+            }
+        }
+
 
         private bool CanMinWindow(object arg)
         {
@@ -80,8 +111,16 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
             {
                 return;
             }
+            var principal = Thread.CurrentPrincipal as SystemPrincipal;
+            var agentId = principal.Identity.Id;
+            var customerList = _customerService.GetCustomersBy(agentId);
             var parameters = new NavigationParameters();
-            parameters.Add("CustomerId", info.CustomerId.ToString());
+            var customer = customerList.FirstOrDefault(c => c.Id == info.CustomerId);
+            if (customer == null)
+            {
+                throw new Exception($"该客户(id={info.CustomerId})不存在！");
+            }
+            parameters.Add("Customer", customer);
             _shellService.ShowShell("Monitoring", parameters);
             //_regionManager.RequestNavigate(KnownRegionNames.MainRegion, "Monitoring", parameters);
         }

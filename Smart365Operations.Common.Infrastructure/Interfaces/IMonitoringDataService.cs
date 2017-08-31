@@ -10,6 +10,8 @@ namespace Smart365Operations.Common.Infrastructure.Interfaces
     {
         event EventHandler<MonitoringDataEventArgs> MonitoringDataUpdated;
         event EventHandler<AlarmDataEventArgs> AlarmDataUpdated;
+        void SubscriberToRealData(string[] keyList);
+        void SubscriberToAlarmData(string[] keyList);
         //void ReceiveData(string identity, object data);
 
     }

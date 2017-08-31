@@ -49,18 +49,6 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
         private void _monitoringDataService_DataUpdated(object sender, MonitoringDataEventArgs e)
         {
-            //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-            //{
-            //    try
-            //    {
-            //        _uiManager.UpdateData(e.Key, e.Value);
-            //    }
-            //    catch (Exception ex)
-            //    {
-
-            //    }
-
-            //}));
 
             if (!_keys.Contains(e.Key))
             {
@@ -79,10 +67,18 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
         public async Task SetWiringDiagramUITaskAsync(string s) //=> Task.Run(() =>
         {
             var ui = await GetWiringDiagramUI(s);
+            SubscriberToCurrentData();
             await Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-             {
-                 WiringDiagramUI = ui;
-             }));
+            {
+                WiringDiagramUI = ui;
+            }));
+        }
+
+        private void SubscriberToCurrentData()
+        {
+            var mainKeys = _keys.Select(k => k.Split(new Char[] { '_' })[0]).Distinct();
+            var subscriberKeys = mainKeys.Select(k => $"{k}.*.*.*").ToArray();
+            _monitoringDataService.SubscriberToRealData(subscriberKeys);
         }
 
         private async Task<FrameworkElement> GetWiringDiagramUI(string customerId)
@@ -216,6 +212,14 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                         xamlUI.UI.MouseLeftButtonUp += UI_MouseLeftButtonUp;
                         xamlUI.UI.MouseLeftButtonDown += UI_MouseLeftButtonDown;
                         xamlUI.UI.MouseWheel += UI_MouseWheel;
+                        foreach (var item in xamlUI.Identities)
+                        {
+                            if (!_keys.Contains(item))
+                            {
+                                _keys.Add(item);
+                            }
+                        }
+                        SubscriberToCurrentData();
                         WiringDiagramUI = viewBox;
                     }
 

@@ -41,7 +41,7 @@
                                         <CircleEase EasingMode="EaseOut"/>
                                     </EasingDoubleKeyFrame.EasingFunction>
                                 </EasingDoubleKeyFrame>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-270">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-320">
                                     <EasingDoubleKeyFrame.EasingFunction>
                                         <CircleEase EasingMode="EaseOut"/>
                                     </EasingDoubleKeyFrame.EasingFunction>
@@ -56,7 +56,7 @@
                                     <ScaleTransform/>
                                     <SkewTransform/>
                                     <RotateTransform/>
-                                    <TranslateTransform X="-270"/>
+                                    <TranslateTransform X="-320"/>
                                 </TransformGroup>
                             </Border.RenderTransform>
                             <ContentPresenter x:Name="ExpandSite" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>

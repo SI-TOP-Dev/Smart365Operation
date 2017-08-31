@@ -24,5 +24,34 @@ namespace Smart365Operation.Modules.Monitoring.Views
         {
             InitializeComponent();
         }
+
+        private bool isMouseLeftButtonDown = false;
+        Point previousMousePoint = new Point(0, 0);
+
+        private void ui_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            isMouseLeftButtonDown = true;
+            previousMousePoint = e.GetPosition(contentUI);
+        }
+
+        private void ui_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMouseLeftButtonDown == true)
+            {
+                Point position = e.GetPosition(contentUI);
+                tlt.X += position.X - this.previousMousePoint.X;
+                tlt.Y += position.Y - this.previousMousePoint.Y;
+            }
+        }
+
+        private void ui_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            isMouseLeftButtonDown = false;
+        }
+
+        private void ui_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseLeftButtonDown = false;
+        }
     }
 }

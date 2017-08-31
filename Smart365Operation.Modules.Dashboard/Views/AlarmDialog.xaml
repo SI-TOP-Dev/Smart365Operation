@@ -57,6 +57,11 @@
                                     CommandParameter="{Binding CurrentAlarmInfo}"/>
                 </DockPanel>
             </Border>-->
+            <Button Style="{DynamicResource MaterialDesignFlatButton}"  DockPanel.Dock="Bottom"
+                    VerticalAlignment="Center"
+                    Command="{Binding DeleteAllAlarmCommand}">
+                <materialDesign:PackIcon Kind="Delete" />
+            </Button>
             <ScrollViewer Grid.Row="1"  Margin="10" VerticalScrollBarVisibility="Auto">
                 <ListBox ItemsSource="{Binding AlarmList}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                   
@@ -81,6 +86,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </ScrollViewer>
+            
         </DockPanel>
 
     </Grid>

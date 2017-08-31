@@ -10,6 +10,7 @@ using Prism.Mvvm;
 using Smart365Operation.Modules.Dashboard.Interfaces;
 using System.Windows;
 using System.Collections.ObjectModel;
+using Smart365Operations.Common.Infrastructure.Models.TO;
 
 namespace Smart365Operation.Modules.Dashboard
 {
@@ -31,19 +32,19 @@ namespace Smart365Operation.Modules.Dashboard
         private void Initialize()
         {
             GetAlarmStatisticsInfo();
-            GetCustomerIncrementsInfo();
+            GetInspectionInfos();
             GetCustomerIndustryCategoryInfo();
 
         }
 
 
-        #region Customer Increments Statistics
+        #region Inspection Statistics
 
-        private SeriesCollection _customerIncrementsInfoSeriesCollection = new SeriesCollection();
-        public SeriesCollection CustomerIncrementsInfoSeriesCollection
+        private SeriesCollection _inspectionStatisticsInfoSeriesCollection = new SeriesCollection();
+        public SeriesCollection InspectionStatisticsInfoSeriesCollection
         {
-            get { return _customerIncrementsInfoSeriesCollection; }
-            set { SetProperty(ref _customerIncrementsInfoSeriesCollection, value); }
+            get { return _inspectionStatisticsInfoSeriesCollection; }
+            set { SetProperty(ref _inspectionStatisticsInfoSeriesCollection, value); }
         }
         private ObservableCollection<string> _customerIncrementsLabels = new ObservableCollection<string>();
         public ObservableCollection<string> CustomerIncrementsLabels
@@ -65,44 +66,46 @@ namespace Smart365Operation.Modules.Dashboard
             set { SetProperty(ref _maxCustormerNumber, value); }
         }
 
-        private void GetCustomerIncrementsInfo()
+        private void GetInspectionInfos()
         {
-            var customerIncrementsInfo = _dataStatisticsService.GetCustomerIncrementsInfo();
-            List<int> oldCustomers = new List<int>();
-            List<int> addCustomers = new List<int>();
-            List<string> labels = new List<string>();
-            var maxItem = customerIncrementsInfo.Max(i => i.existing + i.increased);
-            var infoList = customerIncrementsInfo.OrderByDescending(i => DateTime.Parse(i.date));
-            foreach (var customerIncrementsDto in infoList)
-            {
-                oldCustomers.Add(customerIncrementsDto.existing);
-                addCustomers.Add(customerIncrementsDto.increased);
-                labels.Add(customerIncrementsDto.date);
-            }
-            var oldCustomersColumnSeries = new StackedColumnSeries
-            {
-                Title = "累计客户",
-                Values = new ChartValues<int>(oldCustomers),
-                StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
-                DataLabels = true
-            };
-            var addCustomersColumnSeries = new StackedColumnSeries
-            {
-                Title = "新增客户",
-                Values = new ChartValues<int>(addCustomers),
-                StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
-                DataLabels = true
-            };
+            //var customerIncrementsInfo = _dataStatisticsService.GetInspectionStatisticsInfo();
+            //List<int> addCustomers = new List<int>();
+            //List<string> labels = new List<string>();
+            //var maxItem = customerIncrementsInfo.Max(i => i.completeInspectionCount);
+            //foreach (var customerIncrementsDto in customerIncrementsInfo)
+            //{
+            //    //oldCustomers.Add(customerIncrementsDto.existing);
+            //    addCustomers.Add(customerIncrementsDto.completeInspectionCount);
+            //    labels.Add(customerIncrementsDto.customerName);
+            //}
 
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                CustomerIncrementsInfoSeriesCollection.Add(oldCustomersColumnSeries);
-                CustomerIncrementsInfoSeriesCollection.Add(addCustomersColumnSeries);
-                CustomerIncrementsLabels = new ObservableCollection<string>(labels);
-                MaxCustormerNumber = maxItem;
-                CustomerIncrementsFormatter = value => value.ToString() + "家";
-            }));
+            //var addCustomersColumnSeries = new StackedColumnSeries
+            //{
+            //    Title = "次",
+            //    Values = new ChartValues<int>(addCustomers),
+            //    StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+            //    DataLabels = true
+            //};
 
+            //Application.Current.Dispatcher.Invoke(new Action(() =>
+            //{
+            //    //CustomerIncrementsInfoSeriesCollection.Add(oldCustomersColumnSeries);
+            //    InspectionStatisticsInfoSeriesCollection.Add(addCustomersColumnSeries);
+            //    CustomerIncrementsLabels = new ObservableCollection<string>(labels);
+            //    MaxCustormerNumber = maxItem;
+            //    CustomerIncrementsFormatter = value => value.ToString();// + "家";
+            //}));
+            InspectionInfos.Clear();
+
+            var inspectionInfos = _dataStatisticsService.GetInspectionStatisticsInfo();
+            InspectionInfos.AddRange(inspectionInfos);
+        }
+
+        private ObservableCollection<InspectionStatisticsDTO> _inspectionInfos = new ObservableCollection<InspectionStatisticsDTO>();
+        public ObservableCollection<InspectionStatisticsDTO> InspectionInfos
+        {
+            get { return _inspectionInfos; }
+            set { SetProperty(ref _inspectionInfos, value); }
         }
 
         #endregion
@@ -126,7 +129,7 @@ namespace Smart365Operation.Modules.Dashboard
                 {
                     Values = new ChartValues<int>() { customerIndustryCategoryDto.count },
                     Title = customerIndustryCategoryDto.typeName,
-                    LabelPoint = chartPoint => string.Format("{0}家 ({1:P})", chartPoint.Y, chartPoint.Participation),
+                    LabelPoint = chartPoint => string.Format("{0}kVA {1:P})", chartPoint.Y, chartPoint.Participation),
                     DataLabels = true
                 };
                 pieSeriesList.Add(industryCategoryInfo);
@@ -141,67 +144,89 @@ namespace Smart365Operation.Modules.Dashboard
 
         #region Customer Alarm Statistics
 
+
+        private void GetAlarmStatisticsInfo()
+        {
+            var alarmStatisticsInfo = _dataStatisticsService.GetAlarmStatisticsInfo();
+            List<PieSeries> pieSeriesList = new List<PieSeries>();
+            foreach (var alarmStatisticsDto in alarmStatisticsInfo)
+            {
+                var industryCategoryInfo = new PieSeries
+                {
+                    Values = new ChartValues<int>() { alarmStatisticsDto.count },
+                    Title = alarmStatisticsDto.name,
+                    LabelPoint = chartPoint => string.Format("{0}次 {1:P})", chartPoint.Y, chartPoint.Participation),
+                    DataLabels = true
+                };
+                pieSeriesList.Add(industryCategoryInfo);
+            }
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                AlarmStatisticsSeriesCollection.AddRange(pieSeriesList);
+            }));
+        }
+
         private SeriesCollection _alarmStatisticsSeriesCollection = new SeriesCollection();
         public SeriesCollection AlarmStatisticsSeriesCollection
         {
             get { return _alarmStatisticsSeriesCollection; }
             set { SetProperty(ref _alarmStatisticsSeriesCollection, value); }
         }
-        private ObservableCollection<string> _alarmStatisticsLabels = new ObservableCollection<string>();
-        public ObservableCollection<string> AlarmStatisticsLabels
-        {
-            get { return _alarmStatisticsLabels; }
-            set { SetProperty(ref _alarmStatisticsLabels, value); }
-        }
+        //private ObservableCollection<string> _alarmStatisticsLabels = new ObservableCollection<string>();
+        //public ObservableCollection<string> AlarmStatisticsLabels
+        //{
+        //    get { return _alarmStatisticsLabels; }
+        //    set { SetProperty(ref _alarmStatisticsLabels, value); }
+        //}
 
-        private Func<double, string> _alarmStatisticsFormatter;
-        public Func<double, string> AlarmStatisticsFormatter
-        {
-            get { return _alarmStatisticsFormatter; }
-            set { SetProperty(ref _alarmStatisticsFormatter, value); }
-        }
-        private void GetAlarmStatisticsInfo()
-        {
-            var alarmStatisticsInfo = _dataStatisticsService.GetAlarmStatisticsInfo();
-            if (alarmStatisticsInfo == null)
-            {
-                return;
-            }
-            List<int> alarmCountList = new List<int>();
-            List<int> untreatedCountList = new List<int>();
-            List<string> labels = new List<string>();
-            var infoList = alarmStatisticsInfo.OrderByDescending(i => DateTime.Parse(i.date));
-            foreach (var alarmStatisticsDto in infoList)
-            {
-                alarmCountList.Add(alarmStatisticsDto.alarmCount);
-                untreatedCountList.Add(alarmStatisticsDto.untreatedCount);
-                labels.Add(alarmStatisticsDto.date);
-            }
-            var alarmCountColumnSeries = new StackedColumnSeries
-            {
-                Title = "每月发生次数",
-                Values = new ChartValues<int>(alarmCountList),
-                StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
-                DataLabels = true
-            };
-            var untreatedCountColumnSeries = new StackedColumnSeries
-            {
-                Title = "未处理报警次数",
-                Values = new ChartValues<int>(untreatedCountList),
-                StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
-                DataLabels = true
-            };
+        //private Func<double, string> _alarmStatisticsFormatter;
+        //public Func<double, string> AlarmStatisticsFormatter
+        //{
+        //    get { return _alarmStatisticsFormatter; }
+        //    set { SetProperty(ref _alarmStatisticsFormatter, value); }
+        //}
+        //private void GetAlarmStatisticsInfo()
+        //{
+        //    var alarmStatisticsInfo = _dataStatisticsService.GetAlarmStatisticsInfo();
+        //    if (alarmStatisticsInfo == null)
+        //    {
+        //        return;
+        //    }
+        //    List<int> alarmCountList = new List<int>();
+        //    List<int> untreatedCountList = new List<int>();
+        //    List<string> labels = new List<string>();
+        //    var infoList = alarmStatisticsInfo.OrderByDescending(i => DateTime.Parse(i.date));
+        //    foreach (var alarmStatisticsDto in infoList)
+        //    {
+        //        alarmCountList.Add(alarmStatisticsDto.alarmCount);
+        //        untreatedCountList.Add(alarmStatisticsDto.untreatedCount);
+        //        labels.Add(alarmStatisticsDto.date);
+        //    }
+        //    var alarmCountColumnSeries = new StackedColumnSeries
+        //    {
+        //        Title = "每月发生次数",
+        //        Values = new ChartValues<int>(alarmCountList),
+        //        StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+        //        DataLabels = true
+        //    };
+        //    var untreatedCountColumnSeries = new StackedColumnSeries
+        //    {
+        //        Title = "未处理报警次数",
+        //        Values = new ChartValues<int>(untreatedCountList),
+        //        StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+        //        DataLabels = true
+        //    };
 
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                AlarmStatisticsSeriesCollection.Add(alarmCountColumnSeries);
-                AlarmStatisticsSeriesCollection.Add(untreatedCountColumnSeries);
-                AlarmStatisticsLabels = new ObservableCollection<string>(labels);
+        //    Application.Current.Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        AlarmStatisticsSeriesCollection.Add(alarmCountColumnSeries);
+        //        AlarmStatisticsSeriesCollection.Add(untreatedCountColumnSeries);
+        //        AlarmStatisticsLabels = new ObservableCollection<string>(labels);
 
-                AlarmStatisticsFormatter = value => value.ToString() + "次";
-            }));
+        //        AlarmStatisticsFormatter = value => value.ToString() + "次";
+        //    }));
 
-        }
+        //}
 
         #endregion
     }

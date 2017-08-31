@@ -118,6 +118,7 @@
     <Compile Include="Models\TO\CustomerIndustryCategoryDTO.cs" />
     <Compile Include="Models\TO\DevicePowerInfoDTO.cs" />
     <Compile Include="Models\TO\HistoryDataDTO.cs" />
+    <Compile Include="Models\TO\InspectionStatisticsDTO.cs" />
     <Compile Include="Models\TO\LoginInfoDTO.cs" />
     <Compile Include="Models\TO\DeviceParameterInfoDTO.cs" />
     <Compile Include="Models\TO\PowerFactorDTO.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Utility\EnumBindingSourceExtension.cs" />
     <Compile Include="Utility\PasswordHelper.cs" />
     <Compile Include="Utility\RestAPIClient.cs" />
+    <Compile Include="Utility\SystemHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

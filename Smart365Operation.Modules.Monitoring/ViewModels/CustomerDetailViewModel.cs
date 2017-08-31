@@ -20,6 +20,7 @@ using LiveCharts.Configurations;
 using Abt.Controls.SciChart;
 using Abt.Controls.SciChart.Model.DataSeries;
 using Abt.Controls.SciChart.Visuals.RenderableSeries;
+using System.Windows.Media;
 
 namespace Smart365Operation.Modules.Monitoring.ViewModels
 {
@@ -293,7 +294,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
                 var ds0 = new XyDataSeries<DateTime, double>();
 
-                DevicePowerFactorSeries.Add(new ChartSeriesViewModel(ds0, new FastLineRenderableSeries() { StrokeThickness = 2 }));
+                DevicePowerFactorSeries.Add(new ChartSeriesViewModel(ds0, new FastLineRenderableSeries() { StrokeThickness = 2, SeriesColor= (Color)ColorConverter.ConvertFromString("#008000") }));
                 List<PowerFactorDTO> data = devicePowerFactorList.OrderBy(d => d.time).ToList();
                 ds0.Append(data.Select(x => x.time), data.Select(y => double.Parse(y.value)));
                 PowerFactorLowerThreshold = double.Parse(devicePowerFactorList[0].downLimit);
@@ -321,7 +322,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
 
                 var ds0 = new XyDataSeries<DateTime, double>();
 
-                DevicePowerSeries.Add(new ChartSeriesViewModel(ds0, new FastLineRenderableSeries() { StrokeThickness = 2 }));
+                DevicePowerSeries.Add(new ChartSeriesViewModel(ds0, new FastColumnRenderableSeries() { FillBrush = Brushes.Green, StrokeThickness = 0}));
                 List<DevicePowerInfoDTO> data = devicePowerInfoList.OrderBy(d => d.time).ToList();
                 ds0.Append(data.Select(x => x.time), data.Select(y => y.value));
                 PowerViewportManager.ZoomExtents();

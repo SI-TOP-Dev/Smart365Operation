@@ -17,6 +17,7 @@ using Prism.Events;
 using Smart365Operation.Modules.Dashboard.Events;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Threading;
 
 namespace Smart365Operation.Modules.Dashboard.ViewModels
 {
@@ -25,6 +26,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         private readonly IShellService _shellService;
         private readonly IRegionManager _regionManager;
         private readonly IMonitoringDataService _monitoringDataService;
+        private readonly ICustomerService _customerService;
         private readonly IDialogService _dialogService;
         private readonly IEventAggregator _eventAggregator;
         private static bool _isCreateAlarmDialog = true;
@@ -48,13 +50,14 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         //}
 
 
-        public AlarmTipsViewModel(IEventAggregator eventAggregator, IShellService shellService, IRegionManager regionManager, IDialogService dialogService, IMonitoringDataService monitoringDataService)
+        public AlarmTipsViewModel(IEventAggregator eventAggregator, IShellService shellService, IRegionManager regionManager, IDialogService dialogService, ICustomerService customerService, IMonitoringDataService monitoringDataService)
         {
             _shellService = shellService;
             _regionManager = regionManager;
             _dialogService = dialogService;
             _monitoringDataService = monitoringDataService;
             _monitoringDataService.AlarmDataUpdated += _monitoringDataService_AlarmDataUpdated;
+            _customerService = customerService;
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<AlarmDialogClosedEvent>().Subscribe(arg => HandleAlarmDialogClosed(arg));
             AlarmList.CollectionChanged += AlarmList_CollectionChanged;
@@ -122,7 +125,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         {
             if (_isCreateAlarmDialog)
             {
-                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator,_shellService, AlarmList, CurrentAlarmInfo);
+                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator,_shellService,_customerService, AlarmList, CurrentAlarmInfo);
                 _dialogService.Show(this, alarmDialogViewModel);
                 _isCreateAlarmDialog = false;
             }
@@ -149,7 +152,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
         {
             if (_isCreateAlarmDialog)
             {
-                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator,_shellService, AlarmList, CurrentAlarmInfo);
+                var alarmDialogViewModel = new AlarmDialogViewModel(_eventAggregator,_shellService,_customerService, AlarmList, CurrentAlarmInfo);
                 _dialogService.Show(this, alarmDialogViewModel);
                 _isCreateAlarmDialog = false;
             }
@@ -162,8 +165,16 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
             {
                 return;
             }
+            var principal = Thread.CurrentPrincipal as SystemPrincipal;
+            var agentId = principal.Identity.Id;
+            var customerList = _customerService.GetCustomersBy(agentId);
             var parameters = new NavigationParameters();
-            parameters.Add("CustomerId", info.CustomerId.ToString());
+            var customer = customerList.FirstOrDefault(c => c.Id == info.CustomerId);
+            if (customer == null)
+            {
+                throw new Exception($"该客户(id={info.CustomerId})不存在！");
+            }
+            parameters.Add("Customer", customer);
             _shellService.ShowShell("Monitoring", parameters);
             //_regionManager.RequestNavigate(KnownRegionNames.MainRegion, "Monitoring", parameters);
         }

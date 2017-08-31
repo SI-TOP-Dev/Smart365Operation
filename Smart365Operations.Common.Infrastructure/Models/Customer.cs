@@ -20,5 +20,9 @@ namespace Smart365Operations.Common.Infrastructure.Models
         public DateTime ContractExpiresDate { get; set; }
         public int TransformerNumber { get; set; }
         public string CustomerPic { get; set; }
+
+        public string Province { get; set; }
+        public string City { get; set; }
+        public string Agency { get; set; }
     }
 }

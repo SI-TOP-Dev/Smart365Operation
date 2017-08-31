@@ -172,7 +172,7 @@
                                 <Image x:Name="image11" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_yclgz.png" Height="32" Margin="0,10,0,0"/>
                                 <StackPanel DockPanel.Dock="Right">
                                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="已处理故障" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding AlarmSummaryInfo.alarmCount}" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding AlarmSummaryInfo.treatedCount}" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
@@ -217,7 +217,7 @@
                                 <Image x:Name="image16" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" HorizontalAlignment="Left" Source="pack://application:,,,/Smart365.Common.Themes;component/Resources/Images/ico_txycgj.png" Height="32" Margin="0,10,0,0"/>
                                 <StackPanel DockPanel.Dock="Right">
                                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="通讯异常告警" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Margin="20 10 10 10"/>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="0次" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
+                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding AlarmSummaryInfo.communicationCount}" VerticalAlignment="Top" Style="{DynamicResource txtcontent_textblock}" Foreground="{DynamicResource lightgreen1BBC9B}" Margin="20 10 10 10"/>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
@@ -384,7 +384,7 @@
                             <scichart:ModifierGroup>
                                 <!--<scichart:RolloverModifier x:Name="rolloverModifier" DrawVerticalLine="True" SourceMode="AllSeries" ShowTooltipOn="MouseHover" TooltipLabelTemplate="{StaticResource RolloverLabelTemplate}"/>-->
                                 <scichart:CursorModifier ReceiveHandledEvents="True"/>
-                                <scichart:LegendModifier ShowLegend="True" Orientation="Horizontal" LegendPlacement="Top" Margin="0,0,0,5"/>
+                                <!--<scichart:LegendModifier ShowLegend="True" Orientation="Horizontal" LegendPlacement="Top" Margin="0,0,0,5"/>-->
                                 <scichart:RubberBandXyZoomModifier/>
                                 <scichart:ZoomExtentsModifier/>
                                 <scichart:MouseWheelZoomModifier />

@@ -21,17 +21,17 @@
         </DataTemplate>-->
     </UserControl.Resources>
     <Grid x:Name="maincontent" d:LayoutOverrides="Height, TopPosition, BottomPosition" DockPanel.Dock="Bottom">
-        <TabControl x:Name="tabControl" TabStripPlacement="Left" Style="{DynamicResource navtab_left}">
-            <TabItem Header="统&#xA;计&#xA;数&#xA;据" Margin="0" Style="{DynamicResource navtabitem_tjsj}" Width="50" FontSize="18">
+        <TabControl x:Name="tabControl"  Style="{DynamicResource navtab_left}"><!--TabStripPlacement="Left"-->
+            <TabItem Header="统计数据" Margin="0" Style="{DynamicResource navtabitem_tjsj}" Height="Auto" FontSize="18">
                 <ContentControl prism:RegionManager.RegionName="CustomerDetailRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             </TabItem>
-            <TabItem Header="实&#xA;时&#xA;监&#xA;测" Margin="0" Style="{DynamicResource navtabitem_ssjc}" Width="50" FontSize="18" IsSelected="True">
+            <TabItem Header="实时监测" Margin="0" Style="{DynamicResource navtabitem_ssjc}" Height="Auto" FontSize="18" IsSelected="True">
                 <ContentControl prism:RegionManager.RegionName="WiringDiagramRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-            </TabItem>                                                                                                         
-            <TabItem Header="视&#xA;频&#xA;监&#xA;控" Visibility="Collapsed" Margin="0" Style="{DynamicResource navtabitem_spjk}" Width="50" FontSize="18">
+            </TabItem>
+            <TabItem Header="视频监控" Visibility="Collapsed" Margin="0" Style="{DynamicResource navtabitem_spjk}" Height="Auto" FontSize="18">
                 <ContentControl prism:RegionManager.RegionName="VideoMonitoringRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-            </TabItem>                                                                                                         
-            <TabItem Header="数&#xA;据&#xA;分&#xA;析" Margin="0" Style="{DynamicResource navtabitem_sjfx}" Width="50" FontSize="18" >
+            </TabItem>
+            <TabItem Header="数据分析" Margin="0" Style="{DynamicResource navtabitem_sjfx}" Height="Auto" FontSize="18" >
                 <ContentControl prism:RegionManager.RegionName="DataAnaysisRegion" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             </TabItem>
         </TabControl>

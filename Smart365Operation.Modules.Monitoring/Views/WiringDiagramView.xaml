@@ -20,6 +20,17 @@
         </Style>-->
     </UserControl.Resources>
     <Viewbox Name="box" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="UniformToFill" >
-        <ContentControl Content="{Binding WiringDiagramUI}"  Foreground="Black"/>
+        <ContentControl Name="contentUI" Content="{Binding WiringDiagramUI}"  Foreground="Black" 
+                        MouseDown="ui_MouseDown"
+                        MouseMove="ui_MouseMove"
+                        MouseUp="ui_MouseUp"
+                        MouseLeave="ui_MouseLeave">
+            <ContentControl.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform x:Name="tlt" />
+                </TransformGroup>
+            </ContentControl.RenderTransform>
+        </ContentControl>
+       
     </Viewbox>
 </UserControl>

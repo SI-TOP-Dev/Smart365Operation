@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using EasyNetQ;
 using EasyNetQ.Topology;
 using Smart365Operations.Common.Infrastructure.Interfaces;
+using Smart365Operations.Common.Infrastructure.Utility;
+using System.Threading;
+using Smart365Operations.Common.Infrastructure.Models;
 
 namespace Smart365Operation.Modules.Monitoring.Services
 {
@@ -17,9 +20,13 @@ namespace Smart365Operation.Modules.Monitoring.Services
 
         private IAdvancedBus _bus;
         private IExchange _exchange;
-        private IQueue _queue;
-        public MonitoringDataService()
+        private IQueue _realTimeDataQueue;
+        private IQueue _alarmDataQueue;
+        private ICustomerService _customerService;
+        
+        public MonitoringDataService(ICustomerService customerService)
         {
+            _customerService = customerService;
             InitializeBusTaskAsync();
         }
 
@@ -29,22 +36,53 @@ namespace Smart365Operation.Modules.Monitoring.Services
         {
             _bus = RabbitHutch.CreateBus("host=www.sitech365.com:5672;username=Test;password=123Li456").Advanced;
             _exchange = _bus.ExchangeDeclare("DEFAULT_EXCHANGE", ExchangeType.Topic, passive: true);
-            
-            _queue = _bus.QueueDeclare("Smart365Client_Queue",maxLength:1000);
-            _bus.Bind(_exchange, _queue, "#");
-            _bus.Consume(_queue, (body, properties, info) => Task.Factory.StartNew(() =>
+
+            var macString = SystemHelper.GetMACAddress(string.Empty);
+            _realTimeDataQueue = _bus.QueueDeclare($"Smart365Client_{macString}_RealTime_Queue", maxLength: 1000);
+            _alarmDataQueue = _bus.QueueDeclare($"Smart365Client_{macString}_Alarm_Queue");
+
+            var principal = Thread.CurrentPrincipal as SystemPrincipal;
+            var agentId = principal.Identity.Id;
+            var customerList = _customerService.GetCustomersBy(agentId);
+
+            var customerIdList = customerList.Select(c => c.Id.ToString()).Distinct();
+            var subscriberKeys = customerIdList.Select(i => $"A.C{i}").ToArray();
+            SubscriberToAlarmData(subscriberKeys);
+        }
+
+        public void SubscriberToAlarmData(string[] keys)
+        {
+            foreach (var key in keys)
+            {
+               _bus.Bind(_exchange, _alarmDataQueue, key);
+            }
+            _bus.Consume(_alarmDataQueue, (body, properties, info) => Task.Factory.StartNew(() =>
             {
                 var message = Encoding.UTF8.GetString(body);
-                if (String.Equals(info.RoutingKey, "Alarm"))
+                var key = info.RoutingKey;
+                if (keys.Contains(key))
                 {
                     HandleAlarmData(message);
                 }
-                else
-                {
-                    HandleMonitoringData(info.RoutingKey, message);
-                }
             }));
         }
+
+        public void SubscriberToRealData(string[] keys)
+        {
+            foreach (var key in keys)
+            {
+                _bus.Bind(_exchange, _realTimeDataQueue, key);
+            }
+            
+            _bus.Consume(_realTimeDataQueue, (body, properties, info) => Task.Factory.StartNew(() =>
+            {
+                var message = Encoding.UTF8.GetString(body);
+                var key = info.RoutingKey.Replace('.', '_');
+                HandleMonitoringData(key, message);
+            }));
+        }
+
+
 
         private void HandleAlarmData(string data)
         {
@@ -57,7 +95,7 @@ namespace Smart365Operation.Modules.Monitoring.Services
                     //异步调用委托
                     deleg.BeginInvoke(this, new AlarmDataEventArgs(data), null, null);
                 }
-               // AlarmDataUpdated(this,new AlarmDataEventArgs(data));
+                // AlarmDataUpdated(this,new AlarmDataEventArgs(data));
             }
         }
         private void HandleMonitoringData(string key, object obj)
@@ -68,6 +106,7 @@ namespace Smart365Operation.Modules.Monitoring.Services
                 MonitoringDataUpdated(this, new MonitoringDataEventArgs(key, obj));
             }
         }
-        
+
+
     }
 }

@@ -17,7 +17,7 @@ namespace Smart365Operation.Modules.Dashboard.Services
             List<AlarmStatisticsDTO> alarmStatistics = new List<AlarmStatisticsDTO>();
 
             DataServiceApi httpServiceApi = new DataServiceApi();
-            var request = new RestRequest($"agent/month/group/alarm.json", Method.GET);
+            var request = new RestRequest($"data/alarm_type_ratio.json", Method.GET);
             alarmStatistics = httpServiceApi.Execute<List<AlarmStatisticsDTO>>(request);
 
             return alarmStatistics;
@@ -43,6 +43,17 @@ namespace Smart365Operation.Modules.Dashboard.Services
             customerIndustryCategory = httpServiceApi.Execute<List<CustomerIndustryCategoryDTO>>(request);
 
             return customerIndustryCategory;
+        }
+
+        public IList<InspectionStatisticsDTO> GetInspectionStatisticsInfo()
+        {
+            List<InspectionStatisticsDTO> inspectionStatistics = new List<InspectionStatisticsDTO>();
+
+            DataServiceApi httpServiceApi = new DataServiceApi();
+            var request = new RestRequest($"customer/statistics/complete_inspection_count.json?count=5", Method.GET);
+            inspectionStatistics = httpServiceApi.Execute<List<InspectionStatisticsDTO>>(request);
+
+            return inspectionStatistics;
         }
     }
 }

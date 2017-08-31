@@ -12,5 +12,6 @@ namespace Smart365Operation.Modules.Dashboard.Interfaces
         IList<CustomerIncrementsDTO> GetCustomerIncrementsInfo();
         IList<CustomerIndustryCategoryDTO> GetCustomerIndustryCategoryInfo();
         IList<AlarmStatisticsDTO> GetAlarmStatisticsInfo();
+        IList<InspectionStatisticsDTO> GetInspectionStatisticsInfo();
     }
 }
