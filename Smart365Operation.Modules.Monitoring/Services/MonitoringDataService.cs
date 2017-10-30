@@ -30,24 +30,47 @@ namespace Smart365Operation.Modules.Monitoring.Services
             InitializeBusTaskAsync();
         }
 
-        private void InitializeBusTaskAsync() => Task.Run(() => InitializeBus());
+        private void InitializeBusTaskAsync()
+        {
+            try
+            {
+                var task = Task.Run(() => InitializeBus());
+                task.Wait();
+            }
+            catch (AggregateException ae)
+            {
+                foreach (var item in ae.Flatten().InnerExceptions)
+                {
+                    Debug.WriteLine($"[MonitoringDataService] {item.Message}");
+                }
+            }
+           
+        }
 
         private void InitializeBus()
         {
-            _bus = RabbitHutch.CreateBus("host=www.sitech365.com:5672;username=Test;password=123Li456").Advanced;
-            _exchange = _bus.ExchangeDeclare("DEFAULT_EXCHANGE", ExchangeType.Topic, passive: true);
+            try
+            {
+                _bus = RabbitHutch.CreateBus("host=www.sitech365.com:5672;username=Test;password=123Li456").Advanced;
+                _exchange = _bus.ExchangeDeclare("DEFAULT_EXCHANGE", ExchangeType.Topic, passive: true);
 
-            var macString = SystemHelper.GetMACAddress(string.Empty);
-            _realTimeDataQueue = _bus.QueueDeclare($"Smart365Client_{macString}_RealTime_Queue", maxLength: 1000);
-            _alarmDataQueue = _bus.QueueDeclare($"Smart365Client_{macString}_Alarm_Queue");
+                var macString = SystemHelper.GetMACAddress(string.Empty);
+                _realTimeDataQueue = _bus.QueueDeclare($"Smart365Client_{macString}_RealTime_Queue", maxLength: 1000);
+                _alarmDataQueue = _bus.QueueDeclare($"Smart365Client_{macString}_Alarm_Queue");
 
-            var principal = Thread.CurrentPrincipal as SystemPrincipal;
-            var agentId = principal.Identity.Id;
-            var customerList = _customerService.GetCustomersBy(agentId);
+                var principal = Thread.CurrentPrincipal as SystemPrincipal;
+                var agentId = principal.Identity.Id;
+                var customerList = _customerService.GetCustomersBy(agentId);
 
-            var customerIdList = customerList.Select(c => c.Id.ToString()).Distinct();
-            var subscriberKeys = customerIdList.Select(i => $"A.C{i}").ToArray();
-            SubscriberToAlarmData(subscriberKeys);
+                var customerIdList = customerList.Select(c => c.Id.ToString()).Distinct();
+                var subscriberKeys = customerIdList.Select(i => $"A.C{i}").ToArray();
+                SubscriberToAlarmData(subscriberKeys);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           
         }
 
         public void SubscriberToAlarmData(string[] keys)
@@ -56,7 +79,7 @@ namespace Smart365Operation.Modules.Monitoring.Services
             {
                _bus.Bind(_exchange, _alarmDataQueue, key);
             }
-            _bus.Consume(_alarmDataQueue, (body, properties, info) => Task.Factory.StartNew(() =>
+            _bus.Consume(_alarmDataQueue, (body, properties, info) => Task.Run(() =>
             {
                 var message = Encoding.UTF8.GetString(body);
                 var key = info.RoutingKey;
@@ -74,7 +97,7 @@ namespace Smart365Operation.Modules.Monitoring.Services
                 _bus.Bind(_exchange, _realTimeDataQueue, key);
             }
             
-            _bus.Consume(_realTimeDataQueue, (body, properties, info) => Task.Factory.StartNew(() =>
+            _bus.Consume(_realTimeDataQueue, (body, properties, info) => Task.Run(() =>
             {
                 var message = Encoding.UTF8.GetString(body);
                 var key = info.RoutingKey.Replace('.', '_');
@@ -101,9 +124,19 @@ namespace Smart365Operation.Modules.Monitoring.Services
         private void HandleMonitoringData(string key, object obj)
         {
             //Debug.WriteLine($"[{key}]{obj}");
-            if (MonitoringDataUpdated != null)
+            //if (MonitoringDataUpdated != null)
+            //{
+            //    MonitoringDataUpdated(this, new MonitoringDataEventArgs(key, obj));
+            //}
+
+            if(MonitoringDataUpdated != null)
             {
-                MonitoringDataUpdated(this, new MonitoringDataEventArgs(key, obj));
+                Delegate[] delegList = MonitoringDataUpdated.GetInvocationList();
+                foreach (EventHandler<MonitoringDataEventArgs> deleg in delegList)
+                {
+                    //异步调用委托
+                    deleg.BeginInvoke(this, new MonitoringDataEventArgs(key, obj), null, null);
+                }
             }
         }
 
