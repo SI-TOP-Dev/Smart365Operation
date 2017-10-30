@@ -22,7 +22,7 @@ namespace Smart365Operations.Client.Services
             var request = new RestRequest($"login.json?username={username}&password={password}", Method.GET);
             var loginInfo = httpServiceApi.Execute<LoginInfoDTO>(request);
 
-            return new User(id:loginInfo.userId.ToString(), username: username, displayName: loginInfo.realName, email: "", roles: new string[] { loginInfo.userType });
+            return loginInfo == null ? null : new User(id: loginInfo.userId.ToString(), username: username, displayName: loginInfo.realName, email: "", roles: new string[] { loginInfo.userType });
         }
     }
 }

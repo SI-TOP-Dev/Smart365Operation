@@ -15,6 +15,21 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyVersion>1.0.17061.0418</AssemblyVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -208,9 +223,9 @@
       <Project>{8fc49da2-5236-4826-b5e5-c1d927277fa3}</Project>
       <Name>Dashboard</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Smart365Operation.Modules.Log4NetLogger\Smart365Operation.Modules.Log4NetLogger.csproj">
+    <ProjectReference Include="..\Smart365Operation.Modules.Log4NetLogger\Smart365.Common.Log4NetLogger.csproj">
       <Project>{53efca7a-300c-4ca1-87d4-27ead00e0674}</Project>
-      <Name>Smart365Operation.Modules.Log4NetLogger</Name>
+      <Name>Smart365.Common.Log4NetLogger</Name>
     </ProjectReference>
     <ProjectReference Include="..\Smart365Operation.Modules.VideoMonitoring\Smart365Operation.Modules.VideoMonitoring.csproj">
       <Project>{cb0e2352-8154-4ec3-8be4-ab7f358bcc27}</Project>
@@ -226,6 +241,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="favicon365.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

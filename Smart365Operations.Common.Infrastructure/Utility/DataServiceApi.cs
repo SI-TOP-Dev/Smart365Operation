@@ -8,6 +8,9 @@ using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Microsoft.Practices.Unity;
+using Smart365.Common.Log4NetLogger;
+using Prism.Logging;
 
 namespace Smart365Operations.Common.Infrastructure.Utility
 {
@@ -39,7 +42,8 @@ namespace Smart365Operations.Common.Infrastructure.Utility
 
         }
 
-
+        private Log4NetLogger Logger = new Log4NetLogger();
+       
         public bool Execute(RestRequest request)
         {
             var result = false;
@@ -56,7 +60,8 @@ namespace Smart365Operations.Common.Infrastructure.Utility
                 {
                     const string message = "Error retrieving response.  Check inner details for more info.";
                     var twilioException = new ApplicationException(message, response.ErrorException);
-                    throw twilioException;
+                    Logger?.Log($"请求[{request.Resource}]时,{message}", Category.Exception, Priority.High);
+                    //throw twilioException;
                 }
 
                 if (response.StatusCode == HttpStatusCode.OK)
@@ -75,9 +80,13 @@ namespace Smart365Operations.Common.Infrastructure.Utility
                 if (resultObject != null)
                 {
                     var responseCode = resultObject.Property("errorCode").Value.Value<int>();
-                    if (!ResultTable.ContainsKey(responseCode))
+                    if (ResultTable.ContainsKey(responseCode))
                     {
-
+                        Logger?.Log($"[{request.Resource}]~[{ResultTable[responseCode]}]", Category.Info, Priority.Medium);
+                    }
+                    else
+                    {
+                        Logger?.Log($"[{request.Resource}]~[{responseCode}]", Category.Info, Priority.Medium);
                     }
                     if (responseCode != 0)
                     {
@@ -93,6 +102,7 @@ namespace Smart365Operations.Common.Infrastructure.Utility
             }
             catch (Exception ex)
             {
+                Logger?.Log($"请求[{request.Resource}]时,发生错误：{ex.Message}", Category.Exception, Priority.High);
                 return result;
             }
         }
@@ -114,7 +124,8 @@ namespace Smart365Operations.Common.Infrastructure.Utility
                 {
                     const string message = "Error retrieving response.  Check inner details for more info.";
                     var twilioException = new ApplicationException(message, response.ErrorException);
-                    throw twilioException;
+                    Logger?.Log($"请求[{request.Resource}]时,{message}", Category.Exception, Priority.High);
+                    //throw twilioException;
                 }
 
                 if (response.StatusCode == HttpStatusCode.OK)
@@ -133,13 +144,19 @@ namespace Smart365Operations.Common.Infrastructure.Utility
                 if (resultObject != null)
                 {
                     var responseCode = resultObject.Property("errorCode").Value.Value<int>();
-                    if (!ResultTable.ContainsKey(responseCode))
+                    if (ResultTable.ContainsKey(responseCode))
                     {
-
+                        Logger?.Log($"[{request.Resource}]~[{ResultTable[responseCode]}]", Category.Info, Priority.Medium);
+                    }
+                    else
+                    {
+                        Logger?.Log($"[{request.Resource}]~[{responseCode}]", Category.Info, Priority.Medium);
                     }
                     if (responseCode != 0)
                     {
-                        throw new ApplicationException($"错误：{resultObject.Property("message").Value.Value<string>()}");
+                        string errorMessage = $"请求[{request.Resource}]时,发生错误：{resultObject.Property("message").Value.Value<string>()}";
+                       Logger?.Log(errorMessage, Category.Exception, Priority.High);
+                        //throw new ApplicationException(errorMessage);
                     }
                     else
                     {
@@ -152,6 +169,7 @@ namespace Smart365Operations.Common.Infrastructure.Utility
             }
             catch (Exception ex)
             {
+                Logger?.Log($"请求[{request.Resource}]时,发生错误：{ex.Message}", Category.Exception, Priority.High);
                 return result;
             }
            
@@ -169,8 +187,9 @@ namespace Smart365Operations.Common.Infrastructure.Utility
             if (response.ErrorException != null)
             {
                 const string message = "Error retrieving response.  Check inner details for more info.";
-                var twilioException = new ApplicationException(message, response.ErrorException);
-                throw twilioException;
+                //var twilioException = new ApplicationException(message, response.ErrorException);
+                Logger.Log($"请求[{request.Resource}]时,{message}", Category.Exception, Priority.High);
+                //throw twilioException;
             }
 
             if (response.StatusCode == HttpStatusCode.OK)

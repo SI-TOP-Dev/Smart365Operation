@@ -1,6 +1,8 @@
 ﻿using Com.Shengzuo.RuntimeCore;
 using Com.Shengzuo.RuntimeCore.Common;
+using Microsoft.Practices.Unity;
 using Polly;
+using Prism.Logging;
 using Prism.Mvvm;
 using Prism.Regions;
 using RestSharp;
@@ -228,6 +230,11 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             //throw new NotImplementedException();
         }
 
+
+        [Dependency]
+        public ILoggerFacade Logger { get; set; }
+
+
         private byte[] GetWiringDiagram(Uri diagramUri)
         {
             var httpClient = new RestClient(diagramUri);
@@ -235,6 +242,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             var response = httpClient.Execute(request);
             if (response.ErrorMessage != null)
             {
+                Logger.Log($"下载一次接线图图时，发生错误响应{response.ErrorMessage}", Category.Exception, Priority.High);
             }
             return Encoding.UTF8.GetBytes(response.Content);
         }
@@ -263,7 +271,10 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
             string filename = string.Empty;
 
             //if (uri.IsFile)
-            filename = Path.GetFileName(uri.AbsolutePath);
+            if (!string.IsNullOrEmpty(uri.AbsolutePath))
+            {
+                filename = Path.GetFileName(uri.AbsolutePath);
+            }
             return filename;
         }
 
@@ -299,6 +310,7 @@ namespace Smart365Operation.Modules.Monitoring.ViewModels
                 sleepDurationProvider: attempt => TimeSpan.FromMilliseconds(2000), // Wait 2000ms between each try.
                 onRetry: (exception, calculatedWaitDuration) => // Capture some info for logging!
                 {
+                    Logger.Log($"下载[{downloadUrl}时，发生异常，正在进行重试下载]", Category.Warn, Priority.High);
                     //Log4NetLogger.LogDebug(string.Format("{0}下载异常，开始下载重试！\r\n{1}", mediaFilePath, exception.Message));
                 });
 

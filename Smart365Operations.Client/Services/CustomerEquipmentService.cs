@@ -7,6 +7,8 @@ using Smart365Operations.Common.Infrastructure.Interfaces;
 using Smart365Operations.Common.Infrastructure.Models.TO;
 using Smart365Operations.Common.Infrastructure.Utility;
 using RestSharp;
+using Microsoft.Practices.Unity;
+using Prism.Logging;
 
 namespace Smart365Operations.Client.Services
 {
@@ -14,6 +16,10 @@ namespace Smart365Operations.Client.Services
     {
         Dictionary<string, object> localCacheStoreDic = new Dictionary<String, Object>();
         private static object _lockObject = new object();
+
+        [Dependency]
+        public ILoggerFacade Logger { get; set; }
+
         public CustomerEquipmentTableDTO GetCustomerEquipmentTable(string customerId)
         {
             lock (_lockObject)

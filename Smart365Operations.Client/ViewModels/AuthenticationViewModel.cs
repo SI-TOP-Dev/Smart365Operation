@@ -91,7 +91,13 @@ namespace Smart365Operations.Client.ViewModels
             try
             {
                 User user = _authenticationService.AuthenticateUser(UserName, Password);
-                Logger.Log($"User:{UserName} Password:{Password}", Category.Debug, Priority.Medium);
+
+                if(user == null)
+                {
+                    Logger.Log($"Login failed!", Category.Warn, Priority.High);
+                    return;
+                }
+                //Logger.Log($"User:{UserName} Password:{Password}", Category.Debug, Priority.Medium);
                 //Get the current principal object
                 SystemPrincipal customPrincipal = Thread.CurrentPrincipal as SystemPrincipal;
                 if (customPrincipal == null)
@@ -111,7 +117,7 @@ namespace Smart365Operations.Client.ViewModels
             }
             catch (UnauthorizedAccessException)
             {
-                Logger.Log($"Login failed! Please provide some valid credentials", Category.Exception, Priority.High);
+                Logger.Log($"Login failed! Please provide some valid credentials", Category.Warn, Priority.High);
             }
             catch (Exception ex)
             {

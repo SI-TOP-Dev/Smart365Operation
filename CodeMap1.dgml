@@ -1,0 +1,535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph DataVirtualized="True" Layout="Sugiyama" ZoomLevel="-1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="(@1 Namespace=Smart365Operations.Client.Properties)" Category="CodeSchema_Namespace" Bounds="154.55897753624,-33.1249374999919,273.183333333334,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operations‎.Client‎.Properties" UseManualLocation="True" />
+    <Node Id="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring.Converters)" Category="CodeSchema_Namespace" Bounds="559.574940492069,472.932537001014,389.246666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.VideoMonitoring‎.Converters" UseManualLocation="True" />
+    <Node Id="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring.Properties)" Category="CodeSchema_Namespace" Bounds="143.848273825402,472.932537001014,385.726666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.VideoMonitoring‎.Properties" UseManualLocation="True" />
+    <Node Id="(@3 Namespace=Smart365Operation.Modules.Dashboard.Properties)" Category="CodeSchema_Namespace" Bounds="-87.6997293427604,97.9265493481832,350.316666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Dashboard‎.Properties" UseManualLocation="True" />
+    <Node Id="(@3 Namespace=Smart365Operation.Modules.Dashboard.Views)" Category="CodeSchema_Namespace" Bounds="-87.6997293427603,42.9265491682579,324.823333333333,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Dashboard‎.Views" UseManualLocation="True" />
+    <Node Id="(@5)" Category="CodeSchema_Assembly" Bounds="100.353480132814,517.701682449978,305.326666666667,25" CodeSchemaProperty_StrongName="Hardborn.DataMonitoring.RuntimeCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(21bc75f5-a39c-4963-b683-9c525c8b0d6f.OutputPath)" Group="Collapsed" Label="Hardborn.DataMonitoring.RuntimeCore.dll" />
+    <Node Id="(@8 Namespace=Smart365Operation.Modules.Monitoring.Views)" Category="CodeSchema_Namespace" Bounds="-200.158826756282,352.933086426458,326.806666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Monitoring‎.Views" UseManualLocation="True" />
+    <Node Id="@11" Category="CodeSchema_Assembly" Bounds="-89.2199586244567,292.70142955412,345.15,25" CodeSchemaProperty_StrongName="Smart365Operation.Modules.VideoMonitoring, Version=1.0.17061.405, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="Fetched" DelayedCrossGroupLinksState="Fetched" FetchedChildrenCount="8" FilePath="$(cb0e2352-8154-4ec3-8be4-ab7f358bcc27.OutputPath)" Group="Collapsed" Label="Smart365Operation.Modules.VideoMonitoring.dll">
+      <Category Ref="CodeMap_WpfProject" />
+      <Category Ref="FileSystem.Category.FileOfType.dll" />
+    </Node>
+    <Node Id="@13" Category="CodeSchema_Assembly" Bounds="100.353480132814,407.701670866449,170.58,25" CodeSchemaProperty_StrongName="Feeling.GIS.Map, Version=1.0.17060.302, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(54a47171-315b-4151-9a2b-0f37c3783288.OutputPath)" Group="Collapsed" Label="Feeling.GIS.Map.dll">
+      <Category Ref="CodeMap_WpfProject" />
+      <Category Ref="FileSystem.Category.FileOfType.dll" />
+    </Node>
+    <Node Id="@15" Category="CodeSchema_Assembly" Bounds="-89.2199586244567,237.70142955412,335.906666666667,25" CodeSchemaProperty_StrongName="Smart365Operation.Modules.Log4NetLogger, Version=1.0.17060.302, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(53efca7a-300c-4ca1-87d4-27ead00e0674.OutputPath)" Group="Collapsed" Label="Smart365Operation.Modules.Log4NetLogger.dll" />
+    <Node Id="@17" Category="CodeSchema_Assembly" Bounds="100.353480132813,462.701676658213,236.553333333333,25" CodeSchemaProperty_StrongName="Smart365.Common.Themes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(be9bd04a-01b4-47db-9af3-67ff070f4592.OutputPath)" Group="Collapsed" Label="Smart365.Common.Themes.dll">
+      <Category Ref="CodeMap_WpfProject" />
+      <Category Ref="FileSystem.Category.FileOfType.dll" />
+    </Node>
+    <Node Id="@19" Category="CodeSchema_Assembly" Bounds="-89.2199586244567,182.70142955412,319.026666666667,25" CodeSchemaProperty_StrongName="Smart365Operation.Modules.DataAnalysis, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(9613273a-bb8e-4f55-b95a-8ad1f60bb22c.OutputPath)" Group="Collapsed" Label="Smart365Operation.Modules.DataAnalysis.dll" />
+    <Node Id="@2" Category="CodeSchema_Assembly" Bounds="623.651800091632,174.345130523714,214.246666666667,25" CodeSchemaProperty_StrongName="SmartOperationsClient, Version=1.0.1707.1901, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="Fetched" DelayedCrossGroupLinksState="Fetched" FetchedChildrenCount="5" FilePath="$(cd6e321e-3a48-4500-8fd8-2b669905522f.OutputPath)" Group="Collapsed" Label="SmartOperationsClient.exe" UseManualLocation="True">
+      <Category Ref="CodeMap_WpfProject" />
+      <Category Ref="FileSystem.Category.FileOfType.exe" />
+    </Node>
+    <Node Id="@20" Category="CodeSchema_Namespace" Bounds="-58.2763960094271,-232.073451731369,288.786666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Dashboard" UseManualLocation="True" />
+    <Node Id="@21" Category="CodeSchema_Namespace" Bounds="-71.1713960094271,-12.0734510116675,328.8,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Dashboard‎.Events" UseManualLocation="True" />
+    <Node Id="@22" Category="CodeSchema_Namespace" Bounds="-87.6997293427604,-122.073451371518,347.633333333333,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Dashboard‎.Interfaces" UseManualLocation="True" />
+    <Node Id="@23" Category="CodeSchema_Namespace" Bounds="117.181937323907,-177.073451551444,337.87,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Dashboard‎.Services" UseManualLocation="True" />
+    <Node Id="@24" Category="CodeSchema_Namespace" Bounds="-87.6997293427605,-67.0734511915929,361.856666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Dashboard‎.ViewModels" UseManualLocation="True" />
+    <Node Id="@25" Category="CodeSchema_Namespace" Bounds="-175.617160089615,242.933086426458,290.77,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Monitoring" UseManualLocation="True" />
+    <Node Id="@26" Category="CodeSchema_Namespace" Bounds="-200.158826756282,297.933086426458,339.853333333333,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Monitoring‎.Services" UseManualLocation="True" />
+    <Node Id="@27" Category="CodeSchema_Namespace" Bounds="-200.158826756282,407.933086426458,363.84,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.Monitoring‎.ViewModels" UseManualLocation="True" />
+    <Node Id="@28" Category="CodeSchema_Namespace" Bounds="243.389940492069,252.932537001014,324.196666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.VideoMonitoring" UseManualLocation="True" />
+    <Node Id="@29" Category="CodeSchema_Namespace" Bounds="593.651607158736,362.932537001014,369.673333333333,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.VideoMonitoring‎.Models" UseManualLocation="True" />
+    <Node Id="@30" Category="CodeSchema_Namespace" Bounds="143.848273825402,362.932537001014,373.28,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.VideoMonitoring‎.Services" UseManualLocation="True" />
+    <Node Id="@31" Category="CodeSchema_Namespace" Bounds="368.029940492069,417.932537001014,360.916666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.VideoMonitoring‎.Utility" UseManualLocation="True" />
+    <Node Id="@32" Category="CodeSchema_Namespace" Bounds="349.854940492069,307.932537001014,397.266666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.VideoMonitoring‎.ViewModels" UseManualLocation="True" />
+    <Node Id="@33" Category="CodeSchema_Namespace" Bounds="598.371607158735,252.932537001014,360.233333333333,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operation‎.Modules‎.VideoMonitoring‎.Views" UseManualLocation="True" />
+    <Node Id="@34" Category="CodeSchema_Namespace" Bounds="340.100644202906,-198.124937499992,211.653333333333,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operations‎.Client" UseManualLocation="True" />
+    <Node Id="@35" Category="CodeSchema_Namespace" Bounds="154.55897753624,-143.124937499992,260.736666666667,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operations‎.Client‎.Services" UseManualLocation="True" />
+    <Node Id="@36" Category="CodeSchema_Namespace" Bounds="303.565644202907,-88.1249374999919,284.723333333333,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operations‎.Client‎.ViewModels" UseManualLocation="True" />
+    <Node Id="@37" Category="CodeSchema_Namespace" Bounds="477.082310869573,-143.124937499992,247.69,25" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" Group="Collapsed" Label="Smart365Operations‎.Client‎.Views" UseManualLocation="True" />
+    <Node Id="@4" Category="CodeSchema_Assembly" Bounds="-89.2199586244567,72.7014295541205,309.74,25" CodeSchemaProperty_StrongName="Smart365Operation.Modules.Dashboard, Version=1.0.1707.1701, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="Fetched" DelayedCrossGroupLinksState="Fetched" FetchedChildrenCount="7" FilePath="$(8fc49da2-5236-4826-b5e5-c1d927277fa3.OutputPath)" Group="Collapsed" Label="Smart365Operation.Modules.Dashboard.dll">
+      <Category Ref="CodeMap_WpfProject" />
+      <Category Ref="FileSystem.Category.FileOfType.dll" />
+    </Node>
+    <Node Id="@7" Category="CodeSchema_Assembly" Bounds="100.353480132814,572.701688241742,332.146666666667,25" CodeSchemaProperty_StrongName="Smart365Operations.Common.Infrastructure, Version=1.0.17061.405, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(1e3dff34-87e3-4c24-b123-55f90f85d7f4.OutputPath)" Group="Collapsed" Label="Smart365Operations.Common.Infrastructure.dll" />
+    <Node Id="@9" Category="CodeSchema_Assembly" Bounds="-89.2199586244567,127.70142955412,310.723333333333,25" CodeSchemaProperty_StrongName="Smart365Operation.Modules.Monitoring, Version=1.0.17061.405, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="Fetched" DelayedCrossGroupLinksState="Fetched" FetchedChildrenCount="4" FilePath="$(8526b949-1a13-4ebd-8fb2-96935766ed5e.OutputPath)" Group="Collapsed" Label="Smart365Operation.Modules.Monitoring.dll" />
+    <Node Id="Common{9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}" Category="CodeMap_SolutionFolder" Bounds="80.3534801328131,367.701429554119,372.146666666667,250.0005" Group="Expanded" Label="Common" UseManualLocation="True" />
+    <Node Id="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" Category="CodeMap_SolutionFolder" Bounds="-109.219958624457,32.7014295541205,385.15,305" Group="Expanded" Label="Modules" UseManualLocation="True" />
+  </Nodes>
+  <Links>
+    <Link Source="@11" Target="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring.Converters)" Category="Contains" FetchingParent="@11" />
+    <Link Source="@11" Target="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring.Properties)" Category="Contains" FetchingParent="@11" />
+    <Link Source="@11" Target="@28" Category="Contains" FetchingParent="@11" />
+    <Link Source="@11" Target="@29" Category="Contains" FetchingParent="@11" />
+    <Link Source="@11" Target="@30" Category="Contains" FetchingParent="@11" />
+    <Link Source="@11" Target="@31" Category="Contains" FetchingParent="@11" />
+    <Link Source="@11" Target="@32" Category="Contains" FetchingParent="@11" />
+    <Link Source="@11" Target="@33" Category="Contains" FetchingParent="@11" />
+    <Link Source="@11" Target="@7" Category="CodeMap_ProjectReference" Bounds="151.388227516238,343.684317727334,161.800918765208,247.467765090101" />
+    <Link Source="@19" Target="@7" Category="References" Bounds="136.440047849816,233.68417804479,179.517151738737,356.96022065743" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="123">
+      <Category Ref="CodeMap_ProjectReference" />
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@2" Target="(@1 Namespace=Smart365Operations.Client.Properties)" Category="Contains" FetchingParent="@2" />
+    <Link Source="@2" Target="@11" Category="CodeMap_ProjectReference" Bounds="160.584493741371,199.345130523714,501.81446353653,91.7378120226436" />
+    <Link Source="@2" Target="@15" Category="CodeMap_ProjectReference" Bounds="114.895448717949,237.643062043306,60.5335484233812,97.3569379566938" />
+    <Link Source="@2" Target="@17" Category="CodeMap_ProjectReference" Bounds="248.673545990901,199.345130523714,459.900567276149,258.941122978178" />
+    <Link Source="@2" Target="@34" Category="Contains" FetchingParent="@2" />
+    <Link Source="@2" Target="@35" Category="Contains" FetchingParent="@2" />
+    <Link Source="@2" Target="@36" Category="Contains" FetchingParent="@2" />
+    <Link Source="@2" Target="@37" Category="Contains" FetchingParent="@2" />
+    <Link Source="@2" Target="@4" Category="CodeMap_ProjectReference" Bounds="156.342645830957,99.0606951073977,492.636596774957,75.2844354163164" />
+    <Link Source="@2" Target="@7" Category="CodeMap_ProjectReference" Bounds="154.632948717949,232.290006150252,390.376984316618,102.709993849748" />
+    <Link Source="@20" Target="@13" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="21">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_FieldWrite" />
+    </Link>
+    <Link Source="@20" Target="@22" Category="References" Bounds="86.1551818847656,-207.085250854492,0,76" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="8">
+      <Category Ref="CodeSchema_Calls" />
+    </Link>
+    <Link Source="@20" Target="@23" Category="References" Bounds="131.609725952148,-207.085250854492,100.413055419922,27.6135864257813" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="1" />
+    <Link Source="@20" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="53">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@21" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="5">
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+    </Link>
+    <Link Source="@22" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="4" />
+    <Link Source="@23" Target="@22" Category="Implements" Bounds="140.287567138672,-152.085250854492,100.413070678711,27.6135864257813" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="1" />
+    <Link Source="@23" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="20">
+      <Category Ref="CodeSchema_Calls" />
+    </Link>
+    <Link Source="@24" Target="@21" Category="References" Bounds="93.266845703125,-42.0852508544922,0,20.9999980926514" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="20">
+      <Category Ref="CodeSchema_Calls" />
+    </Link>
+    <Link Source="@24" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="81">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+    </Link>
+    <Link Source="@25" Target="@26" Category="References" Bounds="-30.2321605682373,267.933074951172,0,21" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="3" />
+    <Link Source="@25" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="39">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@26" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="60">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@27" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="247">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+    </Link>
+    <Link Source="@28" Target="@32" Category="References" Bounds="437.98828125,277.932525634766,69.5998840332031,26.7691955566406" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="8">
+      <Category Ref="CodeSchema_Calls" />
+    </Link>
+    <Link Source="@28" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="14">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@30" Target="@31" Category="CodeSchema_Calls" Bounds="380.033721923828,387.932525634766,110.182556152344,27.7983703613281" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="4" />
+    <Link Source="@30" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="28">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@32" Target="@29" Category="References" Bounds="600.760986328125,332.932525634766,116.701354980469,27.9068603515625" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="46">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+    </Link>
+    <Link Source="@32" Target="@30" Category="Implements" Bounds="388.760284423828,332.932525634766,110.182525634766,27.7983703613281" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="1" />
+    <Link Source="@32" Target="@31" Category="CodeSchema_Calls" Bounds="548.48828125,332.932525634766,0,76" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="5" />
+    <Link Source="@32" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="11">
+      <Category Ref="CodeSchema_Calls" />
+    </Link>
+    <Link Source="@33" Target="@29" Category="References" Bounds="778.48828125,277.932525634766,0,76" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="5">
+      <Category Ref="CodeSchema_Calls" />
+    </Link>
+    <Link Source="@33" Target="@32" Category="CodeSchema_Calls" Bounds="609.514221191406,277.932525634766,116.701354980469,27.9068603515625" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="1" />
+    <Link Source="@34" Target="@15" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="2">
+      <Category Ref="CodeSchema_Calls" />
+    </Link>
+    <Link Source="@34" Target="@35" Category="References" Bounds="330.034974027677,-173.124937499992,79.3014277509868,27.0905498528216" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="3" />
+    <Link Source="@34" Target="@36" Category="CodeSchema_Calls" Bounds="445.927310869573,-173.124937499992,0,76" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="2" />
+    <Link Source="@34" Target="@37" Category="References" Bounds="481.154583596846,-173.124937499992,76.0636048361233,26.9903113934631" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="2">
+      <Category Ref="CodeSchema_Calls" />
+    </Link>
+    <Link Source="@34" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="36">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_FieldRead" />
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@35" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="69">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@36" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="12">
+      <Category Ref="CodeSchema_Calls" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@37" Target="@36" Category="References" Bounds="489.636433306177,-118.124937499992,76.0636048361233,26.9903113934631" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="1" />
+    <Link Source="@37" Target="@7" Category="References" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="3">
+      <Category Ref="CodeSchema_ReturnTypeLink" />
+      <Category Ref="Implements" />
+    </Link>
+    <Link Source="@4" Target="(@3 Namespace=Smart365Operation.Modules.Dashboard.Properties)" Category="Contains" FetchingParent="@4" />
+    <Link Source="@4" Target="(@3 Namespace=Smart365Operation.Modules.Dashboard.Views)" Category="Contains" FetchingParent="@4" />
+    <Link Source="@4" Target="@13" Category="CodeMap_ProjectReference" Bounds="129.987756427282,123.68397804479,108.003782743853,301.527732790279" />
+    <Link Source="@4" Target="@20" Category="Contains" FetchingParent="@4" />
+    <Link Source="@4" Target="@21" Category="Contains" FetchingParent="@4" />
+    <Link Source="@4" Target="@22" Category="Contains" FetchingParent="@4" />
+    <Link Source="@4" Target="@23" Category="Contains" FetchingParent="@4" />
+    <Link Source="@4" Target="@24" Category="Contains" FetchingParent="@4" />
+    <Link Source="@4" Target="@7" Category="CodeMap_ProjectReference" Bounds="130.529808311277,123.68397804479,187.384204046804,466.649088949748" />
+    <Link Source="@9" Target="(@8 Namespace=Smart365Operation.Modules.Monitoring.Views)" Category="Contains" FetchingParent="@9" />
+    <Link Source="@9" Target="@25" Category="Contains" FetchingParent="@9" />
+    <Link Source="@9" Target="@26" Category="Contains" FetchingParent="@9" />
+    <Link Source="@9" Target="@27" Category="Contains" FetchingParent="@9" />
+    <Link Source="@9" Target="@7" Category="CodeMap_ProjectReference" Bounds="131.628040524415,178.68407804479,185.33928451872,411.793745871035" />
+    <Link Source="Common{9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}" Target="(@5)" Category="Contains" FetchingParent="Common{9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}" />
+    <Link Source="Common{9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}" Target="@13" Category="Contains" FetchingParent="Common{9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}" />
+    <Link Source="Common{9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}" Target="@17" Category="Contains" FetchingParent="Common{9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}" />
+    <Link Source="Common{9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}" Target="@7" Category="Contains" FetchingParent="Common{9616E35D-98D8-4C25-AE59-D7B22C5DE2A5}" />
+    <Link Source="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" Target="@11" Category="Contains" FetchingParent="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" />
+    <Link Source="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" Target="@15" Category="Contains" FetchingParent="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" />
+    <Link Source="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" Target="@19" Category="Contains" FetchingParent="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" />
+    <Link Source="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" Target="@4" Category="Contains" FetchingParent="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" />
+    <Link Source="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" Target="@9" Category="Contains" FetchingParent="Modules{36073197-EF3C-45E2-94C6-BF90920F739A}" />
+  </Links>
+  <Categories>
+    <Category Id="CodeMap_ProjectReference" Label="项目引用" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="引用者" OutgoingActionLabel="引用" />
+    <Category Id="CodeMap_SolutionFolder" Label="解决方案文件夹" CanBeDataDriven="True" IsProviderRoot="False" NavigationActionLabel="解决方案文件夹" />
+    <Category Id="CodeMap_WpfProject" Label="WPF 项目" CanBeDataDriven="True" IsProviderRoot="False" NavigationActionLabel="WPF 项目" />
+    <Category Id="CodeSchema_Assembly" Label="程序集" BasedOn="File" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="CodeSchema_Assembly" NavigationActionLabel="程序集" />
+    <Category Id="CodeSchema_Calls" Label="调用" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="调用者" OutgoingActionLabel="调用" />
+    <Category Id="CodeSchema_FieldRead" Label="字段读取" BasedOn="CodeSchema_FieldReference" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="读取方" OutgoingActionLabel="读取字段" />
+    <Category Id="CodeSchema_FieldReference" Label="字段引用" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="引用者" OutgoingActionLabel="引用字段" />
+    <Category Id="CodeSchema_FieldWrite" Label="字段写入" BasedOn="CodeSchema_FieldReference" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="写入方" OutgoingActionLabel="写入字段" />
+    <Category Id="CodeSchema_Namespace" Label="命名空间" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="CodeSchema_Namespace" NavigationActionLabel="命名空间" />
+    <Category Id="CodeSchema_ReturnTypeLink" Label="返回" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="返回类型" OutgoingActionLabel="返回类型" />
+    <Category Id="Contains" Label="包含" Description="链接的源是否包含目标对象" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="包含者" IsContainment="True" OutgoingActionLabel="包含" />
+    <Category Id="File" Label="文件" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="File" NavigationActionLabel="文件" />
+    <Category Id="FileSystem.Category.FileOfType.dll" BasedOn="CodeSchema_Assembly" CanBeDataDriven="True" IsProviderRoot="False" />
+    <Category Id="FileSystem.Category.FileOfType.exe" BasedOn="CodeSchema_Assembly" CanBeDataDriven="True" IsProviderRoot="False" />
+    <Category Id="Implements" Label="实现" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="实现者" OutgoingActionLabel="实现" />
+    <Category Id="References" Label="引用" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="引用者" OutgoingActionLabel="引用" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_StrongName" Label="StrongName" Description="StrongName" DataType="System.String" />
+    <Property Id="DataVirtualized" Label="已虚拟化数据" Description="如果为 true，则图中可以包含表示虚拟化节点/链接(即，不在图中实际创建)的数据的节点和链接。" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="DelayedChildNodesState" Label="延迟的子节点状态" Description="如果未指定延迟的子节点状态，则为 Unspecified。如果尚未将组包含的子节点提取到关系图中，则为 NotFetched。如果已提取组内的所有延迟的子节点，则为 Fetched。" DataType="Microsoft.VisualStudio.GraphModel.DelayedDataState" />
+    <Property Id="DelayedCrossGroupLinksState" Label="延迟的跨组链接状态" Description="如果未指定延迟的跨组链接状态，则为 Unspecified。如果尚未将此节点上延迟的跨组链接提取到关系图中，则为 NotFetched。如果已提取所有延迟的跨组链接，则为 Fetched。" DataType="Microsoft.VisualStudio.GraphModel.DelayedDataState" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="FetchedChildrenCount" DataType="System.Int32" />
+    <Property Id="FetchingParent" DataType="Microsoft.VisualStudio.GraphModel.GraphNodeId" />
+    <Property Id="FilePath" Label="文件路径" Description="文件路径" DataType="System.String" />
+    <Property Id="Group" Label="组" Description="将节点显示为组" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="Icon" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
+    <Property Id="IsSourceVirtualized" Label="已虚拟化链接源" Description="如果为 true，则链接源端包含虚拟化节点/链接(即，不在图中实际创建)的数据。" DataType="System.Boolean" />
+    <Property Id="IsTargetVirtualized" Label="已虚拟化链接目标" Description="如果为 true，则链接目标端包含虚拟化节点/链接(即，不在图中实际创建)的数据。" DataType="System.Boolean" />
+    <Property Id="Label" Label="标签" Description="可批注对象的可显示标签" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+    <Property Id="Visibility" Label="可见性" Description="定义关系图中的节点是否可见" DataType="System.Windows.Visibility" />
+    <Property Id="Weight" Label="粗细" Description="粗细" DataType="System.Double" />
+    <Property Id="ZoomLevel" DataType="System.String" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Assembly" Label="程序集" ValueType="Uri" />
+    <Name Id="Namespace" Label="命名空间" ValueType="System.String" />
+  </QualifiedNames>
+  <IdentifierAliases>
+    <Alias n="1" Uri="Assembly=$(cd6e321e-3a48-4500-8fd8-2b669905522f.OutputPathUri)" />
+    <Alias n="2" Id="(@1)" />
+    <Alias n="3" Uri="Assembly=$(8fc49da2-5236-4826-b5e5-c1d927277fa3.OutputPathUri)" />
+    <Alias n="4" Id="(@3)" />
+    <Alias n="5" Uri="Assembly=$(21bc75f5-a39c-4963-b683-9c525c8b0d6f.OutputPathUri)" />
+    <Alias n="6" Uri="Assembly=$(1e3dff34-87e3-4c24-b123-55f90f85d7f4.OutputPathUri)" />
+    <Alias n="7" Id="(@6)" />
+    <Alias n="8" Uri="Assembly=$(8526b949-1a13-4ebd-8fb2-96935766ed5e.OutputPathUri)" />
+    <Alias n="9" Id="(@8)" />
+    <Alias n="10" Uri="Assembly=$(cb0e2352-8154-4ec3-8be4-ab7f358bcc27.OutputPathUri)" />
+    <Alias n="11" Id="(@10)" />
+    <Alias n="12" Uri="Assembly=$(54a47171-315b-4151-9a2b-0f37c3783288.OutputPathUri)" />
+    <Alias n="13" Id="(@12)" />
+    <Alias n="14" Uri="Assembly=$(53efca7a-300c-4ca1-87d4-27ead00e0674.OutputPathUri)" />
+    <Alias n="15" Id="(@14)" />
+    <Alias n="16" Uri="Assembly=$(be9bd04a-01b4-47db-9af3-67ff070f4592.OutputPathUri)" />
+    <Alias n="17" Id="(@16)" />
+    <Alias n="18" Uri="Assembly=$(9613273a-bb8e-4f55-b95a-8ad1f60bb22c.OutputPathUri)" />
+    <Alias n="19" Id="(@18)" />
+    <Alias n="20" Id="(@3 Namespace=Smart365Operation.Modules.Dashboard)" />
+    <Alias n="21" Id="(@3 Namespace=Smart365Operation.Modules.Dashboard.Events)" />
+    <Alias n="22" Id="(@3 Namespace=Smart365Operation.Modules.Dashboard.Interfaces)" />
+    <Alias n="23" Id="(@3 Namespace=Smart365Operation.Modules.Dashboard.Services)" />
+    <Alias n="24" Id="(@3 Namespace=Smart365Operation.Modules.Dashboard.ViewModels)" />
+    <Alias n="25" Id="(@8 Namespace=Smart365Operation.Modules.Monitoring)" />
+    <Alias n="26" Id="(@8 Namespace=Smart365Operation.Modules.Monitoring.Services)" />
+    <Alias n="27" Id="(@8 Namespace=Smart365Operation.Modules.Monitoring.ViewModels)" />
+    <Alias n="28" Id="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring)" />
+    <Alias n="29" Id="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring.Models)" />
+    <Alias n="30" Id="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring.Services)" />
+    <Alias n="31" Id="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring.Utility)" />
+    <Alias n="32" Id="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring.ViewModels)" />
+    <Alias n="33" Id="(@10 Namespace=Smart365Operation.Modules.VideoMonitoring.Views)" />
+    <Alias n="34" Id="(@1 Namespace=Smart365Operations.Client)" />
+    <Alias n="35" Id="(@1 Namespace=Smart365Operations.Client.Services)" />
+    <Alias n="36" Id="(@1 Namespace=Smart365Operations.Client.ViewModels)" />
+    <Alias n="37" Id="(@1 Namespace=Smart365Operations.Client.Views)" />
+  </IdentifierAliases>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="结果" ValueLabel="True">
+      <Condition Expression="HasCategory('QueryResult')" />
+      <Setter Property="Background" Value="#FFBCFFBE" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="测试项目" ValueLabel="测试项目">
+      <Condition Expression="HasCategory('CodeMap_TestProject')" />
+      <Setter Property="Icon" Value="CodeMap_TestProject" />
+      <Setter Property="Background" Value="#FF307A69" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Web 项目" ValueLabel="Web 项目">
+      <Condition Expression="HasCategory('CodeMap_WebProject')" />
+      <Setter Property="Icon" Value="CodeMap_WebProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Windows 应用商店项目" ValueLabel="Windows 应用商店项目">
+      <Condition Expression="HasCategory('CodeMap_WindowsStoreProject')" />
+      <Setter Property="Icon" Value="CodeMap_WindowsStoreProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="电话项目" ValueLabel="电话项目">
+      <Condition Expression="HasCategory('CodeMap_PhoneProject')" />
+      <Setter Property="Icon" Value="CodeMap_PhoneProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="可移植库" ValueLabel="可移植库">
+      <Condition Expression="HasCategory('CodeMap_PortableLibraryProject')" />
+      <Setter Property="Icon" Value="CodeMap_PortableLibraryProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="WPF 项目" ValueLabel="WPF 项目">
+      <Condition Expression="HasCategory('CodeMap_WpfProject')" />
+      <Setter Property="Icon" Value="CodeMap_WpfProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="VSIX 项目" ValueLabel="VSIX 项目">
+      <Condition Expression="HasCategory('CodeMap_VsixProject')" />
+      <Setter Property="Icon" Value="CodeMap_VsixProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="建模项目" ValueLabel="建模项目">
+      <Condition Expression="HasCategory('CodeMap_ModelingProject')" />
+      <Setter Property="Icon" Value="CodeMap_ModelingProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="程序集" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Assembly')" />
+      <Setter Property="Background" Value="#FF094167" />
+      <Setter Property="Stroke" Value="#FF094167" />
+      <Setter Property="Icon" Value="CodeSchema_Assembly" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="命名空间" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Namespace')" />
+      <Setter Property="Background" Value="#FF0E619A" />
+      <Setter Property="Stroke" Value="#FF0E619A" />
+      <Setter Property="Icon" Value="CodeSchema_Namespace" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="接口" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Interface')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Interface" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="结构" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Struct')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Struct" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="枚举" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Enum')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Enum" />
+      <Setter Property="LayoutSettings" Value="List" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="委托" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Delegate')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Delegate" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="类" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Type')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Class" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="属性" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Property')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Property" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="方法" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Method') Or HasCategory('CodeSchema_CallStackUnresolvedMethod')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Method" />
+      <Setter Property="LayoutSettings" Value="List" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="事件" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Event')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Event" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="字段" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Field')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Field" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Out 参数" ValueLabel="具有类别">
+      <Condition Expression="CodeSchemaProperty_IsOut = 'True'" />
+      <Setter Property="Icon" Value="CodeSchema_OutParameter" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="参数" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Parameter')" />
+      <Setter Property="Icon" Value="CodeSchema_Parameter" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="局部变量" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_LocalExpression')" />
+      <Setter Property="Icon" Value="CodeSchema_LocalExpression" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="外部" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('Externals')" />
+      <Setter Property="Background" Value="#FF424242" />
+      <Setter Property="Stroke" Value="#FF424242" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="继承自" ValueLabel="True">
+      <Condition Expression="HasCategory('InheritsFrom')" />
+      <Setter Property="Stroke" Value="#FF00A600" />
+      <Setter Property="StrokeDashArray" Value="2 0" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="实现" ValueLabel="True">
+      <Condition Expression="HasCategory('Implements')" />
+      <Setter Property="Stroke" Value="#8000A600" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="调用" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_Calls')" />
+      <Setter Property="Stroke" Value="#FFFF00FF" />
+      <Setter Property="StrokeDashArray" Value="2 0" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="函数指针" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_FunctionPointer')" />
+      <Setter Property="Stroke" Value="#FFFF00FF" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="字段读取" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_FieldRead')" />
+      <Setter Property="Stroke" Value="#FF00AEEF" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="字段写入" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_FieldWrite')" />
+      <Setter Property="Stroke" Value="#FF00AEEF" />
+      <Setter Property="DrawArrow" Value="true" />
+      <Setter Property="IsHidden" Value="false" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Inherits From" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('InheritsFrom') And Target.HasCategory('CodeSchema_Class')" />
+      <Setter Property="TargetDecorator" Value="OpenArrow" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Implements" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('Implements') And Target.HasCategory('CodeSchema_Interface')" />
+      <Setter Property="TargetDecorator" Value="OpenArrow" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Comment Link" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="Source.HasCategory('Comment')" />
+      <Setter Property="Stroke" Value="#FFE5C365" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Cursor Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="IsCursorLocation" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Disabled Breakpoint Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="DisabledBreakpointCount" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Enabled Breakpoint Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="EnabledBreakpointCount" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Instruction Pointer Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="IsInstructionPointerLocation" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Current Callstack Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="IsCurrentCallstackFrame" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="返回" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CodeSchema_ReturnTypeLink')" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="引用" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('References')" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="使用特性" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CodeSchema_AttributeUse')" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="解决方案文件夹" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CodeMap_SolutionFolder')" />
+      <Setter Property="Background" Value="#FFDEBA83" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="项目引用" ValueLabel="项目引用">
+      <Condition Expression="HasCategory('CodeMap_ProjectReference')" />
+      <Setter Property="Stroke" Value="#9A9A9A" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="外部引用" ValueLabel="外部引用">
+      <Condition Expression="HasCategory('CodeMap_ExternalReference')" />
+      <Setter Property="Stroke" Value="#9A9A9A" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+  </Styles>
+  <Paths>
+    <Path Id="1e3dff34-87e3-4c24-b123-55f90f85d7f4.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Smart365Operations.Common.Infrastructure\bin\Debug\Smart365Operations.Common.Infrastructure.dll" />
+    <Path Id="1e3dff34-87e3-4c24-b123-55f90f85d7f4.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Smart365Operations.Common.Infrastructure/bin/Debug/Smart365Operations.Common.Infrastructure.dll" />
+    <Path Id="21bc75f5-a39c-4963-b683-9c525c8b0d6f.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Hardborn.DataMonitoring.RuntimeCore\bin\Debug\Hardborn.DataMonitoring.RuntimeCore.dll" />
+    <Path Id="21bc75f5-a39c-4963-b683-9c525c8b0d6f.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Hardborn.DataMonitoring.RuntimeCore/bin/Debug/Hardborn.DataMonitoring.RuntimeCore.dll" />
+    <Path Id="53efca7a-300c-4ca1-87d4-27ead00e0674.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Smart365Operation.Modules.Log4NetLogger\bin\Debug\Smart365Operation.Modules.Log4NetLogger.dll" />
+    <Path Id="53efca7a-300c-4ca1-87d4-27ead00e0674.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Smart365Operation.Modules.Log4NetLogger/bin/Debug/Smart365Operation.Modules.Log4NetLogger.dll" />
+    <Path Id="54a47171-315b-4151-9a2b-0f37c3783288.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Feeling.GIS.Map\bin\Debug\Feeling.GIS.Map.dll" />
+    <Path Id="54a47171-315b-4151-9a2b-0f37c3783288.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Feeling.GIS.Map/bin/Debug/Feeling.GIS.Map.dll" />
+    <Path Id="8526b949-1a13-4ebd-8fb2-96935766ed5e.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Smart365Operation.Modules.Monitoring\bin\Debug\Smart365Operation.Modules.Monitoring.dll" />
+    <Path Id="8526b949-1a13-4ebd-8fb2-96935766ed5e.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Smart365Operation.Modules.Monitoring/bin/Debug/Smart365Operation.Modules.Monitoring.dll" />
+    <Path Id="8fc49da2-5236-4826-b5e5-c1d927277fa3.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Smart365Operation.Modules.Dashboard\bin\Debug\Smart365Operation.Modules.Dashboard.dll" />
+    <Path Id="8fc49da2-5236-4826-b5e5-c1d927277fa3.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Smart365Operation.Modules.Dashboard/bin/Debug/Smart365Operation.Modules.Dashboard.dll" />
+    <Path Id="9613273a-bb8e-4f55-b95a-8ad1f60bb22c.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Smart365Operation.Modules.DataAnalysis\bin\Debug\Smart365Operation.Modules.DataAnalysis.dll" />
+    <Path Id="9613273a-bb8e-4f55-b95a-8ad1f60bb22c.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Smart365Operation.Modules.DataAnalysis/bin/Debug/Smart365Operation.Modules.DataAnalysis.dll" />
+    <Path Id="be9bd04a-01b4-47db-9af3-67ff070f4592.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Smart365.Common.Themes\bin\Debug\Smart365.Common.Themes.dll" />
+    <Path Id="be9bd04a-01b4-47db-9af3-67ff070f4592.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Smart365.Common.Themes/bin/Debug/Smart365.Common.Themes.dll" />
+    <Path Id="cb0e2352-8154-4ec3-8be4-ab7f358bcc27.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Smart365Operation.Modules.VideoMonitoring\bin\Debug\Smart365Operation.Modules.VideoMonitoring.dll" />
+    <Path Id="cb0e2352-8154-4ec3-8be4-ab7f358bcc27.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Smart365Operation.Modules.VideoMonitoring/bin/Debug/Smart365Operation.Modules.VideoMonitoring.dll" />
+    <Path Id="cd6e321e-3a48-4500-8fd8-2b669905522f.OutputPath" Value="D:\项目\365智能运维平台\CS\Code\Smart365Operation\Smart365Operations.Client\bin\Debug\SmartOperationsClient.exe" />
+    <Path Id="cd6e321e-3a48-4500-8fd8-2b669905522f.OutputPathUri" Value="file:///D:/项目/365智能运维平台/CS/Code/Smart365Operation/Smart365Operations.Client/bin/Debug/SmartOperationsClient.exe" />
+  </Paths>
+</DirectedGraph>

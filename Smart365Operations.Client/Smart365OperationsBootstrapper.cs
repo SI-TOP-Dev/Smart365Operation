@@ -12,7 +12,6 @@ using Prism.Logging;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Smart365Operation.Modules.Dashboard;
-using Smart365Operation.Modules.Log4NetLogger;
 using Smart365Operation.Modules.VideoMonitoring;
 using Smart365Operation.Modules.VideoMonitoring.Services;
 using Smart365Operation.Modules.VideoMonitoring.ViewModels;
@@ -24,6 +23,7 @@ using System.Reflection;
 using Prism.Regions;
 using Smart365Operations.Common.Infrastructure;
 using Smart365Operations.Common.Infrastructure.Prism;
+using Smart365.Common.Log4NetLogger;
 
 namespace Smart365Operations.Client
 {

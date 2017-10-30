@@ -142,6 +142,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Smart365Operation.Modules.Log4NetLogger\Smart365.Common.Log4NetLogger.csproj">
+      <Project>{53efca7a-300c-4ca1-87d4-27ead00e0674}</Project>
+      <Name>Smart365.Common.Log4NetLogger</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

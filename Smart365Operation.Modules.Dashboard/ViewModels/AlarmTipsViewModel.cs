@@ -18,6 +18,8 @@ using Smart365Operation.Modules.Dashboard.Events;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Threading;
+using Microsoft.Practices.Unity;
+using Prism.Logging;
 
 namespace Smart365Operation.Modules.Dashboard.ViewModels
 {
@@ -62,6 +64,9 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
             _eventAggregator.GetEvent<AlarmDialogClosedEvent>().Subscribe(arg => HandleAlarmDialogClosed(arg));
             AlarmList.CollectionChanged += AlarmList_CollectionChanged;
         }
+
+        [Dependency]
+        public ILoggerFacade Logger { get; set; }
 
         private void AlarmList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -172,6 +177,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
             var customer = customerList.FirstOrDefault(c => c.Id == info.CustomerId);
             if (customer == null)
             {
+                Logger.Log($"告警定位时，该客户(id={info.CustomerId})不存在！", Category.Warn, Priority.High);
                 throw new Exception($"该客户(id={info.CustomerId})不存在！");
             }
             parameters.Add("Customer", customer);

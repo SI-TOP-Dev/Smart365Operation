@@ -7,8 +7,8 @@
     <ProjectGuid>{53EFCA7A-300C-4CA1-87D4-27EAD00E0674}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Smart365Operation.Modules.Log4NetLogger</RootNamespace>
-    <AssemblyName>Smart365Operation.Modules.Log4NetLogger</AssemblyName>
+    <RootNamespace>Smart365.Common.Log4NetLogger</RootNamespace>
+    <AssemblyName>Smart365.Common.Log4NetLogger</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AssemblyVersion>1.0.17060.0302</AssemblyVersion>

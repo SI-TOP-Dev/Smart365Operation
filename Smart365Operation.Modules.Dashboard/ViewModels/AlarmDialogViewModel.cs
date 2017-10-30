@@ -1,5 +1,7 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Practices.Unity;
+using Prism.Commands;
 using Prism.Events;
+using Prism.Logging;
 using Prism.Mvvm;
 using Prism.Regions;
 using RestSharp;
@@ -39,6 +41,9 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
             CurrentAlarmInfo = arg.Alarm;
             //AlarmList.Add(arg.Alarm);
         }
+
+        [Dependency]
+        public ILoggerFacade Logger { get; set; }
 
         private AlarmInfo _currentAlarmInfo;
         public AlarmInfo CurrentAlarmInfo
@@ -118,6 +123,7 @@ namespace Smart365Operation.Modules.Dashboard.ViewModels
             var customer = customerList.FirstOrDefault(c => c.Id == info.CustomerId);
             if (customer == null)
             {
+                Logger.Log($"告警定位时，该客户(id={info.CustomerId})不存在！", Category.Warn, Priority.High);
                 throw new Exception($"该客户(id={info.CustomerId})不存在！");
             }
             parameters.Add("Customer", customer);
